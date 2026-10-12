@@ -1,6 +1,5 @@
 * xref:playing-with-mods:index.adoc[Playing with Mods]
 ** xref:playing-with-mods:manual-installation.adoc[Manual Installation]
-** xref:playing-with-mods:mod-organizer-2.adoc[Installing with Mod Organizer 2]
 * Developing Mods
 ** Getting Started
 +
