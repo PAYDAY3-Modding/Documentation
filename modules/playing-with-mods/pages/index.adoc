@@ -26,9 +26,6 @@ Install any required dependencies as well as the mod itself. The mod's own instr
 == Choose how to install
 
 * xref:manual-installation.adoc[Manual Installation] explains how to extract a PDML mod and copy its complete folder into `PAYDAY3/Mods/`.
-* xref:mod-organizer-2.adoc[Installing with Mod Organizer 2] explains how to set up MO2 with ModWorkshop's PAYDAY 3 plugin and keep the PDML folder layout when installing supported packages.
-
-You can use either method. Mod Organizer 2 is useful if you want to keep track of several mods and switch them on or off from one place.
 
 Older loose PAK mods are covered at the end of the manual installation guide for downloads that have not moved to PDML yet.
 
