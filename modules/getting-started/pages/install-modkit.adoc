@@ -115,7 +115,9 @@ If you encounter this error even after installing the wwise sdk in the "ThirdPar
 
 * Plugin 'Wwise' failed to load because module 'Wwise' could not be found.  Please ensure the plugin is properly installed, otherwise consider disabling the plugin for this project.
 
-You need to open the .sln file in Visual Studio 2022 version 17.4+ with a C++ toolkit. Install this at this point if you do not already have these.
+You need to open the .sln file in Visual Studio 2022 version 17.8+ with a C++ toolkit. Install this at this point if you do not already have these.
+
+https://dev.epicgames.com/documentation/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine
 
 [NOTE]
 ====
