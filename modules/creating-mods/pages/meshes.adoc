@@ -1,15 +1,11 @@
 = Meshes
 
-[NOTE]
-====
-This page is still Work In Progress, this is just a really rought layout (images and links are missing)
-====
-
+Meshes are 3D objects in the game, they can be separated into `Static` and `Skeletal` meshes each mesh type has its own purpose.
 This section of documentation aims to give the user of the modkit some basic and necessary information for sucessful replacement of both the `Static Mesh` and `Skeletal Mesh`.
 
 [NOTE]
 ====
-This pard of documentation will expect you to have basic knowledge on how to use Blender and Fmodel 
+This part of documentation will expect you to have basic knowledge on how to use Blender and Fmodel.
 ====
 
 == Before you start
@@ -24,14 +20,13 @@ Locate the original cooked model in the Content Browser under `/Game/...`.
 
 Open the model in read-only mode first and inspect any defaults, references, materials, parent classes, or other information that may be useful when recreating the modified version.
 
-== Uncook the model and its dependencies
+== Uncook the model
 
-After you find the model that you want to replace check its dependnecies.
-For Static meshes there arent any but for Skeletal meshes there is usually a "skeleton" and a `physical asset`
+Theres no requirement to uncook the dependencies like the `skeleton` and the `physical asset` when it comes to Skeletal meshes.
 
 [NOTE]
 ====
-While Some skeletal meshes do have `Physical asset` some on the other hand dont have it, and while replacing the model you should use the new `Physical asset` that gets generated when importing the model.  
+While Some skeletal meshes do have `Physical asset` some on the other hand dont have it, and when replacing the model you should use the new `Physical asset` that gets generated when importing the model if the original mesh had physical asset.  
 ====
 
 
@@ -44,11 +39,17 @@ After you get the model exported from Fmodel you will open it in blender, for yo
 
 When it comes to general rules in blender most of them apply to the `Skeletal Mesh` but that doesnt mean that you can go haywire with `static meshes`
 
-For Static meshes youll want to just keep your models size in check since if you wont, yxou might end up causing unwanted clipping the the game when youll be testing your mod.
+For Static meshes you will want to just keep your models size in check, if you wont you might end up causing unwanted clipping in the game when you will be testing your mod.
 
 For skeletal meshes you will want to also keep the size in check but on top of that you will need to also setup naming of your model and the skeleton in blender correctly for it to transfer well when imporitng into the editor.
 
-(insert image of blender setup for skeletal mesh as a lead)
+
+image::SkeletalMesh-BlenderSetup.png[Skeletal mesh project setup Setup, width=600]
+
+[NOTE]
+====
+This is an example, your desired mesh name will be possibly different
+====
 
 == Export Settings
 
@@ -62,39 +63,55 @@ Skeletal mesh:
 
 image::ExportSet-SkeletalMesh.png[Skeletal mesh export Setup, width=200]
 
+[WARNING]
+====
+When exporting the mesh out of Blender make sure you have the mesh selected or when exporting skeletal mesh make sure both the skeleton and the mesh are selected.
+====
+
 
 [NOTE]
 ====
-You can see that the only difference is including/expluding the armature and ticking off the `Add Leaf Bones` check box
+You can see that the only difference is including/excluding the armature and ticking off the `Add Leaf Bones` check box.
 ====
 
-When you Export your model as `.fbx` you will want to make sure its names the same way as it is in the game. 
+When you Export your model as `.fbx` you will want to make sure its named the same way as it is in the game. 
 
 == Importing the model into UE Editor
 
-There are few ways how to import your model into the editor but the simplest one is to simply just drag and drop your file into the location where the games original asset is located. 
+When importing your edited model into UE first drag and drop your `.fbx` into your mods folder (if you are importing a skeletal mesh make sure you also select the correct skeleton in the import settings)
+
+[WARNING]
+====
+Some meshes can have `CPU access` checked, please make sure your mesh also has this setting enabled/disabled depending on the original mesh or your mod might cause the model to not show or in worst case crash your game. 
+====
+
+After that you will go back to where the original game asset is and delete it,
+when deleting it there is a possibility that the project will ask you if you want to `force delete` or `replace reference`,
+you will select the `replace reference` option and select your modded model, this will make sure the rest of your project doesnt possibly get messed up.
+If the project wont give you this option you can simply delete the mesh.
+From here you will take the mesh that is in your mods folder and move it to the folder where the original model was.
 
 
 == Your mod/PAL Setup
 
-For your PAL setup you will want to include only the Static or Skeletal mesh, and keep the physical asset in your mods folder.
+For your PAL setup you will want to include only the Static or Skeletal mesh, and keep the rest of the assets like materials, physical asset and textures in your mod folder.
 
 [WARNING]
 ====
-Including the "Skeleton" in your PAL will most likely result in your mesh not loading or your game crashing when the game will try to render the mesh
+Including the "Skeleton" in your PAL will most likely result in your mesh not loading or your game crashing when the game will try to render the mesh.
 ====
 
 == General workflow
 
 The general workflow for mesh replacement is:
 
-. Find the asset that youre looking for.
-. If working with Skeletal meshes uncook both the skeleton and the mesh, otherwise for static meshes only uncook the mesh
-. Get the model from Fmodel and import it into Blender
+. Find the asset that you are looking for.
+. Uncook the model.
+. Get the model from Fmodel and import it into Blender.
 . Do your modifications to your model (adjust, edit, completely swap).
-. Make sure you configured the structure in blender rigth.
+. Make sure you configured the structure in blender right.
 . Export the model with proper settings depending on the mesh type.
-. Import and replace the uncooked asset with your model under the same name, if imporing skeletal mesh make it refer to the proper skeleton.
+. Import and replace the uncooked asset with your model under the same name, if importing skeletal mesh make it refer to the proper skeleton.
 . Setup your PAL properly.
 . Package and test out your mod.
  
