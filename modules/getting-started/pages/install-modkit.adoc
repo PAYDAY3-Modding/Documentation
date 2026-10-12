@@ -4,7 +4,14 @@ The modkit contains the PAYDAY 3 development project and the tooling used to aut
 
 == Install the project
 
-Obtain the current modkit release and extract or clone it to a writable development directory.
+Open the https://github.com/PAYDAY3-Modding/PD3-Modkit[Modkit GitHub repository] to install the modkit project.
+
+Clone the repository or fork it and clone your fork, or choose *Code > Download ZIP* and extract the project to a writable development directory.
+
+[WARNING]
+====
+Downloading the project as a ZIP may cause issues with the modkit updater. Cloning the repository or your fork is recommended.
+====
 
 Avoid placing the project inside the PAYDAY 3 installation directory.
 

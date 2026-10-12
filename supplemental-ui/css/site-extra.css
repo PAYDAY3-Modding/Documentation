@@ -524,6 +524,18 @@ hr, .doc h2, .doc h3, .doc h4,
 }
 
 
+/* Keep embedded videos responsive at the standard widescreen ratio. */
+.doc .videoblock .content {
+  width: 100%;
+}
+
+.doc .videoblock iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
 /* Site typography */
 html,
 body,

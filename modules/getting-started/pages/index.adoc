@@ -5,6 +5,25 @@ This guide walks through the complete beginner workflow for PAYDAY 3 modding.
 
 Follow the pages in order the first time through.
 
+== Video guide
+
+++++
+<div class="videoblock">
+  <div class="content">
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/MPsEW6qBHbQ?rel=0"
+      title="PAYDAY 3 modding video guide"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
+  </div>
+</div>
+++++
+
+https://www.youtube.com/watch?v=MPsEW6qBHbQ[Watch the video on YouTube].
+
 == What you will do
 
 By the end of the guide, you will understand the toolchain, open the PAYDAY 3 modding project, create a plugin mod with CrimeForge, Forge it, install it under `PAYDAY3/Mods/`, and test it with PAYDAY 3.
