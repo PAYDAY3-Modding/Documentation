@@ -2,6 +2,7 @@
 
 CrimeForge validates a mod before Forge so common project and packaging problems can be found before the longer cook/package process begins.
 
+
 == What validation checks
 
 The current validation/preflight checks the mod's CrimeForge packaging setup, including areas such as:
@@ -14,6 +15,8 @@ The current validation/preflight checks the mod's CrimeForge packaging setup, in
 * stale `PLACEHOLDER_*` references left by templates,
 * dependencies and references used by the mod,
 * and external `/Game/...` assets that need the replacement workflow.
+
+image::forge-validationWindow.png[Validation window, width=500]
 
 Forge can also surface normal Unreal cook or compile failures later in the build process, such as invalid references or Blueprint compile errors.
 

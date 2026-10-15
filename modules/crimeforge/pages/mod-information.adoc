@@ -6,9 +6,26 @@ CrimeForge exposes information and configuration actions directly on each mod ca
 
 Click *Information* to open the mod's properties.
 
-image::crimeforge-mod-properties.png[CrimeForge mod properties window, width=820]
+image::information-button.png[CrimeForge Information button, width=150]
 
-The information window exposes plugin/mod metadata such as:
+The `infomation` is where the PAYDAY-specific packaging setup for the mod can be reviewed and managed.
+
+
+image::information-info.png[mod info window, width=500]
+
+CrimeForge uses this configuration together with the mod's PAL, Asset Manager registration, and replacement asset list when validating and Forging the mod.
+
+See xref:pal.adoc[PAL & Explicit Assets] for the content-selection side of that configuration.
+
+
+
+== Configuration
+
+Click *CONFIG* on a mod card to open that mod's CrimeForge configuration.
+
+image::config-button.png[CrimeForge Config button, width=150]
+
+The `configuration` window exposes plugin/mod metadata such as:                                             
 
 * Icon
 * Version
@@ -20,17 +37,9 @@ The information window exposes plugin/mod metadata such as:
 * Links
 * Dependency information
 
+image::crimeforge-mod-properties.png[CrimeForge mod properties window, width=820]
+
 Use this window for metadata that describes the mod rather than gameplay content stored inside the plugin.
-
-== Configuration
-
-Click *CONFIG* on a mod card to open that mod's CrimeForge configuration.
-
-The configuration is where the PAYDAY-specific packaging setup for the mod can be reviewed and managed.
-
-CrimeForge uses this configuration together with the mod's PAL, Asset Manager registration, and replacement asset list when validating and Forging the mod.
-
-See xref:pal.adoc[PAL & Explicit Assets] for the content-selection side of that configuration.
 
 == PAL status and setup
 

@@ -20,6 +20,8 @@ This avoids cooking or shipping unrelated project content.
 
 Find the mod in the CrimeForge manager and click *FORGE*.
 
+image::FORGE-button.png[forge button, width=150]
+
 Forge operates on that mod plugin and its configured content rather than packaging the whole modkit project.
 
 == Plugin-only Forge
@@ -33,6 +35,8 @@ This keeps the cook focused on the selected plugin.
 Replacement mods can also contain uncooked replacement assets that need to occupy original `/Game/...` paths.
 
 These assets are added to the mod PAL's *Explicit Assets* list.
+
+image::explicitAssets-showcase.png[explicit assets, width=800]
 
 When CrimeForge detects external `/Game/...` replacement content, Forge uses a two-stage cook:
 
@@ -72,11 +76,15 @@ The mod's PAL Chunk ID must avoid values used by PAYDAY 3 and its DLC.
 
 A value greater than `100` is recommended.
 
+image::chunkID-showcase.png[Chunk ID, width=800]
+
 See xref:pal.adoc[PAL & Explicit Assets].
 
 == Copy Mods To Game
 
 CrimeForge Project Settings includes *Copy Mods To Game*.
+
+image::copyToGame-setting.png[ copy to game setting, width=800]
 
 When enabled, a successful Forge copies the complete forged plugin mod into:
 
@@ -90,6 +98,8 @@ This allows PDML to discover the mod without manually copying the forged output 
 == Launch Game After Packing
 
 CrimeForge also includes *Launch Game After Packing*.
+
+image::launchGame-setting.png[ launch game setting, width=800]
 
 When enabled, CrimeForge can launch PAYDAY 3 after the Forge completes so the mod can be tested.
 

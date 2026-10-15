@@ -8,6 +8,8 @@ image::crimeforge-new-mod-window.png[CrimeForge New Mod window, width=1000]
 
 Open CrimeForge and click *Create Mod*.
 
+image::create-button.png[Create mod Window, width=1000]
+
 The *New Mod* window lets you choose a template, select the development output location, name the plugin, and enter its descriptor data.
 
 == Choose a template
