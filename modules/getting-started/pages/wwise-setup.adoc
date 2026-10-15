@@ -26,7 +26,10 @@ Download and install the https://www.audiokinetic.com/download/[Audiokinetic Lau
 
 Sign in with an Audiokinetic account. If you do not already have one, create an account when prompted.
 
+image::audiokinetic-download.png[audiokinetic for blind, width=800]
+
 Audiokinetic uses the Launcher to install specific Wwise versions, SDK packages, integrations, and platform files.
+
 
 == Install Wwise 2023.1.15
 
@@ -44,6 +47,7 @@ The modkit integration is based on:
 ----
 Wwise 2023.1.15.8789.3579
 ----
+image::wwise-install.png[wwise install for dummies, width=800]
 
 [WARNING]
 ====
@@ -62,6 +66,7 @@ Under your *Audiokinetic installation root*, locate the matching Wwise SDK at a 
 ----
 <Audiokinetic installation root>\Wwise 2023.1.15.8789\SDK\
 ----
+image::SDK-location.png[SDK location for dummies, width=800]
 
 The exact path can differ depending on where Audiokinetic and Wwise were installed.
 
@@ -78,7 +83,12 @@ Locate the modified Wwise integration inside the modkit. For the Wwise 2023.1 in
 <ModkitRoot>\Plugins\Wwise\ThirdParty\
 ----
 
+image::thirdParty-location.png[Third party folder location for dummies, width=800]
+
+[NOTE]
+====
 If the `ThirdParty` directory does not exist, create it.
+====
 
 From the installed Wwise `SDK` directory, copy the following into the modkit's `ThirdParty` directory:
 
@@ -88,13 +98,7 @@ From the installed Wwise `SDK` directory, copy the following into the modkit's `
 
 For example, the resulting layout should resemble:
 
-[source,text]
-----
-<ModkitRoot>\Plugins\Wwise\ThirdParty\
-|-- include\
-|-- x64_vc160\
-`-- x64_vc170\
-----
+image::payload-showcase.png[wwise payload subfolders for windows64, width=800]
 
 Copy `x64_vc160` and `x64_vc170` from the matching Wwise 2023.1.15 SDK into this directory. Do not rename the SDK directories.
 

@@ -76,6 +76,8 @@ After obtaining the `.usmap` file:
 
 FModel's current settings expose both the *Local Mapping File (drag & drop)* toggle and a *Mapping File Path* field when the local mapping option is enabled.
 
+image::mapping-navigation.png[mapping navigation, width=800]
+
 == Why the mappings file is required
 
 Many PAYDAY 3 packages contain unversioned Unreal properties. The package data does not contain enough information by itself for a generic asset reader to reconstruct every property layout.

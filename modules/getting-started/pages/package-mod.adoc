@@ -8,6 +8,8 @@ Forging a mod cooks the mod-owned content and packages only the assets that the 
 
 Save all modified assets.
 
+image::saveAll-button.png[save all button location, width=800]
+
 Resolve Blueprint compile errors before starting a forge.
 
 If CrimeForge provides validation for the selected mod type, run it first and resolve blocking errors.
