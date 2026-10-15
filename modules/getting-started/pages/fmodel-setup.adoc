@@ -9,7 +9,14 @@ PAYDAY 3's archives are encrypted, and many of its Unreal Engine assets use unve
 
 Download the current version of https://fmodel.app/[FModel] and launch it.
 
+image::fmodelDownload-navigation.png[Fmodel download for blind, width=800]
+
 When FModel opens, select your PAYDAY 3 installation. If the game is not detected automatically, create an undetected game entry and point FModel at the game's archive directory, normally the `PAYDAY3/Content/Paks` directory inside the PAYDAY 3 installation.
+
+
+image::directories-navigation.png[Fmodel directory for blind, width=250]
+image::gameDirectory-navigation.png[Fmodel game directory for blind, width=400]
+
 
 [NOTE]
 ====
@@ -31,6 +38,9 @@ In FModel:
 . Enter the PAYDAY 3 AES key shown above as the main encryption key.
 . Save or confirm the AES configuration.
 . Reload the PAYDAY 3 archives if FModel does not refresh them automatically.
+
+image::AES-navigation.png[AES navigation for blind, width=250]
+image::AES-input.png[AES input for blind, width=400]
 
 Once the key is accepted, the encrypted game archives should become readable.
 
