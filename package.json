@@ -2,7 +2,7 @@
   "name": "payday3-modding-docs",
   "private": true,
   "version": "0.1.0",
-  "description": "Community documentation for PAYDAY 3 modding with the custom UE5 modkit, CrimeForge, and PDML.",
+  "description": "Community documentation for PAYDAY 3 modding with the custom UE5 modkit, CrimeFactory, and PDML.",
   "scripts": {
     "build": "antora antora-playbook.yml && node scripts/build-search.js",
     "dev": "node scripts/dev.js",

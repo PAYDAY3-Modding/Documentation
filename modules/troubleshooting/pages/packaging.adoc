@@ -1,6 +1,6 @@
 = Forge & Cook Failures
 
-CrimeForge calls its final cook/package operation *Forge*.
+CrimeFactory calls its final cook/package operation *Forge*.
 
 When a Forge fails, start with the first meaningful error in the Output Log rather than the final summary line.
 
@@ -17,6 +17,6 @@ A successful Forge should package only the assets intended for the selected mod.
 
 == Missing PackagePlugin.cs
 
-If the error says it cannot find `PackagePlugin.cs`, delete the `Saved/CrimeForge/Setup/` folder inside your modkit project, then run *Forge* again.
+If the error says it cannot find `PackagePlugin.cs`, delete the `Saved/CrimeFactory/Setup/` folder inside your modkit project, then run *Forge* again.
 
-This forces CrimeForge to repeat its first-time setup and should resolve the missing-file error.
+This forces CrimeFactory to repeat its first-time setup and should resolve the missing-file error.

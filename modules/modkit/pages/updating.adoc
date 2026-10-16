@@ -2,7 +2,7 @@
 
 The recommended development workflow is to clone or fork the modkit Git repository and pull changes when the modkit is updated.
 
-This makes it easier to keep your local project current while keeping your own CrimeForge-created mods under the project's `Mods` directory.
+This makes it easier to keep your local project current while keeping your own CrimeFactory-created mods under the project's `Mods` directory.
 
 == Updating the modkit repository
 
@@ -14,7 +14,7 @@ Review incoming changes before overwriting any local project configuration or wo
 
 == User mods
 
-CrimeForge creates user mods automatically under:
+CrimeFactory creates user mods automatically under:
 
 [source,text]
 ----

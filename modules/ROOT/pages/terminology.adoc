@@ -4,7 +4,7 @@ This page defines terms used throughout the documentation.
 
 == Modkit
 
-The complete community development environment used to author PAYDAY 3 mods. Depending on context, this includes the custom Unreal Engine editor, the PAYDAY 3 project/stubs, CrimeForge, and supporting tooling.
+The complete community development environment used to author PAYDAY 3 mods. Depending on context, this includes the custom Unreal Engine editor, the PAYDAY 3 project/stubs, CrimeFactory, and supporting tooling.
 
 == Custom editor
 
@@ -22,21 +22,21 @@ An asset created by the mod author and belonging to the mod.
 
 This is different from PAYDAY 3 base-game content.
 
-== CrimeForge
+== CrimeFactory
 
-The editor tooling used for PAYDAY-specific mod creation workflows, templates, validation, forging, and related authoring tools. CrimeForge creates mods as Unreal plugins.
+The editor tooling used for PAYDAY-specific mod creation workflows, templates, validation, forging, and related authoring tools. CrimeFactory creates mods as Unreal plugins.
 
 == PDML
 
-The PAYDAY 3 runtime mod loader/integration layer. PDML discovers and handles CrimeForge plugin mods installed under `PAYDAY3/Mods/`.
+The PAYDAY 3 runtime mod loader/integration layer. PDML discovers and handles CrimeFactory plugin mods installed under `PAYDAY3/Mods/`.
 
 == Forge
 
-CrimeForge's name for the cook and package operation. Forge cooks the assets that belong to the selected mod and packages only the content that mod should include.
+CrimeFactory's name for the cook and package operation. Forge cooks the assets that belong to the selected mod and packages only the content that mod should include.
 
 == PDML mod directory
 
-`PAYDAY3/Mods/` is the dedicated runtime location for normal CrimeForge/PDML mods. It is separate from PAYDAY 3's own `PAYDAY3/Content/Paks/` directory.
+`PAYDAY3/Mods/` is the dedicated runtime location for normal CrimeFactory/PDML mods. It is separate from PAYDAY 3's own `PAYDAY3/Content/Paks/` directory.
 
 == PAL
 
@@ -46,7 +46,7 @@ A packaging/asset-list mechanism used by the modding toolchain to control which 
 
 An editor-safe representation of a PAYDAY 3 gameplay object.
 
-For systems that cannot safely or practically be authored directly from cooked game objects, CrimeForge can use proxies/placeholders that are resolved to the appropriate runtime objects in-game.
+For systems that cannot safely or practically be authored directly from cooked game objects, CrimeFactory can use proxies/placeholders that are resolved to the appropriate runtime objects in-game.
 
 == Asset replacement
 

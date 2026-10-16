@@ -1,6 +1,6 @@
 = Mod Does Not Load
 
-If a forged CrimeForge mod does not load, verify the runtime layout before debugging the mod itself.
+If a forged CrimeFactory mod does not load, verify the runtime layout before debugging the mod itself.
 
 . Confirm the Forge completed successfully.
 . Confirm the complete mod folder is under `PAYDAY3/Mods/`.
@@ -13,5 +13,5 @@ If a forged CrimeForge mod does not load, verify the runtime layout before debug
 ====
 Do not move a normal PDML mod into `PAYDAY3/Content/Paks/` as a troubleshooting step.
 
-PDML expects CrimeForge plugin mods under the dedicated `PAYDAY3/Mods/` directory.
+PDML expects CrimeFactory plugin mods under the dedicated `PAYDAY3/Mods/` directory.
 ====

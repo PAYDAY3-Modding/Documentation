@@ -2,13 +2,13 @@
 
 PDML is the PAYDAY 3 runtime mod loader and integration layer.
 
-CrimeForge creates mods as Unreal plugins. PDML discovers, loads, and handles those plugin-based mods at runtime.
+CrimeFactory creates mods as Unreal plugins. PDML discovers, loads, and handles those plugin-based mods at runtime.
 
 It is used for Blueprint and logic mods, HUD mods, custom heists, mod settings, shared APIs, and runtime initialization.
 
 image::pdml-information-window.png[PDML information window, width=680]
 
-The PDML entry in CrimeForge exposes an *Information* window that can be used to inspect runtime-facing packaging details such as PAL, chunking, directory labels, and registration state.
+The PDML entry in CrimeFactory exposes an *Information* window that can be used to inspect runtime-facing packaging details such as PAL, chunking, directory labels, and registration state.
 
 == Mod directory
 
@@ -28,4 +28,4 @@ PAYDAY3/Content/Paks/
 
 `Content/Paks` belongs to the game's own cooked content layout. The dedicated `Mods` directory keeps community mods separate and allows PDML to manage them cleanly.
 
-This section documents the runtime contract between forged CrimeForge mods and the game.
+This section documents the runtime contract between forged CrimeFactory mods and the game.

@@ -90,8 +90,8 @@ A typical replacement workflow is:
 . Inspect the cooked asset and its available defaults and references.
 . Right-click the cooked asset and choose *Convert to Uncooked*.
 . Make the required changes to the uncooked asset.
-. Add the changed uncooked asset to the CrimeForge mod's PAL *Explicit Assets* list.
-. Forge the mod through CrimeForge.
+. Add the changed uncooked asset to the CrimeFactory mod's PAL *Explicit Assets* list.
+. Forge the mod through CrimeFactory.
 . Test the replacement in PAYDAY 3.
 
 The supported uncooking depth depends on the asset type and the current custom-editor build.

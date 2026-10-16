@@ -26,14 +26,14 @@ https://www.youtube.com/watch?v=MPsEW6qBHbQ[Watch the video on YouTube].
 
 == What you will do
 
-By the end of the guide, you will understand the toolchain, open the PAYDAY 3 modding project, create a plugin mod with CrimeForge, Forge it, install it under `PAYDAY3/Mods/`, and test it with PAYDAY 3.
+By the end of the guide, you will understand the toolchain, open the PAYDAY 3 modding project, create a plugin mod with CrimeFactory, Forge it, install it under `PAYDAY3/Mods/`, and test it with PAYDAY 3.
 
 You do not need to understand PAYDAY 3 reverse engineering or Unreal Engine internals before starting.
 
 == The path
 
 . xref:what-you-can-make.adoc[See what the toolchain can make.]
-. xref:how-it-works.adoc[Understand the custom editor, CrimeForge, and PDML.]
+. xref:how-it-works.adoc[Understand the custom editor, CrimeFactory, and PDML.]
 . xref:requirements.adoc[Install the prerequisites.]
 . xref:install-editor.adoc[Install the custom editor.]
 . xref:fmodel-setup.adoc[Set up FModel for PAYDAY 3.]

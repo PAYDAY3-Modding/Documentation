@@ -19,7 +19,7 @@ Create or replace widgets and use PDML for runtime integration where required.
 
 === Custom heists
 
-CrimeForge includes a custom-heist template and the toolchain is being expanded with PAYDAY-specific authoring tools.
+CrimeFactory includes a custom-heist template and the toolchain is being expanded with PAYDAY-specific authoring tools.
 Custom heist development is more advanced than the first-mod tutorial. Finish Getting Started before moving to xref:custom-heists:index.adoc[Custom Heists].
 
 === Additive content

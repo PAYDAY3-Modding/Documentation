@@ -1,6 +1,6 @@
 = Custom Heists
 
-CrimeForge includes a custom-heist template and PAYDAY 3-specific tooling for authoring new heists.
+CrimeFactory includes a custom-heist template and PAYDAY 3-specific tooling for authoring new heists.
 
 This area is more advanced than a basic mod. Complete xref:getting-started:index.adoc[Getting Started] first.
 

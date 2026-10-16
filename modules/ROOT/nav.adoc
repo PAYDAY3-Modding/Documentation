@@ -11,10 +11,10 @@ include::getting-started:partial$nav.adoc[]
 --
 include::modkit:partial$nav.adoc[]
 --
-** CrimeForge
+** CrimeFactory
 +
 --
-include::crimeforge:partial$nav.adoc[]
+include::crimefactory:partial$nav.adoc[]
 --
 ** Creating Mods
 +

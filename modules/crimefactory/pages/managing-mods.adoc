@@ -1,8 +1,8 @@
 = Managing Mods
 
-The CrimeForge mod manager is the main place for working with mod plugins in the editor.
+The CrimeFactory mod manager is the main place for working with mod plugins in the editor.
 
-image::crimeforge-dashboard.png[CrimeForge mod manager, width=1000]
+image::CrimeFactory-dashboard.png[CrimeFactory mod manager, width=1000]
 
 == Mod cards
 
@@ -24,23 +24,23 @@ Use *Search Mods...* to filter the mod cards when the project contains a larger 
 
 Mod cards include selection checkboxes, and the manager includes selection helpers such as *Check All*.
 
-These controls let CrimeForge keep selection separate from opening a plugin's content or information.
+These controls let CrimeFactory keep selection separate from opening a plugin's content or information.
 
 == Create Mod
 
-Use *Create Mod* to generate a new CrimeForge plugin from one of the available templates.
+Use *Create Mod* to generate a new CrimeFactory plugin from one of the available templates.
 
 See xref:create-mod.adoc[Create Mod].
 
 == Import Legacy Mod
 
-Use *Import Legacy Mod* to migrate an older UE4-style PAYDAY 3 logic mod into the current plugin-based CrimeForge structure.
+Use *Import Legacy Mod* to migrate an older UE4-style PAYDAY 3 logic mod into the current plugin-based CrimeFactory structure.
 
 See xref:import-legacy.adoc[Import Legacy Mod].
 
 == Mods are plugins
 
-User mods created by CrimeForge live under:
+User mods created by CrimeFactory live under:
 
 [source,text]
 ----

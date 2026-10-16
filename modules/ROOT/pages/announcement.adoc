@@ -64,18 +64,18 @@ image::BakingTextures.png[Bake Textures, width=1000]
 Accessory textures for outfits are not included in the material bake, you will need to get those on your own, but they are already color textures. Some materials are also not properly displayed from how they visually appear in-game.
 ====
 
-== CrimeForge
+== CrimeFactory
 
-Tired of needing a thousand different command-line tools just to package your mods? Want a way to easily find and organize your mods in the editor? CrimeForge does both.
+Tired of needing a thousand different command-line tools just to package your mods? Want a way to easily find and organize your mods in the editor? CrimeFactory does both.
 
-image::crimeforge-dashboard.png[CrimeForge Dashboard, width=1000]
+image::CrimeFactory-dashboard.png[CrimeFactory Dashboard, width=1000]
 
-CrimeForge is a completely custom plugin made for PAYDAY 3, supporting both replacement mods and new assets for the game. It's an easy-to-use tool that lets you mod and test faster than ever before.
+CrimeFactory is a completely custom plugin made for PAYDAY 3, supporting both replacement mods and new assets for the game. It's an easy-to-use tool that lets you mod and test faster than ever before.
 
 === Features
 
 * Create various mods from templates. No more having to start from scratch every time.
-* Import and convert Unreal Engine 4 or non-CrimeForge mods into CrimeForge-supported mods.
+* Import and convert Unreal Engine 4 or non-CrimeFactory mods into CrimeFactory-supported mods.
 * Click the mod icon to go right to your mod folder.
 * Keep mod folders completely separate from normal game assets, making it easier to differentiate the two.
 * Cook and package your mod(s) in a single click.

@@ -3,7 +3,7 @@
 
 Welcome to the PAYDAY 3 modding documentation.
 
-Find and install mods for your game, or learn to create your own with the custom PAYDAY 3 Unreal Engine {pd3-engine-version} development environment, CrimeForge, and PDML.
+Find and install mods for your game, or learn to create your own with the custom PAYDAY 3 Unreal Engine {pd3-engine-version} development environment, CrimeFactory, and PDML.
 
 == Playing with Mods
 
@@ -29,7 +29,7 @@ The beginner guide takes you from an empty setup to a packaged mod and deliberat
 |Custom PAYDAY 3 Editor / Modkit
 |Provides an Unreal Engine {pd3-engine-version} development environment compatible with the game's content and reflected types. Installed PAYDAY 3 cooked content can be exposed as read-only reference content without redistributing it with the modkit.
 
-|CrimeForge
+|CrimeFactory
 |Editor tooling for creating mod projects from templates, validating content, working with PAYDAY-specific authoring workflows, and packaging mods.
 
 |PDML
@@ -60,7 +60,7 @@ Cooked game assets exposed by the editor are there to provide references and dev
 
 * xref:getting-started:index.adoc[Getting Started] - set up the tools and build your first mod.
 * xref:modkit:index.adoc[The Modkit] - understand the custom editor and cooked assets.
-* xref:crimeforge:index.adoc[CrimeForge] - learn the authoring and packaging tools.
+* xref:crimefactory:index.adoc[CrimeFactory] - learn the authoring and packaging tools.
 * xref:creating-mods:index.adoc[Creating Mods] - task-oriented guides.
 * xref:custom-heists:index.adoc[Custom Heists] - build PAYDAY 3 heists.
 * xref:pdml:index.adoc[PDML] - runtime mod loading and APIs.

@@ -2,7 +2,7 @@
 
 == Creating your first heist
 
-CrimeForge provides a basic heist template. You can create a mod with the template via:
+CrimeFactory provides a basic heist template. You can create a mod with the template via:
 
 - Clicking the Dallas mask at the top of the editor
 - Clicking `Create mod`
@@ -14,7 +14,7 @@ To create a heist without the template, start from a blank mod template and foll
 
 == Inside this template
 
-See xref:crimeforge:templates.adoc[Templates] for the standard template assets.
+See xref:crimefactory:templates.adoc[Templates] for the standard template assets.
 
 === `DA_Heist_(modname)`
 
@@ -29,7 +29,7 @@ See xref:inspect-vanilla-heists.adoc[Inspecting Vanilla Heists] for all vanilla 
 
 == Launching your heist
 
-See xref:crimeforge:packaging.adoc[Forge] for the full Forge workflow before continuing.
+See xref:crimefactory:packaging.adoc[Forge] for the full Forge workflow before continuing.
 
 Once in game, start a solo mode heist, then change the filter until it says `Custom Heists`.
 

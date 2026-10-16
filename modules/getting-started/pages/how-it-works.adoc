@@ -17,9 +17,9 @@ The modkit does not need to redistribute PAYDAY 3's base-game cooked assets.
 The user's own installed game provides that content.
 ====
 
-== CrimeForge
+== CrimeFactory
 
-CrimeForge handles PAYDAY-specific editor workflows.
+CrimeFactory handles PAYDAY-specific editor workflows.
 
 Its responsibilities include:
 
@@ -30,7 +30,7 @@ Its responsibilities include:
 * Validation.
 * Forging mods.
 
-CrimeForge calls its final cook/package operation *Forge*. Forge cooks the content that belongs to the selected mod and packages only the assets that mod should include.
+CrimeFactory calls its final cook/package operation *Forge*. Forge cooks the content that belongs to the selected mod and packages only the assets that mod should include.
 
 == PDML
 
@@ -38,7 +38,7 @@ PAYDAY MODLOADER is the runtime side of the toolchain.
 
 It provides the loading and integration layer for functionality such as:
 
-* CrimeForge plugin mods.
+* CrimeFactory plugin mods.
 * Blueprint and logic mods.
 * HUD mods.
 * Custom heists.
@@ -57,13 +57,13 @@ A simplified workflow looks like this:
 Your mod-owned assets
         |
         v
-CrimeForge plugin mod
+CrimeFactory plugin mod
         |
         v
 Custom PAYDAY 3 Editor
         |
         v
-CrimeForge
+CrimeFactory
  create / validate / Forge
         |
         v

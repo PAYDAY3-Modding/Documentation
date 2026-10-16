@@ -172,7 +172,7 @@ Keeping both files current is important for different reasons: `AssetRegistry.bi
 
 == Expected components
 
-A complete development setup includes the PAYDAY 3 project/stubs and the required modding plugins, including CrimeForge and Suzie.
+A complete development setup includes the PAYDAY 3 project/stubs and the required modding plugins, including CrimeFactory and Suzie.
 
 Depending on the distribution, compiled plugin binaries may already be supplied. Source-based setups may require a project/plugin build before the editor can open successfully.
 

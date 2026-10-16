@@ -1,6 +1,6 @@
 # PAYDAY 3 Modding Documentation
 
-Community documentation for playing PAYDAY 3 with mods and creating mods with the custom Unreal Engine editor, CrimeForge, PDML, and the supporting modkit toolchain.
+Community documentation for playing PAYDAY 3 with mods and creating mods with the custom Unreal Engine editor, CrimeFactory, PDML, and the supporting modkit toolchain.
 
 The documentation is written in AsciiDoc and built with [Antora](https://antora.org/).
 
@@ -18,8 +18,8 @@ Developing Mods documents the current PAYDAY 3 modding workflow, including:
 - Installing and updating the PAYDAY 3 modkit
 - Generating the JMAP used by Suzie
 - Working with cooked PAYDAY 3 assets in the editor
-- Creating plugin-based mods with CrimeForge
-- Forging mods with CrimeForge
+- Creating plugin-based mods with CrimeFactory
+- Forging mods with CrimeFactory
 - Loading and managing mods with PDML
 - Creating custom heists
 - Advanced asset, reflection, Blueprint, and runtime workflows
@@ -103,7 +103,7 @@ modules/
 ├── playing-with-mods/
 ├── getting-started/
 ├── modkit/
-├── crimeforge/
+├── CrimeFactory/
 ├── creating-mods/
 ├── custom-heists/
 ├── pdml/
@@ -164,7 +164,7 @@ The preview title comes from the page's AsciiDoc title. Add a `:description:` at
 :description: Install PAYDAY 3 mods with PDML and keep each mod in its own folder.
 ```
 
-Pages without a description use the shared description in `site.keys.social-description` in `antora-playbook.yml`. All pages use the CrimeForge dashboard image by default. Change `site.keys.social-image` and `site.keys.social-image-alt` to replace the shared image and its accessible description.
+Pages without a description use the shared description in `site.keys.social-description` in `antora-playbook.yml`. All pages use the CrimeFactory dashboard image by default. Change `site.keys.social-image` and `site.keys.social-image-alt` to replace the shared image and its accessible description.
 
 To give a page its own image, add these attributes beneath its title:
 
@@ -173,7 +173,7 @@ To give a page its own image, add these attributes beneath its title:
 :page-social-image-alt: A custom PAYDAY 3 heist open in the Unreal Engine editor.
 ```
 
-Image paths start with `/` and are relative to the site base URL. For images in other modules, include the module name, for example `/payday3-modding/crimeforge/_images/crimeforge-dashboard.png`. Use PNG or JPEG files that are publicly accessible.
+Image paths start with `/` and are relative to the site base URL. For images in other modules, include the module name, for example `/payday3-modding/CrimeFactory/_images/CrimeFactory-dashboard.png`. Use PNG or JPEG files that are publicly accessible.
 
 Set `site.url` in `antora-playbook.yml` to the published site's base URL without a trailing slash. The GitHub Pages deployment workflow uses the base URL from `actions/configure-pages`, including a custom domain if configured. For a local build targeting another host, set Antora's `URL` environment variable before running `npm run build`.
 
@@ -187,7 +187,7 @@ The main documentation areas are:
 - `playing-with-mods` for finding downloads, manual installation, and Mod Organizer 2 setup
 - `getting-started` for the linear beginner setup and first-mod workflow
 - `modkit` for the custom editor, cooked assets, reflection data, and modkit internals
-- `crimeforge` for mod creation, templates, Forge, validation, and editor tooling
+- `CrimeFactory` for mod creation, templates, Forge, validation, and editor tooling
 - `creating-mods` for task-oriented modding guides
 - `custom-heists` for heist authoring workflows
 - `pdml` for the runtime loader, mod structure, settings, dependencies, and APIs
@@ -208,8 +208,8 @@ Keep documentation practical and reproducible.
 7. Do not document guessed paths, class names, APIs, or runtime behavior as fact.
 8. Keep the Getting Started section linear and beginner-friendly.
 9. Move deeper implementation details into the relevant Modkit, Advanced, or Reference page and link to them.
-10. Use the term **Forge** for CrimeForge's cook/package action.
-11. Use `PAYDAY3/Mods/` as the normal install location for CrimeForge/PDML mods unless a specific workflow explicitly states otherwise.
+10. Use the term **Forge** for CrimeFactory's cook/package action.
+11. Use `PAYDAY3/Mods/` as the normal install location for CrimeFactory/PDML mods unless a specific workflow explicitly states otherwise.
 12. Lead player installation guides with PDML and installing the complete mod folder. Keep loose PAK installation as secondary guidance for older downloads.
 
 ## Status labels
@@ -228,8 +228,8 @@ Store screenshots in the `images/` directory belonging to the module that uses t
 Prefer descriptive file names such as:
 
 ```text
-crimeforge-new-mod-window.png
-crimeforge-dashboard.png
+CrimeFactory-new-mod-window.png
+CrimeFactory-dashboard.png
 pdml-information-window.png
 ```
 
