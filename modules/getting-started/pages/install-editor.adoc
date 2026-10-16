@@ -32,6 +32,8 @@ Epic's official instructions are available at https://www.unrealengine.com/ue-on
 . Check the email address associated with your GitHub account for an invitation to join the *@EpicGames* GitHub organization.
 . Accept the invitation by selecting *Join @EpicGames*.
 
+image::organization-check.png[organization, width=800]
+
 [IMPORTANT]
 ====
 The GitHub organization invitation must be accepted within seven days. Linking the accounts without accepting the organization invitation is not enough to gain access to the Unreal Engine source repositories.
@@ -54,6 +56,8 @@ If the invitation expired or the account link did not complete correctly, discon
 
 Open the https://github.com/NadzW/UnrealEngine-PD3Compatibility[custom editor repository] and use the release that matches the current PAYDAY 3 modkit.
 
+image::releases-navigation.png[releases navigation for blind, width=800]
+
 There are two supported ways to install it:
 
 * xref:install-editor.adoc#_install_using_the_installer[Install using the installer], recommended for most users.
@@ -62,6 +66,8 @@ There are two supported ways to install it:
 == Install using the installer
 
 The installer is the recommended installation method.
+
+image::installer-navigation.png[installer navigation for blind, width=800]
 
 . Open the repository's *Releases* section.
 . Download the installer from the latest compatible release.
@@ -78,6 +84,8 @@ After installation, the editor executable should be available beneath the instal
 ----
 Engine\Binaries\Win64\UnrealEditor.exe
 ----
+
+
 
 == Manual installation
 
@@ -101,6 +109,8 @@ Before installing or opening the PAYDAY 3 modkit, confirm that:
 * The editor reports the expected Unreal Engine version for the current modkit.
 * The installation is separate from stock Epic Games Launcher engine versions.
 * You have not mixed files from different custom editor releases.
+
+image::openEditor-navigation.png[editor.exe navigation for blind, width=800]
 
 You do not need to create a blank Unreal project. The PAYDAY 3 modkit provides the project that will be opened with this editor.
 

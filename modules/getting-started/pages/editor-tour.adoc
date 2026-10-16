@@ -4,6 +4,8 @@ You only need to know a few parts of the editor to create your first mod.
 
 == Content Browser
 
+image::ContentBrowser-navigation.png[Content browser location, width=1200]
+
 The Content Browser contains your mod-owned content, modkit tooling content, and supported PAYDAY 3 reference content exposed by the custom environment.
 
 Do not assume that every visible asset is editable.
@@ -11,6 +13,8 @@ Do not assume that every visible asset is editable.
 xref:modkit:cooked-assets.adoc[Cooked Assets] explains how to recognize and work with reference content safely.
 
 == CrimeForge
+
+image::crimeForge-navigation.png[crime forge location, width=1200]
 
 CrimeForge is the main PAYDAY-specific authoring surface.
 
@@ -30,6 +34,8 @@ Keep new content inside the mod created by CrimeForge unless a guide specificall
 This makes ownership and packaging boundaries much easier to understand.
 
 == Output Log
+
+image::outputlog-navigation.png[output log location, width=1200]
 
 Keep the Unreal Output Log available while learning the toolchain.
 

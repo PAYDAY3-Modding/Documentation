@@ -8,6 +8,8 @@ Open the https://github.com/PAYDAY3-Modding/PD3-Modkit[Modkit GitHub repository]
 
 Clone the repository or fork it and clone your fork, or choose *Code > Download ZIP* and extract the project to a writable development directory.
 
+image::installmodkit-navigation.png[how to get a repo files 101, width=800]
+
 [WARNING]
 ====
 Downloading the project as a ZIP may cause issues with the modkit updater. Cloning the repository or your fork is recommended.
@@ -47,6 +49,8 @@ After downloading the modkit, there are two separate pieces of game data that mu
 Complete xref:fmodel-setup.adoc[Set Up FModel] first. FModel must have the PAYDAY 3 AES key and a current local mappings file configured so it can reliably read the game archives.
 
 Open FModel with your PAYDAY 3 installation selected, locate the game's `AssetRegistry.bin`, and export the file using FModel's raw file export/save functionality.
+
+image::assetRegistry-location.png[asset registry location, width=800]
 
 Copy the extracted file to the root of the modkit:
 
@@ -97,6 +101,7 @@ With PAYDAY 3 running, run:
 ----
 GenerateJMAP.bat
 ----
+image::runBat-RUNIT.png[run the .bat, width=800]
 
 Follow any prompts printed by the script while it connects to the running game and dumps the current JMAP.
 
@@ -132,6 +137,11 @@ If you get a "Build Succesful" in the output log, then you are good to launch th
 
 
 == Generate native classes with Suzie
+
+[NOTE]
+====
+Text below is purely for informational purposes, its not part of the process to make the project run.
+====
 
 The modkit uses *Suzie* to generate the native PAYDAY 3 class definitions used by the project.
 

@@ -19,9 +19,13 @@ not to to be confused with
 * PAYDAY3-Win64-Shipping.exe
 ====
 
+image::payday3-exe.png[payday3.exe location, width=800]
+
 == Open the project
 
 Open the PAYDAY 3 modkit `.uproject` with the custom Unreal Engine {pd3-engine-version} editor.
+
+image::openProject-navigation.png[.uproject location, width=800]
 
 If Unreal asks you to select an engine installation, choose the custom editor build intended for this modkit release.
 
