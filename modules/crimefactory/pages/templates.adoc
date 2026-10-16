@@ -13,6 +13,8 @@ The template creates the new mod plugin and its standard CrimeFactory assets, in
 * `PAL_<ModName>`
 * `DA_<ModName>`
 
+image::blank-template.png[ blank mod template , width=500]
+
 This is the normal starting point when a more specialized template is not required.
 
 == Logic Mod
@@ -26,6 +28,8 @@ In addition to the normal mod structure, CrimeFactory creates a Blueprint derive
 BP_<ModName>
 ----
 
+image::logic-template.png[logic mod template , width=500]
+
 The mod data asset is populated with the discovered Mod Actor so PDML can use the generated logic mod structure.
 
 == Custom Heist
@@ -38,6 +42,10 @@ The template creates the normal mod structure plus the initial heist content, in
 * a level named `LVL_<ModName>`,
 * the generated heist added to the mod data asset's `Heist` array,
 * and the heist data asset's `LevelPath` set to the generated level.
+
+image::heist-template.png[heist mod template	, width=500]
+
+image::heistInner-template.png[blank heist template sub folder, width=500]
 
 This provides the basic CrimeFactory/PDML registration structure before the heist itself is authored.
 

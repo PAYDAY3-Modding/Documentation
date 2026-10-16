@@ -20,6 +20,8 @@ This avoids cooking or shipping unrelated project content.
 
 Find the mod in the CrimeFactory manager and click *FORGE*.
 
+image::FORGE-button.png[forge button, width=150]
+
 Forge operates on that mod plugin and its configured content rather than packaging the whole modkit project.
 
 == Plugin-only Forge
