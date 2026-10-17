@@ -4,7 +4,7 @@ You only need to know a few parts of the editor to create your first mod.
 
 == Content Browser
 
-image::ContentBrowser-navigation.png[content browser navigation , width=1200]
+image::ContentBrowser-navigation.png[Unreal Editor with the Content Browser location highlighted, width=1200]
 
 Use the Content Browser to find your mod's assets, the modkit's tools, and supported reference assets from your installed PAYDAY 3 game.
 
@@ -14,7 +14,7 @@ xref:modkit:cooked-assets.adoc[Cooked Assets] explains how to recognize and work
 
 == CrimeFactory
 
-image::crimeFactory-navigation.png[crime factory icon navigation, width=1200]
+image::crimeFactory-navigation.png[Unreal Editor toolbar with the CrimeFactory icon highlighted, width=1200]
 
 Use CrimeFactory to create and manage your PAYDAY 3 mods.
 
@@ -35,7 +35,7 @@ This makes ownership and packaging boundaries much easier to understand.
 
 == Output Log
 
-image::outputlog-navigation.png[output log location, width=1200]
+image::outputlog-navigation.png[Unreal Editor with the Output Log location highlighted, width=1200]
 
 Keep the Unreal Output Log available while learning the toolchain.
 

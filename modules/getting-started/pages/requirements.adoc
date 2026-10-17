@@ -2,6 +2,8 @@
 
 Before installing the modkit, prepare the following.
 
+The setup order is: custom editor, FModel, Wwise SDK, then the modkit project. The following pages walk through each one. Install the Wwise SDK even if your first mod only changes textures; the project depends on the bundled Wwise plugin.
+
 == Required
 
 * A legitimate installed copy of PAYDAY 3.
@@ -14,11 +16,11 @@ Before installing the modkit, prepare the following.
 
 If you will compile the editor, project, plugins, or native modules, install a compatible Visual Studio C++ toolchain.
 
-Blueprint-only mod authors may not need to work directly with C++, but the distributed modkit/editor build must still contain the required compiled modules.
+You do not need to write C++ for the first-mod tutorial. The toolchain may still be needed to build missing project or plugin modules. xref:install-modkit.adoc#_starting_the_project[Starting the Project] covers the Wwise module error and the build steps if you encounter it.
 
 
 == Before continuing
 
 Launch PAYDAY 3 normally at least once and make sure the base game installation works.
 
-Then continue to xref:install-editor.adoc[Install the Custom Editor]. FModel is configured immediately afterwards in xref:fmodel-setup.adoc[Set Up FModel], followed by xref:wwise-setup.adoc[Set Up Wwise].
+Next: xref:install-editor.adoc[Install the Custom Editor]. FModel is configured immediately afterwards in xref:fmodel-setup.adoc[Set Up FModel], followed by xref:wwise-setup.adoc[Set Up Wwise].

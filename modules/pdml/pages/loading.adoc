@@ -2,6 +2,8 @@
 
 CrimeFactory mods are authored and forged as Unreal plugins. PDML is responsible for discovering and handling those plugin mods at runtime.
 
+For the loader download, storefront-specific paths, and installation steps, see xref:playing-with-mods:manual-installation.adoc#_install_pdml[Install PDML].
+
 == Install location
 
 Place the complete forged mod folder under:

@@ -6,9 +6,9 @@ CrimeFactory exposes information and configuration actions directly on each mod 
 
 Click *Information* to open the mod's properties.
 
-image::information-button.png[infomration button, width=150]
+image::information-button.png[Information button on a CrimeFactory mod card, width=150]
 
-image::information-info.png[information  window, width=820]
+image::information-info.png[CrimeFactory Information window showing PAL status and packaging configuration, width=820]
 
 
 
@@ -18,7 +18,7 @@ image::information-info.png[information  window, width=820]
 
 Click *CONFIG* on a mod card to open that mod's CrimeFactory configuration.
 
-image::config-button.png[config button, width=150]
+image::config-button.png[CONFIG button on a CrimeFactory mod card, width=150]
 
 The Config window exposes plugin/mod metadata such as:
 
@@ -32,7 +32,7 @@ The Config window exposes plugin/mod metadata such as:
 * Links
 * Dependency information
 
-image::CrimeFactory-mod-properties.png[information  window, width=820]
+image::CrimeFactory-mod-properties.png[Mod Properties window showing the icon and version and descriptive metadata fields, width=820]
 
 Use this window for metadata that describes the mod rather than gameplay content stored inside the plugin.
 

@@ -13,6 +13,28 @@ Common causes include:
 * Invalid PAL or mod content selection.
 * Commandlet-incompatible editor plugins.
 
+Use the first relevant error to choose your next step:
+
+[cols="1,3"]
+|===
+|What the error refers to |What to check before retrying
+
+|Blueprint compile error
+|Open the Blueprint named in the error, resolve its compile errors, compile and save it, then Forge again.
+
+|An asset missing from the package
+|Check that the asset is saved. For a replacement under `/Game/...`, add it to the mod PAL's *Explicit Assets*, save the PAL, and Forge again. See xref:creating-mods:asset-replacements.adoc#_add_the_replacement_to_the_pal[Add the replacement to the PAL].
+
+|PAL, Chunk ID, or Asset Manager configuration
+|Open CrimeFactory validation and review the reported issue. Use *Fix Issues* where offered, review any remaining entries yourself, then validate and Forge again. See xref:crimefactory:validation.adoc[Validation].
+
+|Wwise module missing when the project opens
+|Check the matching Wwise SDK folders, then follow xref:getting-started:install-modkit.adoc#_starting_the_project[Starting the Project] to build the project if needed. Reopen the project before retrying Forge.
+
+|An editor plugin fails only during cook
+|Cooking can run through a commandlet, an Unreal process without the normal editor interface. Check the named plugin's guidance for commandlet support before retrying; a plugin working in the editor does not prove it supports this mode.
+|===
+
 A successful Forge should package only the assets intended for the selected mod.
 
 == Missing PackagePlugin.cs

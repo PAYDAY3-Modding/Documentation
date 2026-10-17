@@ -2,6 +2,8 @@
 
 CrimeFactory uses a Primary Asset Label, or PAL, to describe content that belongs to a mod's cook/package workflow.
 
+Think of it as an asset selection list for Forge. *Explicit Assets* means the assets you select individually for inclusion.
+
 The standard PAL created for a mod is named:
 
 [source,text]
@@ -19,7 +21,7 @@ It is also used by the validation tooling to catch incorrect packaging configura
 
 A mod PAL uses a Chunk ID that must not collide with chunks used by PAYDAY 3 or its DLC.
 
-image::chunkID-showcase.png[Chunk ID, width=800]
+image::chunkID-showcase.png[Primary Asset Label editor showing the Chunk ID setting, width=800]
 
 A value greater than `100` is recommended for community mods.
 
@@ -34,7 +36,7 @@ Choose an unused value that is outside the game's and DLC's chunk IDs. Values ab
 
 Use the PAL's *Explicit Assets* list for assets that must be included explicitly in the mod's package.
 
-image::explicitAssets-showcase.png[explicit assets, width=800]
+image::explicitAssets-showcase.png[Primary Asset Label editor showing the Explicit Assets array, width=800]
 
 This is especially important for base-game replacement assets that use external `/Game/...` paths rather than the mod plugin's own content root.
 

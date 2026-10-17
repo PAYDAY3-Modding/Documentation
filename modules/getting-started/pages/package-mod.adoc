@@ -8,7 +8,7 @@ Forging a mod cooks the mod-owned content and packages only the assets that the 
 
 Save all modified assets.
 
-image::saveAll-button.png[save all button location, width=800]
+image::saveAll-button.png[Unreal Editor Save All button for saving modified assets before Forge, width=800]
 
 Resolve Blueprint compile errors before starting a forge.
 
@@ -62,6 +62,8 @@ Do not treat the final error line as the entire diagnosis. Search upward for the
 == Verify the result
 
 After CrimeFactory reports a successful forge, inspect the output location shown by the tool.
+
+*Check:* Find the complete forged mod folder, including its `.uplugin` file and packaged content. For the tutorial, this is `MyFirstMod`. Copy this output when installing, rather than the working plugin folder under `<ModkitRoot>/Mods/`.
 
 The forged mod should contain your intended mod content, not copied PAYDAY 3 base-game content.
 

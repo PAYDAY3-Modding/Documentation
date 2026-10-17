@@ -66,7 +66,7 @@ Lastly, for your normal map, you can paste another texture node and call this ne
 
 Your final result of the material should look like this if you have followed all steps properly. 
 
-image::Ex1.png[]
+image::Ex1.png[Material graph connecting Base Color and ORM and Normal texture parameters to the material inputs]
 
 
 == Emissive (Glowing) Textures
@@ -74,24 +74,24 @@ image::Ex1.png[]
 Emissive textures or vectors control if you want parts of your model to glow. This can be handy if your material makes use of an emissive texture to add extra detail. If you want to control the brightness of your emissive texture, you can add a scalar node and a multiply node, plug your texture or vector into the A slot of your multiply and your scalar into the B slot. Call your Scalar Node "Emissive Brightness" or something to refer to easily. 
 
 
-image::EmissiveEx.png[] 
+image::EmissiveEx.png[Material graph multiplying an emissive color by a brightness parameter]
 
 Emissive textures on some heists are displayed correctly, but could sometimes appear to be too dim or too bright in some other heists due to post processing of the heist or light exposure.
 
 To fix this issue from happening, take the output of either your texture or multiply node and add a Divide node and plug it into the A slot. Get an EyeAdapation node and plug it into the B slot of the divide, then plug the output of the divide into Emissive Color, and this will resolve your issue of inconsistent emissive brightness on certain maps.
 
-image::EmissiveFix.png[] 
+image::EmissiveFix.png[Material graph dividing emissive color by EyeAdaptation before the Emissive Color input]
 
 
 == Opacity Masking Textures
 
 Opacity textures are commonly used on textures that require opacity, like hair or glass. To properly use a opacity texture, set your blend mode of your material to "Masked" or "Translucent" but I do no recommended using a translucent blend unless you know how to use one properly. It is also good practice to have your opacity be combined with either your Base Color or ORM texture packed in the alpha channel to avoid calling extra textures.
 
-image::OpacityEx1.png[]
+image::OpacityEx1.png[Material Editor showing Masked blend mode and the Opacity Mask input]
 
 Though using a masked blend technique is less resource costly, the output of the opacity could be unsatisfying. Opacity usually in this format works in a 0 or 1 value, where a part of the texture is either visible or invisible. But if you want to mimic the use of using a translucent blend mode without needing to use the extra shader work to use one, you can use a "DitherTemporalAA" node which will act like a psuedo translucent material for your material. Simply plug in your Scalar or opacity texture into the Alpha Threshold (S) input and your Result into the Opacity Mask node. You can add an extra scalar parameter to the Random (S) input, but it is recommended to either keep it alone if you do not want to use it.
 
-image::OpacityDitherEx.png[] 
+image::OpacityDitherEx.png[Material graph connecting an opacity parameter through DitherTemporalAA to Opacity Mask]
 
 
 == Starbreeze Formatted Normal Map Textures
@@ -109,7 +109,7 @@ If you would like to recreate it in favor of using it instead of a normal XYZ, h
 
 Your final output should look similar to this:
 
-image::SBZ-NRM-Ex.png[] 
+image::SBZ-NRM-Ex.png[Material graph reconstructing a Starbreeze normal map with AppendVector and ConstantBiasScale and DeriveNormalZ]
 
 [NOTE]
 ====
@@ -156,7 +156,7 @@ If you want to rename it, name it "MI_YourMatInstName"
 
 In the Material Instance screen, you can drag and drop your textures over the appropriate parameter, and save. 
 
-image::Ex2.png[]
+image::Ex2.png[Material Instance Editor showing the texture parameters and material preview]
 
 == Importing Textures
 
@@ -172,7 +172,7 @@ For normal maps, set compression to "NormalMap (BC5)" and unticking the "sRGB" b
 ====
 "NormalMap (BC5)" can cause channel artifacts, so if you instead want to use BC7 for better quality, set the texture's sampler type to Linear Color, plug the RGB node into a "ConstantBiasScale" make the Bias value -0.5, and your Scale value 2.0, then plug into a normalize node. 
 
-image::Ex3.png[]
+image::Ex3.png[Linear Color normal texture connected through ConstantBiasScale and Normalize to the Normal input]
 
 If your Normal Map is also formatted in OpenGL (Y+) you can use the "Flip Green Channel" setting to convert it to a DirectX Normal Map. 
 ====
@@ -181,4 +181,4 @@ UI textures should be imported with "UserInterface2D (RGBA8)" And also in the **
 
 If you're porting a model or adding a collection of new textures you can select each texture, right click and hover over "Asset Actions" and in the second menu that appears, select "Edit Selection in Property Matrix" this can allow you to mass edit textures instead of needing to do it all one by one, which can be a huge time saver. 
 
-image::Ex4.png[]
+image::Ex4.png[Content Browser Asset Actions menu with Edit Selection in Property Matrix highlighted]

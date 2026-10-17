@@ -5,6 +5,8 @@ Wwise is the audio system used by PAYDAY 3. The modkit includes a modified Wwise
 
 You must obtain those files yourself from Audiokinetic and place them into the Wwise plugin included with the modkit.
 
+Complete this setup even if you are making a texture mod. On this page, install the SDK and locate its folders. Copy them into `ThirdParty` after downloading the modkit on the next page.
+
 [IMPORTANT]
 ====
 The Wwise plugin included with the modkit is a modified integration based on *Wwise 2023.1.15.8789.3579*.
@@ -26,7 +28,7 @@ Download and install the https://www.audiokinetic.com/download/[Audiokinetic Lau
 
 Sign in with an Audiokinetic account. If you do not already have one, create an account when prompted.
 
-image::audiokinetic-download.png[audiokinetic for blind, width=800]
+image::audiokinetic-download.png[Audiokinetic website with the Windows Launcher download highlighted, width=800]
 
 Audiokinetic uses the Launcher to install specific Wwise versions, SDK packages, integrations, and platform files.
 
@@ -47,7 +49,7 @@ The modkit integration is based on:
 ----
 Wwise 2023.1.15.8789.3579
 ----
-image::wwise-install.png[wwise install for dummies, width=800]
+image::wwise-install.png[Audiokinetic Launcher Wwise page with the version selection controls highlighted, width=800]
 
 [WARNING]
 ====
@@ -66,7 +68,7 @@ Under your *Audiokinetic installation root*, locate the matching Wwise SDK at a 
 ----
 <Audiokinetic installation root>\Wwise 2023.1.15.8789\SDK\
 ----
-image::SDK-location.png[SDK location for dummies, width=800]
+image::SDK-location.png[File Explorer showing the SDK directory for Wwise 2023.1.15.8789, width=800]
 
 The exact path can differ depending on where Audiokinetic and Wwise were installed.
 
@@ -83,7 +85,7 @@ Locate the modified Wwise integration inside the modkit. For the Wwise 2023.1 in
 <ModkitRoot>\Plugins\Wwise\ThirdParty\
 ----
 
-image::thirdParty-location.png[Third party folder location for dummies, width=800]
+image::thirdParty-location.png[File Explorer showing ThirdParty inside the bundled Wwise plugin, width=800]
 
 [NOTE]
 ====
@@ -98,9 +100,11 @@ From the installed Wwise `SDK` directory, copy the following into the modkit's `
 
 For example, the resulting layout should resemble:
 
-image::payload-showcase.png[wwise payload subfolders for windows64, width=800]
+image::payload-showcase.png[Wwise ThirdParty folder containing include and the x64_vc160 and x64_vc170 SDK folders, width=800]
 
 Copy `x64_vc160` and `x64_vc170` from the matching Wwise 2023.1.15 SDK into this directory. Do not rename the SDK directories.
+
+*Check after copying:* `ThirdParty` should contain `include`, `x64_vc160`, and `x64_vc170` directly, as shown above. If they are inside an extra `SDK` folder, move those three folders up into `ThirdParty` before opening the project.
 
 [NOTE]
 ====

@@ -2,13 +2,15 @@
 
 The modkit contains the PAYDAY 3 development project and the tooling used to author mods.
 
+In these guides, `<ModkitRoot>` means the folder containing `PAYDAY3.uproject`. Replace this placeholder with your own folder path; do not create a folder literally named `<ModkitRoot>`.
+
 == Install the project
 
 Open the https://github.com/PAYDAY3-Modding/PD3-Modkit[Modkit GitHub repository] to install the modkit project.
 
 Clone the repository or fork it and clone your fork, or choose *Code > Download ZIP* and extract the project to a writable development directory.
 
-image::installmodkit-navigation.png[how to get a repo files 101, width=800]
+image::installmodkit-navigation.png[Modkit repository with the Code menu open and Download ZIP visible, width=800]
 
 [WARNING]
 ====
@@ -50,7 +52,7 @@ Complete xref:fmodel-setup.adoc[Set Up FModel] first. FModel must have the PAYDA
 
 Open FModel with your PAYDAY 3 installation selected, locate the game's `AssetRegistry.bin`, and export the file using FModel's raw file export/save functionality.
 
-image::assetRegistry-location.png[asset registry location, width=800]
+image::assetRegistry-location.png[AssetRegistry.bin beside PAYDAY3.uproject in the modkit root folder, width=800]
 
 Copy the extracted file to the root of the modkit:
 
@@ -101,9 +103,11 @@ With PAYDAY 3 running, run:
 ----
 GenerateJMAP.bat
 ----
-image::runBat-RUNIT.png[run the .bat, width=800]
+image::runBat-RUNIT.png[File Explorer with GenerateJMAP.bat highlighted in the modkit root folder, width=800]
 
 Follow any prompts printed by the script while it connects to the running game and dumps the current JMAP.
+
+*Check:* After the script finishes, confirm that a `.jmap` file is present in `<ModkitRoot>/Content/DynamicClasses/`. If it is missing or the script reports an error, keep the clean game running, check the script's error message, and rerun it before opening the project.
 
 [NOTE]
 ====
@@ -127,6 +131,8 @@ https://dev.epicgames.com/documentation/unreal-engine/setting-up-visual-studio-d
 [NOTE]
 ====
 If `PAYDAY3.sln` is missing, right-click `PAYDAY3.uproject`, choose *Show more options*, then select *Generate Visual Studio project files*.
+
+If this command is missing, follow xref:install-editor.adoc#_generate_project_files_without_the_context_menu[Generate project files without the context menu]. That method uses the custom engine directly and does not require Epic Games Launcher or UnrealVersionSelector. The same page explains how to restore the menu when your release includes the selector.
 ====
 
 In Visual Studio, select *Build > Build Solution*.
@@ -134,6 +140,8 @@ In Visual Studio, select *Build > Build Solution*.
 Wait for the build to finish. It should take about 3–5 minutes.
 
 Once the output reports a successful build, open the project again.
+
+*Check:* The project should open in the custom editor without the Wwise module error. Configure the game paths on the next page before checking for game assets in the Content Browser.
 
 
 == Generate native classes with Suzie

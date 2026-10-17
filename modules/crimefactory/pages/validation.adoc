@@ -16,7 +16,7 @@ The current validation/preflight checks the mod's CrimeFactory packaging setup, 
 * dependencies and references used by the mod,
 * and external `/Game/...` assets that need the replacement workflow.
 
-image::forge-validationWindow.png[Validation window, width=500]
+image::forge-validationWindow.png[CrimeFactory validation window showing mod setup checks, width=500]
 
 Forge can also surface normal Unreal cook or compile failures later in the build process, such as invalid references or Blueprint compile errors.
 

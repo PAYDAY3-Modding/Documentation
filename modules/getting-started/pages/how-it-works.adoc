@@ -8,6 +8,8 @@ An *asset* is a game resource, such as a texture or 3D model. *Cooking* prepares
 
 PAYDAY 3 currently uses Unreal Engine {pd3-engine-version}. The modkit uses a compatible custom editor and a stubbed PAYDAY 3 C++ project with reflected game types.
 
+Here, *reflected game types* means game classes and their properties made available to editor tools. The stubs are substitute definitions that let the modkit use those types without the game's original source code. You do not need to write C++ for the first-mod tutorial.
+
 The editor provides the development environment in which you create your own assets and Blueprints.
 
 It can also expose supported cooked assets from your installed copy of PAYDAY 3 as read-only reference content.
@@ -84,3 +86,5 @@ Runtime mod
 Asset replacements may still target game-compatible asset paths inside the mod, while additive/runtime features can require PDML integration.
 
 xref:modkit:cooked-assets.adoc[Cooked Assets] explains the distinction in more detail.
+
+Next: xref:requirements.adoc[Requirements].

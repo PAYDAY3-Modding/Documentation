@@ -8,6 +8,10 @@ PDML is the runtime mod loader used by CrimeFactory mods.
 
 CrimeFactory creates mods as Unreal plugins, and PDML discovers and handles those plugin-based mods when PAYDAY 3 starts.
 
+Before installing your first mod, follow xref:playing-with-mods:manual-installation.adoc#_install_pdml[Install PDML]. That section covers the download, storefront-specific folder locations, and how to confirm that the Mod Manager appears in the game.
+
+Use the packaged PDML download for the game. The modkit's `Mods/PDML/` folder is for editor development; do not Forge it to install the loader.
+
 == Install the forged mod
 
 Place the forged mod in:
@@ -30,6 +34,8 @@ PAYDAY3/
 
 Use the folder produced by CrimeFactory rather than moving only an individual `.pak` file out of it.
 
+*Check:* `MyFirstMod.uplugin` should be directly inside `PAYDAY3/Mods/MyFirstMod/`. This is the game's `Mods` folder; `<ModkitRoot>/Mods/` contains your working source files. See xref:playing-with-mods:manual-installation.adoc#_find_the_game_folder[Find the game folder] for Steam, Epic, and Xbox paths.
+
 [IMPORTANT]
 ====
 PDML mods belong in `PAYDAY3/Mods/`.
@@ -43,20 +49,19 @@ Keeping mods in the dedicated `Mods` directory separates community mods from the
 
 Start the game with PDML installed.
 
-Verify that PDML initializes successfully before diagnosing the individual mod.
+Look for the Mod Manager in the main menu. Its presence is the first check that PDML has loaded.
 
-Then verify that your newly forged mod is discovered and loaded.
+Open it and find your mod. For the first-mod tutorial, check that your artwork appears on the title screen and in the main menu. A listed mod still needs this practical test to confirm its changes work.
 
 == If the game does not load the mod
 
 Check, in this order:
 
-. The Forge completed without cook errors.
-. The complete mod folder is under `PAYDAY3/Mods/`.
-. PDML initialized successfully.
-. The plugin and mount structure matches the selected mod type.
-. Required dependencies are present.
-. The game and modkit versions are compatible.
+. If Forge reported errors, fix the first relevant error in the Output Log, then Forge again. See xref:troubleshooting:packaging.adoc[Forge & Cook Failures].
+. If the Mod Manager is missing, recheck xref:playing-with-mods:manual-installation.adoc#_install_pdml[PDML installation] before changing your mod.
+. If the mod is missing from the manager, close PAYDAY 3. Check that `<ModName>.uplugin` is directly inside `PAYDAY3/Mods/<ModName>/` and that you copied the complete forged output, including its packaged content.
+. Install any dependencies listed by the mod author and check that the game, PDML, and mod versions are compatible. For your own mod, also check the modkit version.
+. Restart PAYDAY 3 after fixing the files. If the mod is listed but the logos are unchanged, follow xref:first-mod.adoc#_if_a_logo_is_still_unchanged[If a logo is still unchanged].
 
 See xref:troubleshooting:index.adoc[Troubleshooting] for error-oriented guides.
 

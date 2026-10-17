@@ -32,7 +32,7 @@ Epic's official instructions are available at https://www.unrealengine.com/ue-on
 . Check the email address associated with your GitHub account for an invitation to join the *@EpicGames* GitHub organization.
 . Accept the invitation by selecting *Join @EpicGames*.
 
-image::organization-check.png[organization, width=800]
+image::organization-check.png[GitHub account settings showing membership in the EpicGames organization, width=800]
 
 [IMPORTANT]
 ====
@@ -56,7 +56,7 @@ If the invitation expired or the account link did not complete correctly, discon
 
 Open the https://github.com/NadzW/UnrealEngine-PD3Compatibility[custom editor repository] and use the release that matches the current PAYDAY 3 modkit.
 
-image::releases-navigation.png[releases navigation for blind, width=800]
+image::releases-navigation.png[Custom editor repository with the Releases link highlighted, width=800]
 
 There are two supported ways to install it:
 
@@ -67,7 +67,7 @@ There are two supported ways to install it:
 
 The installer is the recommended installation method.
 
-image::installer-navigation.png[installer navigation for blind, width=800]
+image::installer-navigation.png[GitHub release with the UE5-PD3-Installer.exe download highlighted, width=800]
 
 . Open the repository's *Releases* section.
 . Download the installer from the latest compatible release.
@@ -101,6 +101,49 @@ Use manual installation if you do not want to use the installer or need direct c
 
 Do not copy individual engine DLLs, executables, plugins, or other files into another Unreal Engine installation. The editor should be kept as a complete matching build.
 
+== Missing .uproject right-click commands
+
+Windows uses a small tool called *UnrealVersionSelector* to provide *Generate Visual Studio project files* and *Switch Unreal Engine version* when you right-click a `.uproject` file.
+
+These commands may be missing on a PC that has never had Epic Games Launcher or an Epic-installed Unreal Engine. They can also disappear if Windows is using another app to open `.uproject` files. On Windows 11, check *Show more options* first.
+
+The missing menu does not mean the custom editor is unusable. You can generate project files directly with the custom engine, without installing Epic Games Launcher or a stock Unreal Engine. Visual Studio and its compatible C++ tools are still required when building the modkit.
+
+=== Generate project files without the context menu
+
+Use these steps when you reach xref:install-modkit.adoc#_starting_the_project[Starting the Project] and need to create `PAYDAY3.sln`. Download the modkit and complete its Wwise SDK setup first.
+
+. Close the Unreal Editor and Visual Studio.
+. Open *PowerShell* or a PowerShell tab in *Windows Terminal*.
+. Replace the two example paths below with your custom engine folder and the full path to your modkit's `PAYDAY3.uproject`, then run the commands. The engine folder is the folder containing `Engine`, not the `Engine` folder itself.
+
+[source,powershell]
+----
+$engineRoot = "D:\UE5-PD3"
+$projectFile = "D:\PD3-Modkit\PAYDAY3.uproject"
+& "$engineRoot\Engine\Build\BatchFiles\Build.bat" -projectfiles "-project=$projectFile" -game -rocket -2022
+----
+
+*Check:* After successful generation, `PAYDAY3.sln` should appear beside `PAYDAY3.uproject`. Open it in Visual Studio and continue with xref:install-modkit.adoc#_starting_the_project[the project build steps]. Generating the solution does not compile the project.
+
+If the command fails, read the first error in the terminal. Check that both paths exist, that you selected the custom PAYDAY 3 engine, and that the required Visual Studio C++ tools and Wwise SDK files are installed. Fix the reported problem and run the command again.
+
+This method uses the engine's UnrealBuildTool through `Build.bat`. It does not add Windows context-menu entries or change which engine opens the project on double-click.
+
+=== Restore the right-click commands
+
+If your custom editor release includes UnrealVersionSelector, you can register it without installing Epic Games Launcher:
+
+. In the custom engine's `Engine\Binaries\Win64\` folder, look for `UnrealVersionSelector-Win64-Shipping.exe` or `UnrealVersionSelector.exe`.
+. Run that executable from its installed location. Accept the prompts to register the engine and its file types. Windows may request administrator approval for the file associations.
+. Right-click `PAYDAY3.uproject` again and select *Show more options* if needed.
+. Choose *Switch Unreal Engine version* and select the custom PAYDAY 3 engine. Check its installation path so you do not select a stock Epic build with the same version number.
+. Use *Generate Visual Studio project files* if you still need to generate the solution.
+
+If neither selector executable is present, that release does not provide this repair method. Use xref:install-editor.adoc#_generate_project_files_without_the_context_menu[the command above] to continue. Do not copy individual editor files from another engine installation to work around the missing tool.
+
+If Windows still opens `.uproject` files in another app, check *Settings > Apps > Default apps* and select the registered Unreal Engine project-file handler for `.uproject`. Associating the extension directly with `UnrealEditor.exe` does not restore the project-generation or engine-switching commands.
+
 == Verify the installation
 
 Before installing or opening the PAYDAY 3 modkit, confirm that:
@@ -110,7 +153,7 @@ Before installing or opening the PAYDAY 3 modkit, confirm that:
 * The installation is separate from stock Epic Games Launcher engine versions.
 * You have not mixed files from different custom editor releases.
 
-image::openEditor-navigation.png[editor.exe navigation for blind, width=800]
+image::openEditor-navigation.png[File Explorer showing UnrealEditor.exe under Engine/Binaries/Win64, width=800]
 
 You do not need to create a blank Unreal project. The PAYDAY 3 modkit provides the project that will be opened with this editor.
 
@@ -128,4 +171,4 @@ You must have working Epic Games GitHub authorization before you can access Unre
 
 Do not mix binaries produced from different Unreal Engine versions or different PAYDAY 3 compatibility revisions.
 
-Next: xref:install-modkit.adoc[Install the Modkit].
+Next: xref:fmodel-setup.adoc[Set Up FModel].

@@ -63,7 +63,7 @@ CrimeFactory currently includes three creation templates:
 * *Logic Mod*
 * *Custom Heist*
 
-image::forge-templates.png[forge templates, width=500]
+image::forge-templates.png[CrimeFactory template choices for Blank and Logic Mod and Custom Heist mods, width=500]
 
 Additional specialized templates, such as HUD and audio mod templates, are planned for the future but are not part of the current workflow.
 

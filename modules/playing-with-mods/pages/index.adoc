@@ -7,7 +7,7 @@ Welcome to playing PAYDAY 3 with mods. This section explains where to download m
 
 PDML is the recommended mod format for PAYDAY 3. The community is moving towards PDML mods and phasing out loose PAK installations.
 
-Install PDML, the runtime mod loader, using the instructions supplied with its download. Then install each mod as a *complete folder* under `PAYDAY3/Mods/`, preserving all of its files and subfolders. PDML discovers and loads these mod folders when the game starts.
+First follow xref:manual-installation.adoc#_install_pdml[Install PDML], including the folder paths for your storefront and the main-menu check. Then install each mod as a *complete folder* under `PAYDAY3/Mods/`, preserving all of its files and subfolders. PDML discovers and loads these mod folders when the game starts.
 
 For example, a mod named `ExampleMod` belongs in `PAYDAY3/Mods/ExampleMod/`, with its `ExampleMod.uplugin` file and packaged content kept together.
 

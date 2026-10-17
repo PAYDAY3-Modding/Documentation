@@ -40,7 +40,7 @@ For both mesh types, keep the model at the intended size to avoid unwanted clipp
 For skeletal meshes, also set the model and skeleton names correctly in Blender before importing into the editor. Use the screenshot below as a naming example.
 
 
-image::SkeletalMesh-BlenderSetup.png[Skeletal mesh project setup Setup, width=600]
+image::SkeletalMesh-BlenderSetup.png[Blender setup for a skeletal mesh replacement, width=600]
 
 [NOTE]
 ====
@@ -53,11 +53,11 @@ For exporting you will want to export your model as `.fbx`, theres not much diff
 
 Static mesh:
 
-image::ExportSet-StaticMesh.png[Static mesh export Setup, width=200]
+image::ExportSet-StaticMesh.png[Blender FBX export settings for a static mesh, width=200]
 
 Skeletal mesh: 
 
-image::ExportSet-SkeletalMesh.png[Skeletal mesh export Setup, width=200]
+image::ExportSet-SkeletalMesh.png[Blender FBX export settings for a skeletal mesh, width=200]
 
 [WARNING]
 ====

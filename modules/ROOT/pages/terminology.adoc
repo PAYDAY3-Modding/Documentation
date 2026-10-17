@@ -12,7 +12,7 @@ The customized Unreal Engine {pd3-engine-version} editor used by the modkit.
 
 == Cooked asset
 
-An asset that has already been cooked for the shipped game.
+An asset converted into the format used by the shipped game. Cooking can remove data needed for editing, so a cooked asset is not the same as the original editable source.
 
 In this modkit, supported installed PAYDAY 3 cooked assets can be made visible to the editor as read-only development/reference content.
 
@@ -40,7 +40,7 @@ CrimeFactory's name for the cook and package operation. Forge cooks the assets t
 
 == PAL
 
-A packaging/asset-list mechanism used by the modding toolchain to control which content is included for a mod.
+A *Primary Asset Label*. CrimeFactory uses this asset to help select what gets packaged with a mod. Replacement assets outside the plugin's content folder must be added to its *Explicit Assets* list.
 
 == Proxy
 
@@ -55,3 +55,31 @@ A mod asset intended to replace content at an existing PAYDAY 3 asset path.
 == Additive content
 
 New content introduced by a mod rather than replacing an existing base-game asset.
+
+== Asset
+
+A resource used by the game, such as a texture, material, 3D mesh, sound, or Blueprint.
+
+== Uncooked asset
+
+An editable asset used during development, before it is prepared for the game. Converting a cooked asset to an uncooked one does not guarantee that all of its original editor data can be recovered.
+
+== Blueprint
+
+Unreal Engine's visual scripting system. You connect nodes to define behaviour instead of writing C++ code. A Blueprint asset can also define an object's components and default values.
+
+== Plugin
+
+A package that adds content or functionality to an Unreal project or game. CrimeFactory creates each mod as a plugin with a `.uplugin` descriptor file and its own content folder.
+
+== Package path
+
+Unreal's address for an asset's package, such as `/Game/UI/Textures/Generic/Tex_Payday_3_Logo`. This is different from a Windows file path. `/Game/` refers to the project's `Content` folder; a mod plugin uses its own path prefix.
+
+== Mount point
+
+The path prefix where Unreal makes a content folder available. For example, a plugin named `MyFirstMod` uses `/MyFirstMod/` for its content. Changing that prefix can break asset references.
+
+== Dependency
+
+Another mod, plugin, or asset that your mod needs to work. Install any dependencies listed by the mod author, using the versions they require.

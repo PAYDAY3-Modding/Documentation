@@ -2,13 +2,15 @@
 
 Use CrimeFactory's *Create Mod* action to create a new PDML-compatible Unreal plugin.
 
+A plugin keeps your mod's content and information together. Its *descriptor* is the `.uplugin` file that identifies it to Unreal and PDML.
+
 image::CrimeFactory-new-mod-window.png[CrimeFactory New Mod window, width=1000]
 
 == Open the New Mod window
 
 Open CrimeFactory and click *Create Mod*.
 
-image::create-button.png[Create mod Window, width=1000]
+image::create-button.png[Create Mod button in CrimeFactory, width=1000]
 
 The *New Mod* window lets you choose a template, select the development output location, name the plugin, and enter its descriptor data.
 
@@ -50,7 +52,7 @@ MyFirstMod
 ====
 Treat the mod name as permanent once the mod begins using referenced assets.
 
-The plugin name becomes part of the mod's mount point and asset paths. Renaming it later can invalidate references.
+The plugin name becomes part of its mount point, the path prefix used for its assets, such as `/MyFirstMod/`. Renaming it later can break references.
 ====
 
 == Descriptor data

@@ -2,12 +2,12 @@
 
 If a forged CrimeFactory mod does not load, verify the runtime layout before debugging the mod itself.
 
-. Confirm the Forge completed successfully.
-. Confirm the complete mod folder is under `PAYDAY3/Mods/`.
-. Confirm the mod's `.uplugin` file is present in that folder.
-. Confirm PDML initializes successfully.
-. Confirm the mod's required dependencies are installed.
-. Confirm the modkit and game versions are compatible.
+. *Forge failed:* Open the Unreal Output Log, find the first relevant error, fix it, and Forge again. See xref:packaging.adoc[Forge & Cook Failures]. Use the latest successful forged output for the remaining checks.
+. *The Mod Manager is missing from the main menu:* Follow xref:playing-with-mods:manual-installation.adoc#_install_pdml[Install PDML] and check the path for your storefront. Close the game before changing files, then restart it to check again.
+. *The Mod Manager opens, but your mod is missing:* Close the game. Check that the complete forged folder is under `PAYDAY3/Mods/` and that `<ModName>.uplugin` is directly inside `Mods/<ModName>/`. Remove any extra download-wrapper folder, keep all packaged files together, and restart the game.
+. *The mod is listed but does not work:* Check the author's required dependencies and game/PDML compatibility notes. For your own mod, also check that the modkit matches your game version. Install or update the required files, then restart and test again.
+
+For the first-mod tutorial, if the mod is listed but the logos are unchanged, use xref:getting-started:first-mod.adoc#_if_a_logo_is_still_unchanged[the logo replacement checklist]. It covers texture paths, saved edits, PAL entries, and Forging again.
 
 [IMPORTANT]
 ====

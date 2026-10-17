@@ -17,7 +17,7 @@ If PAYDAY 3 is missing from the supported games, check that the ModWorkshop plug
 
 == Download and install mods
 
-Install PDML using the instructions supplied with its download. MO2 manages your mod files; PDML loads PDML mods when PAYDAY 3 starts.
+Follow xref:manual-installation.adoc#_install_pdml[Install PDML] first and confirm that its Mod Manager appears in the main menu. MO2 manages your mod files; PDML loads PDML mods when PAYDAY 3 starts.
 
 Keep your PAYDAY 3 instance open while downloading from https://modworkshop.net/g/payday-3[ModWorkshop]. Choose the PDML release when available, read its compatibility notes, and install its listed dependencies too.
 

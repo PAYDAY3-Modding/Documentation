@@ -11,11 +11,11 @@ Examples include textures, materials, meshes, etc...
 
 === Blueprint and logic mods
 
-Use the reflected PAYDAY 3 API and PDML runtime integration to implement game logic in Blueprint.
+Use *Blueprint*, Unreal Engine's visual scripting system, to connect nodes that control game behaviour. The modkit exposes PAYDAY 3 classes and functions for these scripts, and PDML integrates the mod with the running game.
 
 === HUD and UI mods
 
-Create or replace widgets and use PDML for runtime integration where required.
+Create or replace widgets, the building blocks of on-screen interfaces. HUD means the heads-up display shown during play; UI means user interface, including menus. Use PDML for runtime integration where required.
 
 === Custom heists
 
@@ -32,3 +32,5 @@ Not every system that exists in PAYDAY 3 can be authored completely in the edito
 
 For example, systems that depend on unavailable native generation steps may require additional runtime handling or further tooling.
 The documentation treats these as explicit limitations rather than hiding them behind incomplete instructions.
+
+Next: xref:how-it-works.adoc[How the Toolchain Works].

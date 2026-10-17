@@ -1,13 +1,18 @@
 = UnversionedPropertySerialization Crash in Editor
 
-This crash is due to the JMAP in the modkit being outdated compared to the game assets. 
+An outdated JMAP can cause this crash after PAYDAY 3 updates. The JMAP must describe the same game version as the assets you are opening.
 
-Regenerate the jmap with the GenerateJmap.bat
+. Close the editor.
+. Follow xref:getting-started:install-modkit.adoc#_generate_the_jmap[Generate the JMAP] with the updated game running and all mods and UE4SS disabled.
+. Confirm that the fresh `.jmap` is in `<ModkitRoot>/Content/DynamicClasses/`.
+. Reopen the project and retry the asset that failed to load.
+
+If it still fails after a game update, follow xref:modkit:updating.adoc#_after_a_payday_3_game_update[the full update checklist], including refreshing `AssetRegistry.bin`.
 
 [IMPORTANT]
 ====
-If you have UE4SS, make sure the remove the dwmapi.dll from the game directory before running GenerateJmap.bat.
+If UE4SS is installed, temporarily remove its `dwmapi.dll` before running `GenerateJMAP.bat`.
 
-The dwmapi.dll is located in your game directory at PAYDAY3/PAYDAY3/Binaries/Win64/
+The UE4SS `dwmapi.dll` is located in the game installation under `PAYDAY3/PAYDAY3/Binaries/Win64/` in the layout described here.
 ====
 

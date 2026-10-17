@@ -9,13 +9,13 @@ FModel needs two things to read PAYDAY 3 assets: the AES key to unlock the encry
 
 Download the current version of https://fmodel.app/[FModel] and launch it.
 
-image::fmodelDownload-navigation.png[Fmodel download for blind, width=800]
+image::fmodelDownload-navigation.png[FModel website with the Download Now buttons highlighted, width=800]
 
 When FModel opens, select your PAYDAY 3 installation. If the game is not detected automatically, create an undetected game entry and point FModel at the game's archive directory, normally the `PAYDAY3/Content/Paks` directory inside the PAYDAY 3 installation.
 
 
-image::directories-navigation.png[Fmodel directory for blind, width=250]
-image::gameDirectory-navigation.png[Fmodel game directory for blind, width=400]
+image::directories-navigation.png[FModel Directory menu with Selector highlighted, width=250]
+image::gameDirectory-navigation.png[FModel Directory Selector showing the PAYDAY 3 archive directory field, width=400]
 
 
 [NOTE]
@@ -39,8 +39,8 @@ In FModel:
 . Save or confirm the AES configuration.
 . Reload the PAYDAY 3 archives if FModel does not refresh them automatically.
 
-image::AES-navigation.png[AES navigation for blind, width=250]
-image::AES-input.png[AES input for blind, width=400]
+image::AES-navigation.png[FModel Directory menu with AES highlighted, width=250]
+image::AES-input.png[FModel AES Manager with the Main Static Key field highlighted and the key masked, width=400]
 
 Once the key is accepted, the encrypted game archives should become readable.
 
@@ -76,7 +76,7 @@ After obtaining the `.usmap` file:
 
 FModel's current settings expose both the *Local Mapping File (drag & drop)* toggle and a *Mapping File Path* field when the local mapping option is enabled.
 
-image::mapping-navigation.png[mapping navigation, width=800]
+image::mapping-navigation.png[FModel General settings with Local Mapping File enabled and Mapping File Path highlighted, width=800]
 
 == Why the mappings file is required
 
@@ -109,7 +109,9 @@ After configuring the archive directory, AES key, and local mappings file:
 . Open a few Blueprint or data asset packages.
 . Confirm that FModel displays their properties without mapping-related errors.
 
-If FModel can list the archives but fails to deserialize many assets, first check that the local mapping option is enabled and that the selected `.usmap` matches your installed PAYDAY 3 version.
+*Check:* You should be able to open a Blueprint or data asset and see its properties, rather than only a list of archive files.
+
+If FModel lists archives but cannot read asset properties, open *Settings > General*, enable *Local Mapping File*, and check that *Mapping File Path* points to a `.usmap` for your installed game version. Save the settings, reload the archives, and try the asset again.
 
 == FModel mappings, `AssetRegistry.bin`, and the modkit JMAP are different
 
@@ -124,7 +126,7 @@ These three files serve different purposes in the PAYDAY 3 modding workflow:
 `GenerateJMAP.bat` does not use `AssetRegistry.bin` to generate the JMAP. They are separate parts of the setup process.
 ====
 
-The modkit does not ship with the generated JMAP. The next step explains how to place the current `AssetRegistry.bin` in the modkit root, dump the JMAP from a clean running game, and use it with Suzie.
+The modkit does not ship with the generated JMAP. After Wwise setup, xref:install-modkit.adoc[Install the Modkit] explains how to place the current `AssetRegistry.bin` in the modkit root, dump the JMAP from a clean running game, and use it with Suzie.
 
 == FModel reference
 
@@ -133,4 +135,4 @@ For additional information about FModel itself, see:
 * https://github.com/4sval/FModel/wiki/Getting-Started[FModel Getting Started]
 * https://github.com/4sval/FModel/wiki/Settings-Explanation[FModel Settings Explanation]
 
-Next: xref:install-modkit.adoc[Install the Modkit].
+Next: xref:wwise-setup.adoc[Set Up Wwise].
