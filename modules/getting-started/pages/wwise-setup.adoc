@@ -1,7 +1,7 @@
 = Set Up Wwise
 :description: Install the matching Audiokinetic Wwise SDK and prepare the ThirdParty files required by the PAYDAY 3 modkit.
 
-The PAYDAY 3 modkit includes a modified Wwise Unreal integration, but it intentionally does not redistribute the Audiokinetic SDK binaries and other non-text `ThirdParty` files.
+Wwise is the audio system used by PAYDAY 3. The modkit includes a modified Wwise plugin, but leaves out the Audiokinetic SDK libraries and other non-text `ThirdParty` files. The SDK is the set of development files the plugin needs.
 
 You must obtain those files yourself from Audiokinetic and place them into the Wwise plugin included with the modkit.
 
@@ -111,13 +111,19 @@ The PAYDAY 3 modkit workflow documented here is for Windows, so the matching Win
 
 == Why this is required
 
-The Wwise setup is required for more than compiling the bundled plugin. The modkit also relies on the modified Wwise integration when working with PAYDAY 3 cooked audio assets.
+The matching Wwise SDK is required to build or open the modkit and to work with PAYDAY 3 cooked audio assets.
 
+Missing or incorrect `ThirdParty` files can cause missing library, missing DLL, unresolved module, or plugin load errors. Use the matching Wwise 2023.1.15 files described above.
+
+.Why the plugin needs a matching SDK
+[%collapsible]
+====
 The text/source portion of the Wwise integration can exist in the modkit without the complete Audiokinetic SDK payload, but Unreal still needs the matching Wwise headers and libraries when compiling or linking the plugin.
 
-Without the correct `ThirdParty` content, you can encounter missing library, missing DLL, unresolved module, or plugin load errors when building or opening the modkit.
+The modified integration also supports loading PAYDAY 3's cooked audio assets in the editor, so the SDK setup matters even if your mod does not change audio.
 
 The Wwise version matters because the bundled plugin has been modified against the 2023.1.15.8789.3579 integration. Mixing SDK files from another Wwise release can introduce API, binary, or build-script mismatches.
+====
 
 == Existing UE4 guide
 

@@ -4,19 +4,13 @@ Before the editor can provide PAYDAY-specific workflows, configure the modkit to
 
 [IMPORTANT]
 ====
-The PAYDAY 3 Folder refers to the base Folder of the game.
+Use the base installation folder containing `PAYDAY3.exe`. Find it through your game launcher:
 
 * STEAM: Right click the game in your library > Manage > Browse Local files
 * EPIC: Go to your library > click the three dots next to Payday 3 > Click Manage > click the folder icon next to installation
 * WINDOWS: Go to your library > Right click on PAYDAY 3 > Manage > hit the files tab > Hit the browse button
 
-You know you are in the correct directory if you see
-
-* PAYDAY3.exe
-
-not to to be confused with 
-
-* PAYDAY3-Win64-Shipping.exe
+Choose the folder containing `PAYDAY3.exe`, rather than the subfolder containing `PAYDAY3-Win64-Shipping.exe`.
 ====
 
 image::payday3-exe.png[payday3.exe location, width=800]
@@ -31,13 +25,11 @@ If Unreal asks you to select an engine installation, choose the custom editor bu
 
 == Configure the PAYDAY 3 game path
 
-Open the relevant CrimeFactory/modkit project settings located at:
+Set CrimeFactory's game path:
 
-. Edit on the top left
-. Hit Project Settings
-. Search or locate for CrimeFactory
-
-You can then point the game-path setting at your installed PAYDAY 3 game.
+. Open *Edit > Project Settings*.
+. Search for *CrimeFactory*.
+. Set *PAYDAY 3 Game Path* to your game's base installation folder.
 
 [WARNING]
 ====

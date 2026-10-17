@@ -14,6 +14,9 @@ PAYDAY 3 ships cooked game content intended for the retail runtime, not editable
 
 The custom editor adds the compatibility work needed to make supported retail PAYDAY 3 content useful in the modkit.
 
+.What the custom engine changes
+[%collapsible]
+====
 The exact patch set changes as compatibility work develops. The engine repository and its commit history are the source of truth for the current implementation.
 
 Current areas of custom-engine work include:
@@ -36,6 +39,7 @@ Current areas of custom-engine work include:
 * reflection and unversioned-property compatibility work,
 * packaging fixes for uncooked replacement assets,
 * and experimental cooked material baking work.
+====
 
 [NOTE]
 ====

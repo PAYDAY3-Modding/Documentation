@@ -1,9 +1,9 @@
 = Set Up FModel
 :description: Configure FModel for PAYDAY 3 with the AES key and a current local mappings file.
 
-https://fmodel.app/[FModel] is used throughout the PAYDAY 3 modding workflow to browse the installed game's Unreal Engine archives, inspect assets, and export files such as `AssetRegistry.bin`.
+Use https://fmodel.app/[FModel] to browse PAYDAY 3's game archives, inspect assets, and export setup files such as `AssetRegistry.bin`.
 
-PAYDAY 3's archives are encrypted, and many of its Unreal Engine assets use unversioned properties. Because of that, FModel needs both the PAYDAY 3 AES key and a compatible mappings file before it can correctly read many assets.
+FModel needs two things to read PAYDAY 3 assets: the AES key to unlock the encrypted archives, and a compatible mappings file to read the data inside many assets.
 
 == Install FModel
 
@@ -46,7 +46,7 @@ Once the key is accepted, the encrypted game archives should become readable.
 
 == Get a mappings file
 
-FModel also needs a current Unreal mappings file, normally a `.usmap` file, to deserialize many PAYDAY 3 assets correctly.
+Download a current Unreal mappings file, normally a `.usmap` file. It tells FModel how to read the data inside PAYDAY 3 assets.
 
 The recommended option is to use the mappings file provided with the current PAYDAY 3 modkit release. Check the *Releases* section of the modkit repository and download the mappings file that matches the current game/modkit version.
 
@@ -80,11 +80,16 @@ image::mapping-navigation.png[mapping navigation, width=800]
 
 == Why the mappings file is required
 
+Without a compatible mappings file, FModel may list the archives but fail to read many assets. Inspected or exported data can also be incomplete.
+
+.How FModel reads unversioned properties
+[%collapsible]
+====
 Many PAYDAY 3 packages contain unversioned Unreal properties. The package data does not contain enough information by itself for a generic asset reader to reconstruct every property layout.
 
 The mappings file supplies the schema FModel needs for PAYDAY 3 classes, structs, enums, and their properties.
 
-Without a compatible mappings file, FModel may still list archives and some files, but many assets cannot be fully parsed or inspected. You may see errors about a missing mapping file or unversioned properties, and exported/inspected asset data can be incomplete.
+This lets FModel deserialize the data: turn the stored package data into properties you can inspect. Errors about missing mappings or unversioned properties mean FModel cannot read that data correctly.
 
 This is why the mappings file is required for common workflows such as:
 
@@ -93,6 +98,7 @@ This is why the mappings file is required for common workflows such as:
 * Examining references inside many cooked packages.
 * Exporting or inspecting assets that depend on unversioned property layouts.
 * Locating and extracting files needed by the modkit setup workflow.
+====
 
 == Verify the setup
 
@@ -109,9 +115,9 @@ If FModel can list the archives but fails to deserialize many assets, first chec
 
 These three files serve different purposes in the PAYDAY 3 modding workflow:
 
-* The FModel `.usmap` file supplies Unreal property layout information so FModel can deserialize many cooked PAYDAY 3 packages.
-* `AssetRegistry.bin` is extracted from the game with FModel and placed in the *modkit root*. The editor uses it to discover which cooked PAYDAY 3 assets exist and which cooked packages can be resolved and loaded.
-* The modkit JMAP is dumped from a *running PAYDAY 3 process* by `GenerateJMAP.bat`. Suzie consumes that JMAP to generate the native PAYDAY 3 class stubs used by the modkit.
+* The FModel `.usmap` file tells FModel how to read the data inside many cooked PAYDAY 3 assets.
+* `AssetRegistry.bin` is the game's asset catalogue. Extract it with FModel and place it in the *modkit root* so the editor can find and load cooked game assets.
+* The modkit JMAP contains game type information. `GenerateJMAP.bat` extracts it from a *running PAYDAY 3 process*. Suzie uses it to make PAYDAY 3 classes available in the editor.
 
 [IMPORTANT]
 ====

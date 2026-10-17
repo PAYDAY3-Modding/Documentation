@@ -13,7 +13,7 @@ PAYDAY3/Content/UI/Textures/Generic/SS_UI_PD3_Logo_02
 PAYDAY3/Content/UI/Textures/Generic/Tex_Payday_3_Logo
 ----
 
-The mod will be a PDML-compatible Unreal plugin created with CrimeFactory. We will use `MyFirstMod` as its name throughout the tutorial.
+CrimeFactory will create the mod as an Unreal plugin: a folder that keeps the mod's assets and information together. PDML loads the finished mod when the game starts. We will use `MyFirstMod` as its name throughout the tutorial.
 
 By the end, you will have:
 
@@ -37,9 +37,9 @@ Choose artwork that is easy to distinguish from the original logo. When preparin
 
 == Create a Blank CrimeFactory mod
 
-CrimeFactory creates the Unreal plugin structure for your mod. A plugin is the container that gives the mod its own content root, metadata, and files to send through Forge. PDML discovers the forged plugin when the game starts.
+CrimeFactory creates the plugin's folders and files for you, including a content folder and mod information. Forge prepares these files for use in the game.
 
-The *Blank* template is a general-purpose starting point. It creates the plugin and standard CrimeFactory assets, including `PAL_<ModName>` and `DA_<ModName>`. The PAL, or Primary Asset Label, tells CrimeFactory which assets belong in the mod's cook/package workflow. We will use it to include the two logo replacements.
+Choose the *Blank* template for this mod. It creates the plugin and standard CrimeFactory assets, including `PAL_<ModName>` and `DA_<ModName>`. The PAL, or Primary Asset Label, tells CrimeFactory which assets to package. We will add both logo replacements to it later.
 
 === Open Create Mod
 
@@ -95,7 +95,7 @@ The original cooked assets open in read-only mode. Convert them before trying to
 
 image::getting-started:Cooked-Texture.png[Cooked asset context menu showing Convert to Uncooked, width=1100]
 
-*Convert to Uncooked* creates an editable loose asset at the exact same `/Game/...` path. It replaces the mounted cooked representation inside the editor without modifying the retail game's IoStore files.
+*Convert to Uncooked* creates an editable version at the same `/Game/...` path. The editor uses this version in place of the read-only game asset. Your installed game's archive files (IoStore files) stay unchanged.
 
 [IMPORTANT]
 ====
@@ -121,7 +121,7 @@ Reimporting updates the image data in the existing texture asset, keeping the as
 
 == Add both replacements to the mod's PAL
 
-The edited textures live under `/Game/...`, outside the mod plugin's own content root. CrimeFactory needs an explicit entry for each one to know that it belongs to `MyFirstMod` and must be included in the forged output.
+The edited textures are outside `MyFirstMod`'s content folder. Add each one to the PAL so CrimeFactory knows to package it with your mod.
 
 Follow the xref:creating-mods:asset-replacements.adoc#_add_the_replacement_to_the_pal[Add the replacement to the PAL] step for both textures:
 

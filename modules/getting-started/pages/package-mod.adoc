@@ -1,6 +1,6 @@
 = Forge the Mod
 
-CrimeFactory uses the term *Forge* for the final cook and packaging step.
+CrimeFactory calls its final preparation step *Forge*. It cooks your assets (converts them into the format the game uses) and packages them into a mod you can install.
 
 Forging a mod cooks the mod-owned content and packages only the assets that the mod is supposed to include. You do not need to manually construct UnrealPak or IoStore commands.
 
@@ -24,6 +24,11 @@ Depending on the mod and the current runtime format, forged output can contain U
 
 == CrimeFactory mods are plugins
 
+Keep the complete forged mod folder together, including its `.uplugin` file and packaged content. You will install this folder on the next page.
+
+.Why the forged mod has a plugin structure
+[%collapsible]
+====
 CrimeFactory creates mods as Unreal plugins.
 
 This gives each mod its own content root and keeps its authored assets separate from the base PAYDAY 3 project. PDML understands this plugin-based mod structure and handles the mod at runtime.
@@ -39,6 +44,7 @@ MyMod/
 ----
 
 The exact forged output can contain additional files depending on the mod type and CrimeFactory version.
+====
 
 == Watch the Output Log
 

@@ -1,24 +1,17 @@
 = Materials & Textures
 
-Materials control how something is rendered in Unreal Engine. While they are commonly used to define the appearance of meshes and how their surfaces respond to lighting, they are not limited to mesh materials.
-
-Depending on the material domain and settings, materials can also be used for:
-
-* Mesh and surface materials
-* Decals
-* User interface elements
-* Post-processing effects
+Materials control how surfaces look and respond to lighting in Unreal Engine. This guide creates a basic surface material and a material instance, which lets you change the material's textures and settings without rebuilding its node graph.
 
 With the custom editor, you can create new materials and textures for use in PAYDAY 3 as long as the assets and features used by the material can be successfully cooked for the game.
 
-This page focuses primarily on creating a basic surface material and material instance, but the same Material Editor is also used when creating materials for decals, UI, and post processing.
+The same Material Editor can also create materials for decals, UI, and post-processing effects.
 
 
 == Before You Start
 
-It is recommended to avoid touching pre-existing cooked materials that were from PAYDAY 3 originally due to their editor data being stripped, so you won't get much use out of them. It is better to create your own master materials from scratch. 
+Create your own master material, the base material that holds the node graph. PAYDAY 3's cooked materials have had their editor data removed, so they offer limited use as editable starting points.
 
-If you are also planning on distributing materials you have created, it is advised to NOT use Static Switch Parameter nodes, they can cause issues or crash users who are attempting to use them without the custom editor. 
+If you plan to share your materials, avoid *Static Switch Parameter* nodes. They can cause problems or crashes for users working without the custom editor.
 
 == Creating a Master Material
 
@@ -30,13 +23,22 @@ When the material opens, the available inputs depend on its current settings and
 
 The material settings are also where you configure properties such as Blend Mode, Two Sided rendering, and Material Domain.
 
-For example, changing the Material Domain allows the same material system to be used for other purposes such as *Deferred Decal*, *User Interface*, or *Post Process*. The node graph and available outputs will change to match the selected domain.
-
 This guide uses the default *Surface* domain and builds a simple Base Color/ORM/Normal material.
 
-I won't go into specifics on how to create a material that will suit your needs, since there are already plenty of tutorials out there, so I will be sticking with a basic Base Color/ORM/Normal Map formatted material for this.
+.How material domains change the editor
+[%collapsible]
+====
+The *Material Domain* determines what the material is used for. Depending on its domain and settings, a material can be used for:
 
-If you would like official documentation of how to create materials, or get more in-depth explanations:
+* Mesh and surface materials
+* Decals
+* User interface elements
+* Post-processing effects
+
+For example, choosing *Deferred Decal*, *User Interface*, or *Post Process* changes the node graph and available outputs to match that purpose. These use the same Material Editor as a Surface material, but need different setups.
+====
+
+For other material setups and more detailed explanations, see:
 
 Official Epic Games Unreal Engine Documentation: https://dev.epicgames.com/documentation/unreal-engine/unreal-engine-5-5-documentation?application_version=5.5&lang=en-US
 
@@ -48,7 +50,7 @@ To add your own new node, right click anywhere on the grid and a popup of nodes 
 To start off with our basic Base Color, search for a TextureSampleParameter2D and connect the RGB pin to Base Color, this will allow for you to change the texture in a material instance, which will be brought up later. You can name the Parameter to anything you like, "BC" or "Base Color" would fit.  
 
 
-Now for the ORM texture, which is an abbreviation for Occlusion, Roughness, Metallic, this is a masking texture for which you can store 3 types of data in 1 texture, this type of texture is commonly found across many Unreal Engine games and is good practice for optimization and file size. 
+An *ORM* texture stores Occlusion, Roughness, and Metallic data in its red, green, and blue channels. Packing these three masks into one texture is common in Unreal Engine games and helps reduce file size and texture use.
 
 Copy and paste your texture, rename the parameter to ORM, and use the "DefaultDiffuse_TC_Masks" texture. 
 

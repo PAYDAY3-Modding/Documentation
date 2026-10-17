@@ -2,6 +2,8 @@
 
 PAYDAY 3 modding uses three major pieces that work together.
 
+An *asset* is a game resource, such as a texture or 3D model. *Cooking* prepares assets for use in the game. *Uncooked* assets are the editable versions used while making a mod.
+
 == Custom PAYDAY 3 Unreal Editor
 
 PAYDAY 3 currently uses Unreal Engine {pd3-engine-version}. The modkit uses a compatible custom editor and a stubbed PAYDAY 3 C++ project with reflected game types.
@@ -34,7 +36,7 @@ CrimeFactory calls its final cook/package operation *Forge*. Forge cooks the con
 
 == PDML
 
-PAYDAY MODLOADER is the runtime side of the toolchain.
+PAYDAY MODLOADER (PDML) loads and manages mods while PAYDAY 3 runs. This is the *runtime* side of the toolchain.
 
 It provides the loading and integration layer for functionality such as:
 

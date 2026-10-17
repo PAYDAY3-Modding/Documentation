@@ -32,10 +32,13 @@ This keeps the cook focused on the selected plugin.
 
 == External /Game replacement Forge
 
-Replacement mods can also contain uncooked replacement assets that need to occupy original `/Game/...` paths.
+Replacement mods can include editable assets at the original game's `/Game/...` paths, outside the mod plugin's own content folder.
 
-These assets are added to the mod PAL's *Explicit Assets* list.
+Add each replacement to the mod PAL's *Explicit Assets* list, then Forge normally. CrimeFactory includes the replacements and plugin content in one mod.
 
+.How Forge cooks external replacements
+[%collapsible]
+====
 When CrimeFactory detects external `/Game/...` replacement content, Forge uses a two-stage cook:
 
 . The plugin content is cooked through the normal plugin pass.
@@ -43,6 +46,7 @@ When CrimeFactory detects external `/Game/...` replacement content, Forge uses a
 . The resulting cooked content is combined into the single forged mod output.
 
 Plugin-only mods skip the extra replacement pass.
+====
 
 See xref:pal.adoc[PAL & Explicit Assets].
 
@@ -60,6 +64,9 @@ These remain part of the complete CrimeFactory plugin mod rather than files that
 
 On a new engine/modkit setup, the first Forge can perform additional one-time tooling preparation.
 
+.Which tools Forge prepares
+[%collapsible]
+====
 CrimeFactory uses its `CrimeFactory.Automation` tooling and custom `PackagePlugin` automation command for the Forge pipeline.
 
 If the required automation build is missing or stale, CrimeFactory can build/register the automation tooling before continuing.
@@ -67,6 +74,7 @@ If the required automation build is missing or stale, CrimeFactory can build/reg
 When using a source-built engine, CrimeFactory also checks for the required `UnrealPak` executable and can build it automatically if it is missing.
 
 Subsequent Forge runs can reuse that prepared tooling until it needs to be rebuilt.
+====
 
 == Chunk IDs
 
