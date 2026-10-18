@@ -1,14 +1,16 @@
 = Create Mod
 
-Use CrimeForge's *Create Mod* action to create a new PDML-compatible Unreal plugin.
+Use CrimeFactory's *Create Mod* action to create a new PDML-compatible Unreal plugin.
 
-image::crimeforge-new-mod-window.png[CrimeForge New Mod window, width=1000]
+A plugin keeps your mod's content and information together. Its *descriptor* is the `.uplugin` file that identifies it to Unreal and PDML.
+
+image::CrimeFactory-new-mod-window.png[CrimeFactory New Mod window, width=1000]
 
 == Open the New Mod window
 
-Open CrimeForge and click *Create Mod*.
+Open CrimeFactory and click *Create Mod*.
 
-image::create-button.png[Create mod Window, width=1000]
+image::create-button.png[Create Mod button in CrimeFactory, width=1000]
 
 The *New Mod* window lets you choose a template, select the development output location, name the plugin, and enter its descriptor data.
 
@@ -24,16 +26,16 @@ See xref:templates.adoc[Templates] for what each template generates.
 
 == Choose the output location
 
-The path field controls where CrimeForge creates the new plugin.
+The path field controls where CrimeFactory creates the new plugin.
 
-For normal modkit development, CrimeForge mods live under:
+For normal modkit development, CrimeFactory mods live under:
 
 [source,text]
 ----
 <ModkitRoot>/Mods/
 ----
 
-CrimeForge creates new mods there automatically.
+CrimeFactory creates new mods there automatically.
 
 == Enter the mod name
 
@@ -50,7 +52,7 @@ MyFirstMod
 ====
 Treat the mod name as permanent once the mod begins using referenced assets.
 
-The plugin name becomes part of the mod's mount point and asset paths. Renaming it later can invalidate references.
+The plugin name becomes part of its mount point, the path prefix used for its assets, such as `/MyFirstMod/`. Renaming it later can break references.
 ====
 
 == Descriptor data
@@ -66,7 +68,7 @@ The *Advanced* section can be expanded for additional plugin settings when neede
 
 Click *Create Mod*.
 
-CrimeForge creates the selected template as a new Unreal plugin under `Mods`, then adds it to the CrimeForge mod manager.
+CrimeFactory creates the selected template as a new Unreal plugin under `Mods`, then adds it to the CrimeFactory mod manager.
 
 The plugin's content can then be authored normally in the Content Browser.
 

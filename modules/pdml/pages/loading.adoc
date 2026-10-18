@@ -1,6 +1,8 @@
 = Mod Loading
 
-CrimeForge mods are authored and forged as Unreal plugins. PDML is responsible for discovering and handling those plugin mods at runtime.
+CrimeFactory mods are authored and forged as Unreal plugins. PDML is responsible for discovering and handling those plugin mods at runtime.
+
+For the loader download, storefront-specific paths, and installation steps, see xref:playing-with-mods:manual-installation.adoc#_install_pdml[Install PDML].
 
 == Install location
 
@@ -31,7 +33,7 @@ PDML can then enumerate the dedicated mod directory and process the mod plugin s
 ====
 Do not move only the packaged archive files into `PAYDAY3/Content/Paks/` for a normal PDML mod.
 
-Keep the forged CrimeForge mod intact under `PAYDAY3/Mods/` unless a specific workflow explicitly documents otherwise.
+Keep the forged CrimeFactory mod intact under `PAYDAY3/Mods/` unless a specific workflow explicitly documents otherwise.
 ====
 
 == Why use a separate Mods directory?
@@ -40,5 +42,5 @@ Using `PAYDAY3/Mods/`:
 
 * Separates mod files from shipped game content.
 * Gives PDML a predictable discovery location.
-* Keeps each CrimeForge plugin mod together as one unit.
+* Keeps each CrimeFactory plugin mod together as one unit.
 * Makes installing, removing, and troubleshooting mods cleaner.

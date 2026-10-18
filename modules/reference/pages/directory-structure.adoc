@@ -25,10 +25,10 @@ PAYDAY3/
 
 `PAYDAY3/Content/Paks/` is part of the game's own cooked content layout.
 
-Normal CrimeForge/PDML mods should not be installed here.
+Normal CrimeFactory/PDML mods should not be installed here.
 
 == Mods
 
 `PAYDAY3/Mods/` is the dedicated PDML mod directory.
 
-CrimeForge creates mods as Unreal plugins and Forge produces the content intended for that mod. Install the complete forged mod folder here so PDML can discover and handle it.
+CrimeFactory creates mods as Unreal plugins and Forge produces the content intended for that mod. Install the complete forged mod folder here so PDML can discover and handle it.

@@ -1,6 +1,6 @@
 = Import Legacy Mod
 
-*Import Legacy Mod* is a migration workflow for older PAYDAY 3 UE4 logic mods created before the current CrimeForge plugin structure.
+*Import Legacy Mod* is a migration workflow for older PAYDAY 3 UE4 logic mods created before the current CrimeFactory plugin structure.
 
 It is intended to help move an existing mod project into the current modkit rather than recreating every asset by hand.
 
@@ -20,20 +20,20 @@ with mod metadata under:
 Content/Mods/ModMeta/
 ----
 
-The current CrimeForge workflow instead creates each mod as its own Unreal plugin under the modkit's `Mods` directory.
+The current CrimeFactory workflow instead creates each mod as its own Unreal plugin under the modkit's `Mods` directory.
 
 == Importing
 
 To import a legacy mod:
 
-. Open CrimeForge.
+. Open CrimeFactory.
 . Choose *Import Legacy Mod*.
 . Select the folder containing the mod files from the previous UE4 project.
-. Allow CrimeForge to migrate the assets it finds into the current modkit project.
-. CrimeForge creates a new CrimeForge mod plugin for the imported mod.
+. Allow CrimeFactory to migrate the assets it finds into the current modkit project.
+. CrimeFactory creates a new CrimeFactory mod plugin for the imported mod.
 . The migrated assets are moved into that new plugin.
 
-The result can then be managed like a normal CrimeForge mod.
+The result can then be managed like a normal CrimeFactory mod.
 
 == After migration
 
@@ -45,6 +45,6 @@ In particular:
 * review the generated mod metadata,
 * validate the PAL and Asset Manager setup,
 * resolve any stale or project-specific references left from the UE4 version,
-* and run CrimeForge validation before Forge.
+* and run CrimeFactory validation before Forge.
 
 The legacy importer is a migration aid. It does not make every older project assumption automatically valid for the current UE5 modkit.

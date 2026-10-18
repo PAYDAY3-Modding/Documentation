@@ -4,70 +4,34 @@ Before the editor can provide PAYDAY-specific workflows, configure the modkit to
 
 [IMPORTANT]
 ====
-The PAYDAY 3 Folder refers to the base Folder of the game.
+Use the base installation folder containing `PAYDAY3.exe`. Find it through your game launcher:
 
 * STEAM: Right click the game in your library > Manage > Browse Local files
 * EPIC: Go to your library > click the three dots next to Payday 3 > Click Manage > click the folder icon next to installation
 * WINDOWS: Go to your library > Right click on PAYDAY 3 > Manage > hit the files tab > Hit the browse button
 
-You know you are in the correct directory if you see
-
-* PAYDAY3.exe
-
-not to to be confused with 
-
-* PAYDAY3-Win64-Shipping.exe
+Choose the folder containing `PAYDAY3.exe`, rather than the subfolder containing `PAYDAY3-Win64-Shipping.exe`.
 ====
 
-image::payday3-exe.png[payday3.exe location, width=800]
+image::payday3-exe.png[PAYDAY 3 base installation folder containing PAYDAY3.exe, width=800]
 
 == Open the project
 
 Open the PAYDAY 3 modkit `.uproject` with the custom Unreal Engine {pd3-engine-version} editor.
 
-image::openProject-navigation.png[.uproject location, width=800]
+image::openProject-navigation.png[PAYDAY3.uproject file to open with the custom editor, width=800]
 
 If Unreal asks you to select an engine installation, choose the custom editor build intended for this modkit release.
 
-== Configure the PAYDAY 3 game path
-
-Open the relevant CrimeForge/modkit project settings located at:
-
-. Edit on the top left
-. Hit Project Settings
-. Search or locate for CrimeForge
-
-You can then point the game-path setting at your installed PAYDAY 3 game.
-
-[WARNING]
-====
-Do not end CrimeForge's *PAYDAY 3 Game Path* with a forward slash (`/`) or backslash (`\`). Remove any trailing slash so the path ends with the installation folder name, for example `E:/Steam/steamapps/common/PAYDAY3`.
-====
-
-image::crimeforge-project-settings.png[CrimeForge project settings for PAYDAY 3, width=1200]
-
-The key settings shown here are:
-
-* *PAYDAY 3 Game Path* points CrimeForge at your local game install. 
-* *Copy Mods To Game* copies forged mods to the game automatically after a successful forge.
-* *Launch Game After Packing* controls whether the game is launched after the forge step. The current UI still uses the word *Packing* here.
-
-CrimeForge uses the configured game installation for workflows that need access to the locally installed game's data.
-
-[IMPORTANT]
-====
-Point the setting at your own PAYDAY 3 installation.
-
-Do not copy base-game packages into the modkit repository.
-====
-
 == Configure the PAYDAY 3 Cooked Editor
 
-The editor also needs the game installation path and AES key in *PAYDAY 3 Cooked Editor* settings to mount and load the cooked game assets. Check these settings even if you have already configured CrimeForge and FModel.
+Configure *PAYDAY 3 Cooked Editor* first. The editor uses its game installation path and AES key to load cooked game assets. The installation directory also populates CrimeFactory's game path, so you normally only need to enter the path here and check it in CrimeFactory afterwards.
+
+FModel has its own settings. Configuring it does not replace this editor setup.
 
 . Open *Edit > Project Settings*.
 . Under *Plugins*, select *PAYDAY 3 Cooked Editor*.
-. Check *PAYDAY 3 Installation Directory*. If it is missing or incorrect, set it to your PAYDAY 3 installation's base folder containing `PAYDAY3.exe`, using the same installation you configured for CrimeForge.
+. Check *PAYDAY 3 Installation Directory*. If it is missing or incorrect, set it to your PAYDAY 3 installation's base folder containing `PAYDAY3.exe`.
 . If *AES Key* is not already configured, enter the key from xref:fmodel-setup.adoc#_add_the_payday_3_aes_key[Set Up FModel: Add the PAYDAY 3 AES key].
 . Restart the editor after changing either setting. The retail IoStore containers are mounted during editor startup.
 
@@ -79,6 +43,36 @@ Do not end the Cooked Editor's *PAYDAY 3 Installation Directory* with a forward 
 image::pd3-cooked-editor-settings.png[PAYDAY 3 Cooked Editor settings showing PAYDAY 3 Installation Directory and the masked AES Key field, width=1200]
 
 These values are stored locally in `EditorPerProjectUserSettings.ini`. You do not need to add them to the engine directory or the project's default configuration files.
+
+== Configure the PAYDAY 3 game path
+
+After configuring the Cooked Editor and restarting the editor, check CrimeFactory's game path. Its *PAYDAY 3 Game Path* is populated automatically from the Cooked Editor's *PAYDAY 3 Installation Directory*.
+
+. Open *Edit > Project Settings*.
+. Search for *CrimeFactory*.
+. Confirm that *PAYDAY 3 Game Path* matches the base installation folder you set in *PAYDAY 3 Cooked Editor*. If the field is empty or incorrect, set it to that same folder.
+
+[WARNING]
+====
+Do not end CrimeFactory's *PAYDAY 3 Game Path* with a forward slash (`/`) or backslash (`\`). Remove any trailing slash so the path ends with the installation folder name, for example `E:/Steam/steamapps/common/PAYDAY3`.
+====
+
+image::CrimeFactory-project-settings.png[CrimeFactory project settings for PAYDAY 3, width=1200]
+
+The key settings shown here are:
+
+* *PAYDAY 3 Game Path* points CrimeFactory at your local game install and is populated from the Cooked Editor's installation directory.
+* *Copy Mods To Game* copies forged mods to the game automatically after a successful forge.
+* *Launch Game After Packing* controls whether the game is launched after the forge step. The current UI still uses the word *Packing* here.
+
+CrimeFactory uses the configured game installation for workflows that need access to the locally installed game's data.
+
+[IMPORTANT]
+====
+Point the setting at your own PAYDAY 3 installation.
+
+Do not copy base-game packages into the modkit repository.
+====
 
 == Additional data
 
@@ -95,7 +89,15 @@ Do not publish private keys or other sensitive configuration in screenshots, doc
 
 After restarting the editor, open the Content Browser and check that cooked PAYDAY 3 assets appear under their original `/Game/...` paths. Open a supported asset, such as a texture, to confirm that the editor can load it in read-only mode.
 
-If the assets are missing or fail to load, recheck the *PAYDAY 3 Cooked Editor* installation directory and AES key, then confirm that the current `AssetRegistry.bin` and JMAP are in place. See xref:modkit:cooked-assets.adoc[Cooked Assets] for the full requirements.
+*Check:* A supported texture should open without an asset-loading error. Seeing folders alone is not enough to confirm that loading works.
+
+If assets are missing or fail to load:
+
+. Open *Edit > Project Settings > Plugins > PAYDAY 3 Cooked Editor* and check the installation directory and AES key. Use the folder containing `PAYDAY3.exe` and remove any trailing slash.
+. Check that the current `AssetRegistry.bin` is directly in `<ModkitRoot>` and a current `.jmap` is in `<ModkitRoot>/Content/DynamicClasses/`.
+. Restart the editor and try opening a supported texture again.
+
+See xref:modkit:cooked-assets.adoc[Cooked Assets] for the full requirements and the limits on supported asset types.
 
 A correctly configured project should load the PAYDAY 3-specific editor tooling without requiring you to reconstruct the game project manually.
 

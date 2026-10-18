@@ -1,5 +1,5 @@
-﻿= Create Your First Mod
-:description: Replace the PAYDAY 3 title and main-menu logos with your own textures, then Forge and test your first CrimeForge mod.
+= Create Your First Mod
+:description: Replace the PAYDAY 3 title and main-menu logos with your own textures, then Forge and test your first CrimeFactory mod.
 
 == What we are going to make
 
@@ -13,11 +13,11 @@ PAYDAY3/Content/UI/Textures/Generic/SS_UI_PD3_Logo_02
 PAYDAY3/Content/UI/Textures/Generic/Tex_Payday_3_Logo
 ----
 
-The mod will be a PDML-compatible Unreal plugin created with CrimeForge. We will use `MyFirstMod` as its name throughout the tutorial.
+CrimeFactory will create the mod as an Unreal plugin: a folder that keeps the mod's assets and information together. PDML loads the finished mod when the game starts. We will use `MyFirstMod` as its name throughout the tutorial.
 
 By the end, you will have:
 
-* Created a Blank mod with CrimeForge.
+* Created a Blank mod with CrimeFactory.
 * Found both logo textures and converted them to editable uncooked assets.
 * Reimported your own images into those assets.
 * Added both replacements to the mod's PAL so Forge includes them.
@@ -25,7 +25,7 @@ By the end, you will have:
 
 == Before you start
 
-Complete xref:project-setup.adoc[Set Up the Project] and xref:editor-tour.adoc[Editor Tour]. You should have the modkit open in the custom PAYDAY 3 editor, with CrimeForge available and the game path configured.
+Complete xref:project-setup.adoc[Set Up the Project] and xref:editor-tour.adoc[Editor Tour]. You should have the modkit open in the custom PAYDAY 3 editor, with CrimeFactory available and the game path configured.
 
 You also need:
 
@@ -35,44 +35,46 @@ You also need:
 
 Choose artwork that is easy to distinguish from the original logo. When preparing each image, use the original texture's dimensions as a starting point and preserve transparency if you want the artwork to appear without a rectangular background.
 
-== Create a Blank CrimeForge mod
+== Create a Blank CrimeFactory mod
 
-CrimeForge creates the Unreal plugin structure for your mod. A plugin is the container that gives the mod its own content root, metadata, and files to send through Forge. PDML discovers the forged plugin when the game starts.
+CrimeFactory creates the plugin's folders and files for you, including a content folder and mod information. Forge prepares these files for use in the game.
 
-The *Blank* template is a general-purpose starting point. It creates the plugin and standard CrimeForge assets, including `PAL_<ModName>` and `DA_<ModName>`. The PAL, or Primary Asset Label, tells CrimeForge which assets belong in the mod's cook/package workflow. We will use it to include the two logo replacements.
+Choose the *Blank* template for this mod. It creates the plugin and standard CrimeFactory assets, including `PAL_<ModName>` and `DA_<ModName>`. The PAL, or Primary Asset Label, tells CrimeFactory which assets to package. We will add both logo replacements to it later.
 
 === Open Create Mod
 
-Open CrimeForge and click *Create Mod* to open the *New Mod* window.
+Open CrimeFactory and click *Create Mod* to open the *New Mod* window.
 
-image::crimeforge:crimeforge-new-mod-window.png[CrimeForge New Mod window, width=1000]
+image::crimefactory:CrimeFactory-new-mod-window.png[CrimeFactory New Mod window, width=1000]
 
 === Choose the template and name
 
 . Select the *Blank* template.
 . Enter `MyFirstMod` in *Mod Name*.
 . Fill in *Author* with your name and *Description* with a short description, such as `Replaces the title and main-menu logos with my own artwork.`
-. Use the normal development location, `<ModkitRoot>/Mods/`, where CrimeForge creates mod plugins.
-. Click *Create Mod* and let CrimeForge generate the plugin.
+. Use the normal development location, `<ModkitRoot>/Mods/`, where CrimeFactory creates mod plugins.
+. Click *Create Mod* and let CrimeFactory generate the plugin.
 
-See xref:crimeforge:templates.adoc[Templates] for the other starting templates and xref:crimeforge:create-mod.adoc[Create Mod] for the full creation-window reference.
+See xref:crimefactory:templates.adoc[Templates] for the other starting templates and xref:crimefactory:create-mod.adoc[Create Mod] for the full creation-window reference.
 
 [CAUTION]
 ====
-Keep the plugin name stable once you start creating referenced assets. The name becomes part of its mount point and asset paths; renaming it later can break references.
+Keep the plugin name stable once you start creating referenced assets. It becomes part of the mount point, the path prefix Unreal uses for the plugin's assets, such as `/MyFirstMod/`. Renaming it later can break references.
 ====
 
 === Find the generated assets
 
-. Find `MyFirstMod` in the CrimeForge mod manager.
+. Find `MyFirstMod` in the CrimeFactory mod manager.
 . Click the mod's icon to open its content directory in the Content Browser.
 . Locate `PAL_MyFirstMod`. You will open this asset after editing the textures.
 
-Keep the files and structure generated by CrimeForge together. The PAL stays in the mod's content directory, while the logo replacements will stay at their original game paths.
+Keep the files and structure generated by CrimeFactory together. The PAL stays in the mod's content directory, while the logo replacements will stay at their original game paths.
+
+*Check:* CrimeFactory should list `MyFirstMod`, and clicking its icon should let you find `PAL_MyFirstMod` in the Content Browser.
 
 == Find the two logo textures
 
-In the editor, `PAYDAY3/Content/` corresponds to the `/Game/` content root. The two textures therefore have these package paths:
+In the editor, `PAYDAY3/Content/` corresponds to the `/Game/` content root. A *package path* is Unreal's address for an asset, rather than a Windows file path. The two textures have these package paths:
 
 [source,text]
 ----
@@ -95,7 +97,9 @@ The original cooked assets open in read-only mode. Convert them before trying to
 
 image::getting-started:Cooked-Texture.png[Cooked asset context menu showing Convert to Uncooked, width=1100]
 
-*Convert to Uncooked* creates an editable loose asset at the exact same `/Game/...` path. It replaces the mounted cooked representation inside the editor without modifying the retail game's IoStore files.
+*Convert to Uncooked* creates an editable version at the same `/Game/...` path. The editor uses this version in place of the read-only game asset. Your installed game's archive files (IoStore files) stay unchanged.
+
+*Check:* Reopen each converted texture. It should now be editable. If it still opens read-only, confirm that conversion finished and that you reopened the texture at its original `/Game/...` path before continuing.
 
 [IMPORTANT]
 ====
@@ -121,18 +125,18 @@ Reimporting updates the image data in the existing texture asset, keeping the as
 
 == Add both replacements to the mod's PAL
 
-The edited textures live under `/Game/...`, outside the mod plugin's own content root. CrimeForge needs an explicit entry for each one to know that it belongs to `MyFirstMod` and must be included in the forged output.
+The edited textures are outside `MyFirstMod`'s content folder. Add each one to the PAL so CrimeFactory knows to package it with your mod.
 
 Follow the xref:creating-mods:asset-replacements.adoc#_add_the_replacement_to_the_pal[Add the replacement to the PAL] step for both textures:
 
-. Return to `MyFirstMod` in the CrimeForge manager and click its icon to open the mod's content directory.
+. Return to `MyFirstMod` in the CrimeFactory manager and click its icon to open the mod's content directory.
 . Open `PAL_MyFirstMod`.
 . Find and expand *Explicit Assets*.
 . Add an array entry and use its asset picker to select the modified `SS_UI_PD3_Logo_02` texture at `/Game/UI/Textures/Generic/SS_UI_PD3_Logo_02`.
 . Add another entry and select the modified `Tex_Payday_3_Logo` texture at `/Game/UI/Textures/Generic/Tex_Payday_3_Logo`.
 . Save `PAL_MyFirstMod`.
 
-image::getting-started:Example-PAL.png[Example PAL, width=1100]
+image::getting-started:Example-PAL.png[Primary Asset Label editor showing packaging settings and Explicit Assets, width=1100]
 
 The PAL's *Explicit Assets* list should include both:
 
@@ -144,17 +148,17 @@ The PAL's *Explicit Assets* list should include both:
 
 [IMPORTANT]
 ====
-Saving the textures alone does not tell CrimeForge to include them. Both modified uncooked assets must be listed in `PAL_MyFirstMod`'s *Explicit Assets* array.
+Saving the textures alone does not tell CrimeFactory to include them. Both modified uncooked assets must be listed in `PAL_MyFirstMod`'s *Explicit Assets* array.
 ====
 
-Check the PAL's *Chunk ID* as well. It must avoid the game's and DLC's chunk IDs; a value greater than `100` is recommended. See xref:crimeforge:pal.adoc[PAL & Explicit Assets] for the packaging settings.
+Check the PAL's *Chunk ID* as well. It must avoid the game's and DLC's chunk IDs; a value greater than `100` is recommended. See xref:crimefactory:pal.adoc[PAL & Explicit Assets] for the packaging settings.
 
 == Forge and install the mod
 
 . Save both textures and `PAL_MyFirstMod`.
-. Validate `MyFirstMod` in CrimeForge and resolve any blocking errors.
-. Click *FORGE* on `MyFirstMod` and wait for a successful result. CrimeForge uses the PAL to include the external `/Game/...` replacements alongside the plugin content.
-. If *Copy Mods To Game* is enabled in CrimeForge Project Settings, the successful Forge copies the mod to the game. Otherwise, copy the complete forged `MyFirstMod` folder from the output location shown by CrimeForge into `PAYDAY3/Mods/`.
+. Validate `MyFirstMod` in CrimeFactory and resolve any blocking errors.
+. Click *FORGE* on `MyFirstMod` and wait for a successful result. CrimeFactory uses the PAL to include the external `/Game/...` replacements alongside the plugin content.
+. If *Copy Mods To Game* is enabled in CrimeFactory Project Settings, the successful Forge copies the mod to the game. Otherwise, copy the complete forged `MyFirstMod` folder from the output location shown by CrimeFactory into `PAYDAY3/Mods/`.
 
 The installed mod should be at `PAYDAY3/Mods/MyFirstMod/`, with its `.uplugin` file and all packaged content kept together.
 

@@ -1,16 +1,18 @@
 = SBZAssetManager Crash in Editor
 
-This crash is due to the JMAP not being generated properly in the modkit. 
+This crash can occur when the modkit's JMAP did not generate correctly.
 
-Go to 
-* (modkit Directory)/Content/DynamicClasses/
+. Close the editor.
+. Open `<ModkitRoot>/Content/DynamicClasses/` in File Explorer. `<ModkitRoot>` is the folder containing `PAYDAY3.uproject`.
+. Check the `.jmap` file's size in *Properties*. A file smaller than `100 MB` is a sign that generation did not complete correctly.
+. Follow xref:getting-started:install-modkit.adoc#_generate_the_jmap[Generate the JMAP] using a clean running game, then reopen the project and retry the action that crashed.
 
-If the .jmap file is smaller than 100MB then the .jmap did not generate properly.
+*Check:* Confirm the script completed successfully and produced a fresh `.jmap` in `Content/DynamicClasses/` before reopening the editor.
 
 [IMPORTANT]
 ====
-An impoper .jmap can be caused by the UE4SS gui console. Remove the dwmapi.dll from the game directory and rerun the GenerateJmap.bat.
+A JMAP generated with UE4SS active can be incorrect. If UE4SS is installed, temporarily remove its `dwmapi.dll` before running `GenerateJMAP.bat` again. Keep other mods disabled during generation too.
 
-The dwmapi.dll is located in your game directory at PAYDAY3/PAYDAY3/Binaries/Win64/
+The UE4SS `dwmapi.dll` is located in the game installation under `PAYDAY3/PAYDAY3/Binaries/Win64/` in the layout described here.
 ====
 

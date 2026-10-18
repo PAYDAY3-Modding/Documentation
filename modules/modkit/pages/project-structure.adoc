@@ -1,6 +1,6 @@
 = Project Structure
 
-The PAYDAY 3 modkit is a normal Unreal project with additional files and folders used by the cooked-content, reflection, CrimeForge, and PDML workflows.
+The PAYDAY 3 modkit is a normal Unreal project with additional files and folders used by the cooked-content, reflection, CrimeFactory, and PDML workflows.
 
 image::modkit-root.png[PAYDAY 3 modkit root folder, width=1050]
 
@@ -16,7 +16,7 @@ The exact contents of generated folders can vary after the project has been open
 |Project content. `Content/DynamicClasses` also contains the JMAP consumed by Suzie.
 
 |`Mods/`
-|Development location for CrimeForge-created mod plugins. CrimeForge creates new mods here automatically. The official PDML development plugin is also included here.
+|Development location for CrimeFactory-created mod plugins. CrimeFactory creates new mods here automatically. The official PDML development plugin is also included here.
 
 |`Plugins/`
 |Editor/project plugins used by the modkit, including the PAYDAY-specific tooling and the modified Wwise integration.
@@ -67,7 +67,7 @@ IDE metadata such as `.idea/` and `.vs/` may also exist depending on the tools u
 
 image::modkit-mods-folder.png[PAYDAY 3 modkit Mods folder, width=1050]
 
-CrimeForge creates user mods automatically inside:
+CrimeFactory creates user mods automatically inside:
 
 [source,text]
 ----

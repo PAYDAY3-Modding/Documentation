@@ -66,7 +66,7 @@ See xref:reflected-types.adoc[Reflected Game Types].
 
 [source,text]
 ----
-CrimeForge
+CrimeFactory
     |
     | Create Mod
     v
@@ -86,9 +86,9 @@ PAYDAY3/Mods/
 PDML
 ----
 
-CrimeForge creates user mods as Unreal plugins inside the modkit's `Mods` directory.
+CrimeFactory creates user mods as Unreal plugins inside the modkit's `Mods` directory.
 
-When the mod is Forged, CrimeForge cooks and packages only the content that belongs to that mod. The resulting plugin mod is installed under the game's `PAYDAY3/Mods/` directory for PDML to discover and handle.
+When the mod is Forged, CrimeFactory cooks and packages only the content that belongs to that mod. The resulting plugin mod is installed under the game's `PAYDAY3/Mods/` directory for PDML to discover and handle.
 
 == Bundled PDML development plugin
 

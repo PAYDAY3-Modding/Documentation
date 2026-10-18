@@ -1,11 +1,11 @@
 = Validation
 
-CrimeForge validates a mod before Forge so common project and packaging problems can be found before the longer cook/package process begins.
+CrimeFactory validates a mod before Forge so common project and packaging problems can be found before the longer cook/package process begins.
 
 
 == What validation checks
 
-The current validation/preflight checks the mod's CrimeForge packaging setup, including areas such as:
+The current validation/preflight checks the mod's CrimeFactory packaging setup, including areas such as:
 
 * the expected `PAL_<ModName>`,
 * PAL runtime settings,
@@ -16,7 +16,7 @@ The current validation/preflight checks the mod's CrimeForge packaging setup, in
 * dependencies and references used by the mod,
 * and external `/Game/...` assets that need the replacement workflow.
 
-image::forge-validationWindow.png[Validation window, width=500]
+image::forge-validationWindow.png[CrimeFactory validation window showing mod setup checks, width=500]
 
 Forge can also surface normal Unreal cook or compile failures later in the build process, such as invalid references or Blueprint compile errors.
 
@@ -28,7 +28,7 @@ Warnings identify conditions that should be reviewed but do not necessarily mean
 
 == Fix Issues
 
-Where CrimeForge knows how to safely repair a configuration problem, the validation UI can expose a *Fix Issues* action.
+Where CrimeFactory knows how to safely repair a configuration problem, the validation UI can expose a *Fix Issues* action.
 
 This can repair supported setup problems automatically rather than requiring every Asset Manager or PAL setting to be corrected by hand.
 

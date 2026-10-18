@@ -239,19 +239,19 @@ The value getters use two identifiers:
 
 To obtain the Config Name, call:
 
-image::GetCategoryNameFromModName-Node.png[Get Category Name Node, width=450]
+image::GetCategoryNameFromModName-Node.png[Blueprint node that gets the settings Config Name from the mod name, width=450]
 
 and pass the same mod name used by your mod metadata when PDML registers the settings.
 
 A typical lookup is:
 
-image::TypicalLoopup-NodeSetup.png[Basic Universal Setup, width=600]
+image::TypicalLoopup-NodeSetup.png[Blueprint settings lookup using the Config Name and setting Unique ID, width=600]
 
 === Toggle example
 
 For a toggle with the Unique ID `ShowHealthBar`:
 
-image::BoolSetting-NodeSetup.png[Bool Setup, width=600]
+image::BoolSetting-NodeSetup.png[Blueprint retrieving the ShowHealthBar toggle setting, width=600]
 
 Use the returned Boolean directly for visibility or other gameplay/UI logic.
 
@@ -259,13 +259,13 @@ Use the returned Boolean directly for visibility or other gameplay/UI logic.
 
 For a float setting with the Unique ID `HUDScale`:
 
-image::FloatSetting-NodeSetup.png[Float Setup, width=600]
+image::FloatSetting-NodeSetup.png[Blueprint retrieving the HUDScale float setting, width=600]
 
 === Color example
 
 For a color setting with the Unique ID `CrosshairColor`:
 
-image::ColorSetting-NodeSetup.png[Color Setup, width=600]
+image::ColorSetting-NodeSetup.png[Blueprint retrieving the CrosshairColor color setting, width=600]
 
 The returned value is a Linear Color and can be applied directly to compatible UMG and material color inputs.
 
@@ -273,13 +273,13 @@ The returned value is a Linear Color and can be applied directly to compatible U
 
 For a string setting with the Unique ID `CustomLabel`:
 
-image::StringSetting-NodeSetup.png[String Setup, width=600]
+image::StringSetting-NodeSetup.png[Blueprint retrieving the CustomLabel string setting, width=600]
 
 === Multiple choice example
 
 For a multiple choice setting with the Unique ID `ReticleStyle`:
 
-image::ChoiceSetting-NodeSetup.png[Choice Setup, width=600]
+image::ChoiceSetting-NodeSetup.png[Blueprint retrieving the ReticleStyle choice index, width=600]
 
 `Value` is the selected choice index.
 
@@ -300,7 +300,7 @@ Use `GetKeybindSettingValue` when you need the player's currently configured cho
 
 It provides the primary and secondary Input Chords separately, along with success outputs for each lookup.
 
-image::KeybindSetting-NodeSetup.png[Keybind Setup, width=600]
+image::KeybindSetting-NodeSetup.png[Blueprint retrieving the primary and secondary chords for a keybind setting, width=600]
 
 You normally do not need to poll these chords yourself. PDML exposes keybind activity through the mod loader dispatcher described below.
 
@@ -311,21 +311,21 @@ Settings can be changed at any time from the PDML settings menu. If your mod nee
 
 Get the PDML Mod Loader reference with `GetModLoaderManager`, then bind an event to:
 
-image::OnSettingsChanged-BindSetup.png[OnSettingsChanged Setup, width=600]
+image::OnSettingsChanged-BindSetup.png[Blueprint binding an event to the Mod Loader OnSettingsChanged dispatcher, width=600]
 
 The dispatcher does not provide a specific setting value. When it fires, call the appropriate settings getter again and apply the latest value to your mod.
 
 A typical Blueprint setup is:
 
-image::SettingsChanged-TypicalBPSetup.png[Typical Settings Changed BP Setup, width=600]
+image::SettingsChanged-TypicalBPSetup.png[Blueprint reading current setting values when OnSettingsChanged fires, width=600]
 
 For example, a HUD widget using a color setting called `CrosshairColor` can refresh itself like this:
 
-image::SettingsChanged-ExampleWithColor.png[Example Settings Changed with color BP Setup, width=600]
+image::SettingsChanged-ExampleWithColor.png[Blueprint refreshing a color setting after OnSettingsChanged, width=600]
 
 If a widget uses several settings, it is usually simplest to create a function such as `RefreshSettings` that reads all settings used by that widget. Call it once when the widget is initialized and again from `OnSettingsChanged`.
 
-image::MultipleSettingsThroughFunction-Setup.png[Multiple setting implementation through function Setup, width=900]
+image::MultipleSettingsThroughFunction-Setup.png[Blueprint calling RefreshSettings at startup and when OnSettingsChanged fires, width=900]
 
 This keeps the widget synchronized with the saved PDML values without duplicating the setting application logic.
 
@@ -338,17 +338,17 @@ This allows every mod to use the same input path regardless of how many keybind 
 
 Get the PDML Mod Loader reference with `GetModLoaderManager`, then bind to:
 
-image::OnKeybindDown-BindSetup.png[Keybind binding Setup, width=600]
+image::OnKeybindDown-BindSetup.png[Blueprint binding an event to the Mod Loader OnKeybindDown dispatcher, width=600]
 
 The dispatcher identifies the setting and the Input Chord that caused the event. In your callback, compare the returned setting name with the Unique ID of the keybind you registered.
 
 For example:
 
-image::KeybindDown-ExampleWithHUDScale.png[Example Keybind Down with HUD Scale Setup, width=600]
+image::KeybindDown-ExampleWithHUDScale.png[Blueprint filtering the HUD scale keybind and checking whether it is down, width=600]
 
 If your mod has several keybinds, route the returned setting name to the appropriate logic:
 
-image::SeveralKeybinds-NodeSetup.png[Example Multiple Keybind Down Setup, width=600]
+image::SeveralKeybinds-NodeSetup.png[Blueprint routing keybind events by their setting identifiers, width=600]
 
 `OnKeybindDown` represents a binding being down, so code connected directly to it may run repeatedly while the player holds the chord. Do not treat it as a guaranteed one-shot press event unless your mod adds its own press/hold state handling.
 

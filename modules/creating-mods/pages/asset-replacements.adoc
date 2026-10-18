@@ -1,8 +1,10 @@
 = Asset Replacements
 
-Asset replacement mods replace an existing cooked PAYDAY 3 asset with a modified uncooked asset at the same `/Game/...` package path.
+An asset replacement mod makes the game use your edited asset in place of an original PAYDAY 3 asset. The replacement must keep the original asset's name and `/Game/...` path.
 
-The custom editor can convert supported cooked assets into editable uncooked assets, while CrimeForge uses the mod's PAL to determine which replacement assets must be included when the mod is Forged.
+The original game asset is *cooked*: prepared for use in the game. Convert it to an *uncooked*, editable version before making changes.
+
+The custom editor can convert supported cooked assets into editable uncooked assets, while CrimeFactory uses the mod's PAL to determine which replacement assets must be included when the mod is Forged.
 
 == Before you start
 
@@ -31,7 +33,7 @@ image::convert-to-uncooked-menu.png[Cooked asset context menu showing Make Uncoo
 |Action |Behavior
 
 |*Convert to Uncooked*
-|Replaces the cooked editor representation with an editable loose uncooked asset at the exact same `/Game/...` package and object path. This is the normal action for a direct asset replacement.
+|Creates an editable asset in place of the read-only game asset, keeping the exact same `/Game/...` package and object path. Use this for a direct asset replacement.
 
 |*Make Uncooked Copy*
 |Creates an editable uncooked copy and lets you choose where that copy is saved. Use this when you want to inspect or work from an uncooked copy without immediately replacing the mounted cooked asset at its original path.
@@ -88,11 +90,11 @@ Support is expanded as additional asset types and edge cases are tested.
 
 == Add the replacement to the PAL
 
-Every replacement asset must be added to the CrimeForge mod's PAL *Explicit Assets* array.
+Every replacement asset must be added to the CrimeFactory mod's PAL *Explicit Assets* array.
 
 This step is required.
 
-The replacement still lives at its original `/Game/...` path rather than inside the mod plugin's normal content root, so CrimeForge needs the PAL entry to know that the external replacement belongs to this mod and must be included in the Forge output.
+The replacement is outside your mod's content folder. Its PAL entry tells CrimeFactory to include it when packaging your mod.
 
 Add the modified uncooked asset to:
 
@@ -103,16 +105,16 @@ PAL_<ModName> -> Explicit Assets
 
 [IMPORTANT]
 ====
-If the replacement asset is not present in the mod PAL's *Explicit Assets* array, CrimeForge will not know that the `/Game/...` replacement should be packaged with that mod.
+If the replacement asset is not present in the mod PAL's *Explicit Assets* array, CrimeFactory will not know that the `/Game/...` replacement should be packaged with that mod.
 ====
 
 == Forge the mod
 
-Open CrimeForge and Forge the mod normally.
+Open CrimeFactory and Forge the mod normally.
 
-CrimeForge detects the external `/Game/...` replacement through the mod's PAL and includes it in the replacement stage of the Forge process alongside the plugin's normal mod content.
+CrimeFactory detects the external `/Game/...` replacement through the mod's PAL and includes it in the replacement stage of the Forge process alongside the plugin's normal mod content.
 
-See xref:crimeforge:packaging.adoc[Forge] for the full Forge workflow.
+See xref:crimefactory:packaging.adoc[Forge] for the full Forge workflow.
 
 == Test the replacement
 
@@ -140,8 +142,8 @@ The full workflow is:
 . Inspect the cooked asset and its available defaults and references.
 . Right-click the asset and select *Convert to Uncooked*.
 . Make the required changes to the uncooked asset.
-. Add the modified asset to the CrimeForge mod PAL's *Explicit Assets* array.
-. Forge the mod through CrimeForge.
+. Add the modified asset to the CrimeFactory mod PAL's *Explicit Assets* array.
+. Forge the mod through CrimeFactory.
 . Test the replacement in PAYDAY 3.
 
 [NOTE]

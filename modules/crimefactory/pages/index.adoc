@@ -1,16 +1,16 @@
-= CrimeForge
+= CrimeFactory
 
-CrimeForge is the PAYDAY-specific mod management and authoring layer built into the modkit.
+CrimeFactory is the PAYDAY-specific mod management and authoring layer built into the modkit.
 
 It handles the common workflow around creating mod plugins, managing their metadata and packaging configuration, validating them, and Forging them into PDML-compatible mods.
 
-CrimeForge creates mods as Unreal plugins under the modkit's `Mods` directory. This gives every mod its own content namespace and keeps mod development separate from PAYDAY 3's mounted `/Game/...` content.
+CrimeFactory creates mods as Unreal plugins under the modkit's `Mods` directory. This gives every mod its own content namespace and keeps mod development separate from PAYDAY 3's mounted `/Game/...` content.
 
-image::crimeforge-dashboard.png[CrimeForge mod manager, width=1000]
+image::CrimeFactory-dashboard.png[CrimeFactory mod manager, width=1000]
 
 == Main workflow
 
-A normal CrimeForge workflow is:
+A normal CrimeFactory workflow is:
 
 [source,text]
 ----
@@ -35,11 +35,11 @@ PAYDAY3/Mods/<ModName>/
 PDML
 ----
 
-CrimeForge uses the word *Forge* for its cook and package operation.
+CrimeFactory uses the word *Forge* for its cook and package operation.
 
 == Mod manager
 
-The main CrimeForge window lists the mod plugins available in the project's `Mods` directory.
+The main CrimeFactory window lists the mod plugins available in the project's `Mods` directory.
 
 From here you can:
 
@@ -57,13 +57,13 @@ See xref:managing-mods.adoc[Managing Mods] for the full manager workflow.
 
 == Current templates
 
-CrimeForge currently includes three creation templates:
+CrimeFactory currently includes three creation templates:
 
 * *Blank*
 * *Logic Mod*
 * *Custom Heist*
 
-image::forge-templates.png[forge templates, width=500]
+image::forge-templates.png[CrimeFactory template choices for Blank and Logic Mod and Custom Heist mods, width=500]
 
 Additional specialized templates, such as HUD and audio mod templates, are planned for the future but are not part of the current workflow.
 
@@ -71,7 +71,7 @@ See xref:templates.adoc[Templates].
 
 == Forge and PDML
 
-CrimeForge mods are built as Unreal plugins. Forge cooks and packages only the content that belongs to the selected mod, then produces the plugin-based output expected by PDML.
+CrimeFactory mods are built as Unreal plugins. Forge cooks and packages only the content that belongs to the selected mod, then produces the plugin-based output expected by PDML.
 
 The normal runtime location is:
 

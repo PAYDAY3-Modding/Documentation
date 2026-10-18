@@ -2,9 +2,13 @@
 
 PAYDAY 3 modding uses three major pieces that work together.
 
+An *asset* is a game resource, such as a texture or 3D model. *Cooking* prepares assets for use in the game. *Uncooked* assets are the editable versions used while making a mod.
+
 == Custom PAYDAY 3 Unreal Editor
 
 PAYDAY 3 currently uses Unreal Engine {pd3-engine-version}. The modkit uses a compatible custom editor and a stubbed PAYDAY 3 C++ project with reflected game types.
+
+Here, *reflected game types* means game classes and their properties made available to editor tools. The stubs are substitute definitions that let the modkit use those types without the game's original source code. You do not need to write C++ for the first-mod tutorial.
 
 The editor provides the development environment in which you create your own assets and Blueprints.
 
@@ -17,9 +21,9 @@ The modkit does not need to redistribute PAYDAY 3's base-game cooked assets.
 The user's own installed game provides that content.
 ====
 
-== CrimeForge
+== CrimeFactory
 
-CrimeForge handles PAYDAY-specific editor workflows.
+CrimeFactory handles PAYDAY-specific editor workflows.
 
 Its responsibilities include:
 
@@ -30,15 +34,15 @@ Its responsibilities include:
 * Validation.
 * Forging mods.
 
-CrimeForge calls its final cook/package operation *Forge*. Forge cooks the content that belongs to the selected mod and packages only the assets that mod should include.
+CrimeFactory calls its final cook/package operation *Forge*. Forge cooks the content that belongs to the selected mod and packages only the assets that mod should include.
 
 == PDML
 
-PAYDAY MODLOADER is the runtime side of the toolchain.
+PAYDAY MODLOADER (PDML) loads and manages mods while PAYDAY 3 runs. This is the *runtime* side of the toolchain.
 
 It provides the loading and integration layer for functionality such as:
 
-* CrimeForge plugin mods.
+* CrimeFactory plugin mods.
 * Blueprint and logic mods.
 * HUD mods.
 * Custom heists.
@@ -57,13 +61,13 @@ A simplified workflow looks like this:
 Your mod-owned assets
         |
         v
-CrimeForge plugin mod
+CrimeFactory plugin mod
         |
         v
 Custom PAYDAY 3 Editor
         |
         v
-CrimeForge
+CrimeFactory
  create / validate / Forge
         |
         v
@@ -82,3 +86,5 @@ Runtime mod
 Asset replacements may still target game-compatible asset paths inside the mod, while additive/runtime features can require PDML integration.
 
 xref:modkit:cooked-assets.adoc[Cooked Assets] explains the distinction in more detail.
+
+Next: xref:requirements.adoc[Requirements].

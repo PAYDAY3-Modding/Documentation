@@ -1,18 +1,16 @@
 = Meshes
 
-Meshes are 3D objects in the game, they can be separated into `Static` and `Skeletal` meshes each mesh type has its own purpose.
-This section of documentation aims to give the user of the modkit some basic and necessary information for sucessful replacement of both the `Static Mesh` and `Skeletal Mesh`.
+Meshes are 3D objects in the game. A `Static Mesh` has no skeleton; a `Skeletal Mesh` uses a skeleton for animation.
+This guide covers replacing both types.
 
 [NOTE]
 ====
-This part of documentation will expect you to have basic knowledge on how to use Blender and Fmodel.
+This guide assumes you know the basics of Blender and FModel.
 ====
 
 == Before you start
 
-If you have not yet, read through both the xref:getting-started:fmodel-setup.adoc[Fmodel setup] page and the xref:modkit:cooked-assets.adoc[Cooked Assets] page.
-After you read through those pages you can continue reading this page or if you are already familiar with PAYDAY 3 modding from the past and think you know what youre doing then feel free to skip reading
-those pages but it is highly encouraged to read through them anyway to make sure your knowledhe is up to date.
+Read xref:getting-started:fmodel-setup.adoc[Fmodel setup] and xref:modkit:cooked-assets.adoc[Cooked Assets] before continuing. Even if you have made PAYDAY 3 mods before, check these pages for the current workflow.
 
 == Find the model you want to replace
 
@@ -37,14 +35,12 @@ After you get the model exported from Fmodel you will open it in blender, for yo
 
 == General Rules in Blender
 
-When it comes to general rules in blender most of them apply to the `Skeletal Mesh` but that doesnt mean that you can go haywire with `static meshes`
+For both mesh types, keep the model at the intended size to avoid unwanted clipping in the game.
 
-For Static meshes you will want to just keep your models size in check, if you wont you might end up causing unwanted clipping in the game when you will be testing your mod.
-
-For skeletal meshes you will want to also keep the size in check but on top of that you will need to also setup naming of your model and the skeleton in blender correctly for it to transfer well when imporitng into the editor.
+For skeletal meshes, also set the model and skeleton names correctly in Blender before importing into the editor. Use the screenshot below as a naming example.
 
 
-image::SkeletalMesh-BlenderSetup.png[Skeletal mesh project setup Setup, width=600]
+image::SkeletalMesh-BlenderSetup.png[Blender setup for a skeletal mesh replacement, width=600]
 
 [NOTE]
 ====
@@ -57,11 +53,11 @@ For exporting you will want to export your model as `.fbx`, theres not much diff
 
 Static mesh:
 
-image::ExportSet-StaticMesh.png[Static mesh export Setup, width=200]
+image::ExportSet-StaticMesh.png[Blender FBX export settings for a static mesh, width=200]
 
 Skeletal mesh: 
 
-image::ExportSet-SkeletalMesh.png[Skeletal mesh export Setup, width=200]
+image::ExportSet-SkeletalMesh.png[Blender FBX export settings for a skeletal mesh, width=200]
 
 [WARNING]
 ====

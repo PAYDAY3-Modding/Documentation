@@ -2,13 +2,15 @@
 
 The modkit contains the PAYDAY 3 development project and the tooling used to author mods.
 
+In these guides, `<ModkitRoot>` means the folder containing `PAYDAY3.uproject`. Replace this placeholder with your own folder path; do not create a folder literally named `<ModkitRoot>`.
+
 == Install the project
 
 Open the https://github.com/PAYDAY3-Modding/PD3-Modkit[Modkit GitHub repository] to install the modkit project.
 
 Clone the repository or fork it and clone your fork, or choose *Code > Download ZIP* and extract the project to a writable development directory.
 
-image::installmodkit-navigation.png[how to get a repo files 101, width=800]
+image::installmodkit-navigation.png[Modkit repository with the Code menu open and Download ZIP visible, width=800]
 
 [WARNING]
 ====
@@ -50,7 +52,7 @@ Complete xref:fmodel-setup.adoc[Set Up FModel] first. FModel must have the PAYDA
 
 Open FModel with your PAYDAY 3 installation selected, locate the game's `AssetRegistry.bin`, and export the file using FModel's raw file export/save functionality.
 
-image::assetRegistry-location.png[asset registry location, width=800]
+image::assetRegistry-location.png[AssetRegistry.bin beside PAYDAY3.uproject in the modkit root folder, width=800]
 
 Copy the extracted file to the root of the modkit:
 
@@ -101,9 +103,11 @@ With PAYDAY 3 running, run:
 ----
 GenerateJMAP.bat
 ----
-image::runBat-RUNIT.png[run the .bat, width=800]
+image::runBat-RUNIT.png[File Explorer with GenerateJMAP.bat highlighted in the modkit root folder, width=800]
 
 Follow any prompts printed by the script while it connects to the running game and dumps the current JMAP.
+
+*Check:* After the script finishes, confirm that a `.jmap` file is present in `<ModkitRoot>/Content/DynamicClasses/`. If it is missing or the script reports an error, keep the clean game running, check the script's error message, and rerun it before opening the project.
 
 [NOTE]
 ====
@@ -112,40 +116,37 @@ The generated JMAP is local generated data. It is not included with the modkit d
 
 == Starting the Project
 
-After installing wwise SDK, refreshing the JMAP, and updating the assetregistry.bin you can now load into the project. 
+After installing the Wwise SDK, generating the JMAP, and adding the current `AssetRegistry.bin`, open `PAYDAY3.uproject` with the custom editor.
 
-At this moment, unreal engine will add some folders and a PAYDAY3.sln file to your base folder
+Unreal Engine will create local folders and may generate `PAYDAY3.sln`, the Visual Studio solution file, in the modkit root.
 
-If you encounter this error even after installing the wwise sdk in the "ThirdParty" folder in Plugins/wwise/
+If you see the following error after copying the Wwise SDK files into `Plugins/Wwise/ThirdParty/`, build the project as described below:
 
 * Plugin 'Wwise' failed to load because module 'Wwise' could not be found.  Please ensure the plugin is properly installed, otherwise consider disabling the plugin for this project.
 
-You need to open the .sln file in Visual Studio 2022 version 17.8+ with a C++ toolkit. Install this at this point if you do not already have these.
+Open `PAYDAY3.sln` in Visual Studio 2022 version 17.8 or later with the C++ toolchain installed. If needed, install Visual Studio and the required C++ tools first:
 
 https://dev.epicgames.com/documentation/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine
 
 [NOTE]
 ====
-If a .sln file was not generated from the previous step, you can right click the PAYDAY3.uproject file > show more options > and hit generate Visual Studio project files.
+If `PAYDAY3.sln` is missing, right-click `PAYDAY3.uproject`, choose *Show more options*, then select *Generate Visual Studio project files*.
+
+If this command is missing, follow xref:install-editor.adoc#_generate_project_files_without_the_context_menu[Generate project files without the context menu]. That method uses the custom engine directly and does not require Epic Games Launcher or UnrealVersionSelector. The same page explains how to restore the menu when your release includes the selector.
 ====
 
-After Visual Studio opens up, hit "build" on the top left > Build Solution
+In Visual Studio, select *Build > Build Solution*.
 
-Wait for the solution to build. It should take about 3-5 minutes. 
+Wait for the build to finish. It should take about 3–5 minutes.
 
-If you get a "Build Succesful" in the output log, then you are good to launch the project again.
+Once the output reports a successful build, open the project again.
+
+*Check:* The project should open in the custom editor without the Wwise module error. Configure the game paths on the next page before checking for game assets in the Content Browser.
 
 
 == Generate native classes with Suzie
 
-[NOTE]
-====
-Text below is purely for informational purposes, its not part of the process to make the project run.
-====
-
-The modkit uses *Suzie* to generate the native PAYDAY 3 class definitions used by the project.
-
-Suzie consumes the generated JMAP and turns that reflected game data into the native class stubs exposed to the modkit. These generated types allow Blueprints and editor tooling to reference PAYDAY 3 native classes without requiring the original game source code.
+*Suzie* makes PAYDAY 3 classes available to the editor from your JMAP. It runs when the project starts; there is no separate Suzie command to run during setup.
 
 [IMPORTANT]
 ====
@@ -154,7 +155,15 @@ You do *not* need to run UE4SS UHT generation for the modkit.
 The modkit's native class generation workflow is handled by Suzie using the JMAP. UE4SS UHT-generated headers are not required to set up or update the modkit.
 ====
 
+.How Suzie creates game classes
+[%collapsible]
+====
+Suzie reads the reflected game data in the generated JMAP and creates native class stubs: substitute class definitions that Blueprints and editor tools can reference without the original game source code.
+
+It registers these classes when the project starts, making them available to assets that depend on PAYDAY 3 types. The generated data is local to your setup and is regenerated at startup.
+
 UE4SS can still be useful for other runtime inspection, dumping, and reverse-engineering workflows, but its UHT generator is separate from the class-generation path used by this modkit.
+====
 
 == After PAYDAY 3 updates
 
@@ -172,7 +181,7 @@ Keeping both files current is important for different reasons: `AssetRegistry.bi
 
 == Expected components
 
-A complete development setup includes the PAYDAY 3 project/stubs and the required modding plugins, including CrimeForge and Suzie.
+A complete development setup includes the PAYDAY 3 project/stubs and the required modding plugins, including CrimeFactory and Suzie.
 
 Depending on the distribution, compiled plugin binaries may already be supplied. Source-based setups may require a project/plugin build before the editor can open successfully.
 

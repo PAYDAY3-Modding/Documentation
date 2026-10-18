@@ -13,7 +13,22 @@ The recommended workflow is to install PDML mods as complete folders under `PAYD
 
 Open PAYDAY 3's installation folder using your game launcher. In Steam, right-click *PAYDAY 3* in your library and select *Manage > Browse local files*.
 
-The paths below are relative to the folder containing the game's `PAYDAY3` directory. For example, a Steam installation can look like this:
+For Epic Games, open the game's three-dot menu in your library, select *Manage*, then click the folder icon beside the installation location. In the Xbox app, right-click the game, select *Manage > Files*, then *Browse*.
+
+In these guides, `PAYDAY3/Mods/` means the `Mods` folder beside the game's runtime `Content` folder. It is inside the installation folder opened by your launcher. Use the location for your storefront below, where `<InstallFolder>` means the folder opened by the launcher:
+
+[cols="1,3"]
+|===
+|Storefront |Mod folder
+
+|Steam or Epic Games
+|`<InstallFolder>/PAYDAY3/Mods/`
+
+|Xbox / Microsoft Store
+|`<InstallFolder>/Content/PAYDAY3/Mods/`
+|===
+
+For example, a Steam installation has two `PAYDAY3` folders. Put `Mods` in the inner one:
 
 [source,text]
 ----
@@ -25,7 +40,34 @@ steamapps/common/PAYDAY3/
 
 == Install PDML
 
-PDML is the runtime loader required by PDML mods. Install it using the instructions supplied with its download before adding your mods.
+PDML loads compatible mods when the game starts. Install it once before adding other PDML mods.
+
+. Close PAYDAY 3.
+. Open https://modworkshop.net/mod/59255[PAYDAY 3 MOD LOADER by Nadz] and download the release compatible with your game. Check its *Dependencies & Instructions* tab for any release-specific changes.
+. Extract the ZIP into a temporary folder and locate `PDML.uplugin`, `Content`, and `Resources`.
+. Open the `Mods` folder shown for your storefront above. If it does not exist, create it in that location. Inside `Mods`, create a folder named `PDML`.
+. Copy `PDML.uplugin`, `Content`, and `Resources` together into `Mods/PDML/`. If extraction already created a `PDML` folder containing these items, copy that whole folder into `Mods` instead.
+
+Check the result before launching:
+
+[source,text]
+----
+PAYDAY3/
+`-- Mods/
+    `-- PDML/
+        |-- PDML.uplugin
+        |-- Resources/
+        `-- Content/
+            `-- Paks/
+                |-- Windows/
+                `-- WinGDK/
+----
+
+Keep both supplied platform folders and all packaged files together. `PDML.uplugin` must be directly inside `Mods/PDML/`, without another `PDML` or download folder in between.
+
+*Check:* Start PAYDAY 3 and look for the Mod Manager in the main menu. If it is missing, close the game, check the storefront path and `PDML.uplugin` location above, and try again. If it is still missing, check the release's compatibility notes before adding other mods.
+
+These steps follow the https://modworkshop.net/mod/59255[PDML author's installation instructions].
 
 == Install a PDML mod
 
@@ -42,7 +84,9 @@ PAYDAY3/Mods/
 . Install required PDML dependencies in the same way, following any additional instructions on their download pages.
 . Start PAYDAY 3 with PDML installed and check that the mod is loaded.
 
-The resulting layout should look like this:
+*Check:* Open the in-game Mod Manager and find the mod by its displayed name, which may differ from its folder name. Then check the change described on the mod's download page.
+
+Your other mod folders go beside `PDML`, not inside it. For example:
 
 [source,text]
 ----
@@ -69,7 +113,7 @@ See xref:pdml:loading.adoc[PDML Mod Loading] for more on how PDML discovers thes
 
 Close the game and follow the author's update instructions. Replace the old mod folder with the complete new version, keeping any mod-specific configuration the author tells you to preserve. To uninstall a PDML mod, remove its folder from `PAYDAY3/Mods/`.
 
-If a mod fails to load, check that PDML is installed, the `.uplugin` file is directly inside the mod folder, and all dependencies are present. If it causes a crash, check its compatibility and try it without other mods. Use the mod's ModWorkshop page to check for updates or report the problem to its author.
+If the mod is missing from the Mod Manager, close the game, check that its `.uplugin` file is directly inside its mod folder and all dependencies are installed, then restart. If it is listed but causes a crash or has no effect, check its compatibility and try it without other mods. Use the mod's ModWorkshop page to check for updates or report the problem to its author.
 
 == Older loose PAK mods
 
