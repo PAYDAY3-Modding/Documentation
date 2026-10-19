@@ -6,6 +6,7 @@
 * xref:custom-heists:objectives.adoc[Objectives]
 * xref:custom-heists:ai-navigation.adoc[AI & Navigation]
 * xref:custom-heists:life-actions.adoc[Life Actions]
+* xref:custom-heists:level-bounds.adoc[Level Bounds]
 * xref:custom-heists:airnav.adoc[AirNav]
 * xref:custom-heists:vehicles.adoc[Vehicles]
 * xref:custom-heists:bags.adoc[Bags]
