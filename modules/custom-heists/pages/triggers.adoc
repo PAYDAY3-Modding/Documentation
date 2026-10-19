@@ -29,6 +29,13 @@ Use the `BP_MarkerZone` blueprint for the highlight for the escape zone, or bag 
 `BP_MarkerZone` is purely for decoration and does not have logic such as escaping, or securing of bags.
 ====
 
+== Triggering the Alarm via a Trigger
+
+. Triggering an Alarm can be by using a `SBZPlayerTriggerVolume` and selecting it in the Outliner
+. Then, go into the Level Blueprint and right click, selecting the `Player Pawn Begin Overlapping (SBZPlayerTriggerVolume)`
+. After that just hook that Event into a `Call Dispatcher by Asset` Node and drag out the `Target`Pin to a variable, and in the Caller Reason select a DA that responds to the reason you want to trigger the Alarm for.
+
+
 
 === Ending the mission
 
