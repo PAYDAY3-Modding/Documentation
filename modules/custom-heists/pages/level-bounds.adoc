@@ -1,0 +1,18 @@
+= Level Bounds
+
+Every Heist in PAYDAY 3 has Areas which the player cannot access and where the screen turns grey.
+For this effect, two entities are needed: a `BP_Prototype_LevelBoundsTrigger_C`, and a `Blocking Volume`.
+
+image::BlockingVolume-LVLBounds-Showcase.png[Image showing the 2 entities that are needed, width=800]
+
+== Setup
+First up, position the `BP_Prototype_LevelBoundsTrigger_C` where you want the *visual* barrier to be, be aware that you can still walk through this area without being stopped,
+thats where the `Blocking Volume` comes in, position it within the `BP_Prototype_LevelBoundsTrigger_C` so that the inner `Post Processing Bounds` overlap with the `Blocking Volume`.
+
+[NOTE]
+====
+You can resize both the  `BP_Prototype_LevelBoundsTrigger_C` and the `Blocking Volumes` to fit the space that you need. Their functionality will remain the same.
+====
+
+image::BlockingVolume-FinalPlacement.png[Image showing the final result, width=800]
+ 
