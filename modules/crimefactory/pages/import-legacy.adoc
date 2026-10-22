@@ -2,6 +2,8 @@
 
 *Import Legacy Mod* is a migration workflow for older PAYDAY 3 UE4 logic mods created before the current CrimeFactory plugin structure.
 
+image::importLegacy-navigation.png[Crime Factory toolbar with the Import Legacy Mod Button highlighted, width=1200]
+
 It is intended to help move an existing mod project into the current modkit rather than recreating every asset by hand.
 
 == Legacy UE4 layout

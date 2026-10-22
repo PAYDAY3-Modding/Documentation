@@ -57,13 +57,14 @@ After configuring the Cooked Editor and restarting the editor, check CrimeFactor
 Do not end CrimeFactory's *PAYDAY 3 Game Path* with a forward slash (`/`) or backslash (`\`). Remove any trailing slash so the path ends with the installation folder name, for example `E:/Steam/steamapps/common/PAYDAY3`.
 ====
 
-image::CrimeFactory-project-settings.png[CrimeFactory project settings for PAYDAY 3, width=1200]
+image::CrimeFactory-project-settings.png[CrimeFactory project settings for PAYDAY 3, width=800]
 
 The key settings shown here are:
 
 * *PAYDAY 3 Game Path* points CrimeFactory at your local game install and is populated from the Cooked Editor's installation directory.
 * *Copy Mods To Game* copies forged mods to the game automatically after a successful forge.
 * *Launch Game After Packing* controls whether the game is launched after the forge step. The current UI still uses the word *Packing* here.
+* *Additional ZIP Export Folder* points where should your mods be stored as a `.zip` ready for distribution.
 
 CrimeFactory uses the configured game installation for workflows that need access to the locally installed game's data.
 
