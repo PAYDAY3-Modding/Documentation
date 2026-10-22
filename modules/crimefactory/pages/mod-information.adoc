@@ -8,7 +8,7 @@ Click *Information* to open the mod's properties.
 
 image::information-button.png[Information button on a CrimeFactory mod card, width=150]
 
-image::information-info.png[CrimeFactory Information window showing PAL status and packaging configuration, width=820]
+image::information-info.png[CrimeFactory Information window showing PAL status and packaging configuration, width=600]
 
 
 

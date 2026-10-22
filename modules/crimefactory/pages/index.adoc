@@ -6,7 +6,7 @@ It handles the common workflow around creating mod plugins, managing their metad
 
 CrimeFactory creates mods as Unreal plugins under the modkit's `Mods` directory. This gives every mod its own content namespace and keeps mod development separate from PAYDAY 3's mounted `/Game/...` content.
 
-image::CrimeFactory-dashboard.png[CrimeFactory mod manager, width=1000]
+image::CrimeFactory-dashboard.png[CrimeFactory mod manager, width=400]
 
 == Main workflow
 

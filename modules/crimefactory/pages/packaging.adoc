@@ -2,7 +2,7 @@
 
 CrimeFactory uses *Forge* as the name of its cook and package operation.
 
-image::CrimeFactory-dashboard.png[CrimeFactory mod cards with Forge action, width=1000]
+image::CrimeFactory-dashboard.png[CrimeFactory mod cards with Forge action, width=400]
 
 == What Forge does
 

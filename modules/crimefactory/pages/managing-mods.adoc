@@ -2,7 +2,7 @@
 
 The CrimeFactory mod manager is the main place for working with mod plugins in the editor.
 
-image::CrimeFactory-dashboard.png[CrimeFactory mod manager, width=1000]
+image::CrimeFactory-dashboard.png[CrimeFactory mod manager, width=400]
 
 == Mod cards
 
