@@ -123,3 +123,14 @@ Set the game mode to `BP_HeistGameMode` to ensure numerous important classes are
 ====
 Without it, the heist may not load correctly and is more likely to crash.
 ====
+
+== Navigation
+
+Go into the `Navigation System Config` and set the Config to `Navigation System Module Config`
+
+Navigation System Class should be set to `NavigationSystemV1` along with `Create on Client` and `Auto Spawn Missing Nav Data` being set to `true`.
+
+[IMPORTANT]
+====
+Without this being setup properly, Assaults won't properly work.
+====

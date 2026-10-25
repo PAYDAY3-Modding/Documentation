@@ -44,6 +44,7 @@ The `Data` section inside the Predefined Pawn Request specifies the type of scri
 === Other ways to spawn in AI
 
 In the level blueprint, you can use "Spawn Actor of class" on any of the `CH_*` assets in the content folder to spawn other types of AI that aren't listed in the `data` section of the `SBZPawnspawnPredefined`.
+
 [WARNING]
 ====
 This has a tendency of no replicating to clients. Be careful of using the "Spawn Actor of Class" method.
@@ -55,18 +56,36 @@ Spawn pawn groups (class `PD3PawnSpawnGroup`), like player spawn groups, are use
 
 Groups can be used to spawn civilians randomly, or in assaults.
 
-=== Assaults
+== Assaults
 
 The game automatically chooses spawn groups to spawn cops during assaults, so the only control you have over whether cops may spawn at a location is the `set enabled for assault` bool, which can be changed at any time.
 
-It is recommended to use 4 pawn spawns per group.
+It is recommended to use 4 - 6 pawn spawns per group.
 
 The spawn group actor's location needs to be inside an `SBZRoomVolume` for the game to initialize the actor.
 
-[WARNING]
-====
-As of update 3.9, assault spawns are not functional. A fix is being investigated. Scripted spawns are unaffected.
-====
+
+A few things are needed for Assaults to work properly, these include: `SBZNavMeshGeneratorVolume`, 
+
+`SBZPawnSpawnPredefined` and `PD3PawnSpawnGroup` along with a few important Settings within the xref:world-settings.adoc[World Settings].
+
+
+To begin, place down a few `SBZPawnSpawnPredefined` and assign them to a `PD3PawnSpawnGroup`, this is the container for the spawn location.
+
+Within the `SBZPawnSpawnPredefined` make sure, `Spawn on Begin Play` is unticked (as the assault manager will spawn them), then tick the checkbox `Override Spawning Method` and set the Method to `Try To Adjust Location, But Always Spawn`.
+
+You can leave the `Predefined Pawn Request` empty, as the assault manager will also manage that.
+
+Lastly, make sure that within the  `Spawn Definition Array` the Transform is set to the Actors Location, same goes with the `Weighted Location`.
+
+Now just grab the `SBZNavMeshGeneratorVolume`, encase your playable area with it, and now youre almost done.
+
+Lastly comes the Blueprint Part, go into your Level Blueprint and place a `Get PD3AssaultManager` Node, from that Node drag off into the `Set Assault Active` Function, lastly add a `Set Level Progression` Node, make sure the bool is set to `true` and the float is set to something above `0.5`.
+
+You can put this blueprint section in conjunction with a xref:triggers.adoc[`SBZPlayerTrigger`] to trigger the alarm for example. 
+
+image::AssaultHowTo.png[Image showing the level blueprint, width=800]
+
 
 === Assault and civilian managers
 
