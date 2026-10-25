@@ -5,3 +5,10 @@
 Thumbs.db
 scripts/dev.js
 package.json
+/.idea/.gitignore
+/.idea/easy-i18n.xml
+/.idea/encodings.xml
+/.idea/indexLayout.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/misc.xml
+/.idea/vcs.xml
