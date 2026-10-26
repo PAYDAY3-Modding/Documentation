@@ -553,5 +553,11 @@ This list also includes unreleased spray paints that Starbeeze never released.
 |Reckless Use
 |DLCs\00229-Construction\Gameplay\Cosmetics\SprayCans
 
+|DA_DotD_SPCT
+|Mask Pattern Le Muerte
+|DLCs\00252-Western\Gameplay\Cosmetics
+
+
+
 
 |===

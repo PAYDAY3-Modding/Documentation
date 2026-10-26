@@ -356,6 +356,15 @@ This includes loot, equipment and other possible bags located in the game
 |Bag
 |DLCs\00080-DLC0004\DataAssets
 
+|DA_ExplosivesBag
+|Explosives
+|Bag
+|DLCs\00244-SharkNight\Blueprints\Bags
+
+
+
+
+
 |===
 
 
