@@ -1,0 +1,46 @@
+= Installing with Modrex
+:description: Set up Modrex to discover your PAYDAY 3 Installation, and install PDML.
+
+https://modrex.net/[Modrex] can manage PAYDAY 3 mods, such as installing, updating and viewing the contents of the mods (using a PAK Viewer built into the program)
+
+Prefer PDML releases when downloading mods. Each PDML mod must remain a complete folder under `PAYDAY3/Mods/`, including its `.uplugin` file and all packaged content.
+
+== Installing Modrex
+
+Download the installer from the https://modrex.net/[Modrex website] and install it.
+
+image::modrex_website.png[Image showing Modrex's Website, width=800]
+
+Go through the first time setup.
+
+image::modrex_browse-games.png[Image showing Modrex's Browse Games page, width=800]
+
+Navigate to the `Browse games` Tab and click on `PAYDAY 3`.
+
+
+
+
+
+
+
+
+
+
+== Download and install mods
+
+Go into the `Browse Mods` Tab within Modrex, look up `PAYDAY 3 MOD LOADER` and click `Install`.
+
+Or alternatively, navigate to any mod that has `PDML` listed as its dependency and click `Install`, Modrex will automatically install PDML
+
+image::modrex_pdml-search.png[Image showing Modrex's Browse Mods page with "PAYDAY 3 MOD LOADER" typed into the search bar, width=800]
+
+[IMPORTANT]
+====
+A PDML mod's packaged files belong inside its mod folder. Installing only its PAK files into `Content/Paks/~mods` loses the PDML package structure, but dont worry Modrex will detect and fix these errors automatically.
+
+If it can't, go into your game Folder and make sure it has the proper structure.
+====
+
+== Launch and manage your mods
+
+In the top right click on `Launch Modded` and PAYDAY 3 should just launch.
