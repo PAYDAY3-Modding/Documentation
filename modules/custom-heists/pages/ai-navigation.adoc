@@ -54,3 +54,13 @@ For stealth, rooms are also used to determine the security level: `Public`, `Pri
 `SBZRoomConnectorVolume` signifies where two room volumes connect. AI use these to understand how to get from one room to the other.
 
 Place the volume at the point where two room volumes meet, then assign each room volume to the `Room A` and `Room B` variables. Use the `Gate` variable to specify a door or fence in the way that cops would open.
+
+== BP_CoverPoint
+
+`BP_CoverPoint` allows the AI to know where good cover is. In the Editor this is just shown as a blank cubic volume.
+
+Placing these near (not overlapping) props allows the AI to take cover and fire out of that cover.
+
+A good example of this would be `Cook Off`, which spreads these around its props with a bit of space in between.
+
+image::Cookie_BPCoverPointExample.png[Image showing BP_CoverPoint's spread around a few props on the Map "Cook Off", width=800]
