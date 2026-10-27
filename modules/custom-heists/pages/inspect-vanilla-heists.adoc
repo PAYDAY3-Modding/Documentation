@@ -175,3 +175,12 @@ This table maps each vanilla heist name to its code/level name. It is up to date
 |NewShootingRange
 |Shooting Range
 |===
+
+=== Year 4
+[cols="1,2"]
+|===
+|Level |Heist
+
+|SharkNight
+|Feeding Frenzy
+|===

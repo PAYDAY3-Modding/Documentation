@@ -1,5 +1,7 @@
 * xref:playing-with-mods:index.adoc[Playing with Mods]
 ** xref:playing-with-mods:manual-installation.adoc[Manual Installation]
+** xref:playing-with-mods:mod-organizer-2.adoc[Installing PDML with MO2]
+** xref:playing-with-mods:modrex.adoc[Installing PDML with Modrex]
 * Developing Mods
 ** Getting Started
 +
