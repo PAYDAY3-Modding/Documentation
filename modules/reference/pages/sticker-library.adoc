@@ -306,6 +306,22 @@ This list contains all of the Released and possibly unreleased stickers that can
 |Chains the Saw Man
 |DLCs\00229-Construction\Gameplay\Cosmetics\Weapon\Stickers
 
+|DA_WeaponSticker_Cactus
+|Tin-Pinned Cactus
+|DLCs\00252-Western\Gameplay\Cosmetics\Weapons\Stickers
+
+|DA_WeaponSticker_Bullseye
+|Bullseye
+|DLCs\00252-Western\Gameplay\Cosmetics\Weapons\Stickers
+
+|DA_WeaponSticker_Champagne_Glass
+|Champagne Toast
+|DLCs\00150-TwitchDrops10\Gameplay\Cosmetics\Weapons\Stickers
+
+|DA_WeaponSticker_Snake
+|Serpentine
+|DLCs\00150-TwitchDrops10\Gameplay\Cosmetics\Weapons\Stickers
+
 
 
 |===
