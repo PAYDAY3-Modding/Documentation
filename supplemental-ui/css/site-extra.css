@@ -424,7 +424,29 @@ hr, .doc h2, .doc h3, .doc h4,
 }
 
 @media screen and (max-width: 1023.5px) {
-  .navbar-menu { border-top: 1px solid var(--pd3-border); }
+  .navbar-brand .navbar-item.pd3-brand {
+    min-width: 0;
+    white-space: normal;
+    line-height: 1.2;
+    font-size: 1rem;
+  }
+  .header { box-shadow: 0 1px 0 var(--pd3-border); }
+  .navbar-burger { flex-shrink: 0; background-color: transparent !important; }
+  .navbar-brand { padding-left: 2.75rem; }
+  main .toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3.5rem;
+    box-shadow: none;
+    border-bottom: 0 !important;
+    z-index: 101 !important;
+  }
+  .toolbar .home-link { display: none; }
+  main .toolbar .nav-toggle { background-color: transparent !important; filter: invert(1); }
+  .nav { top: 0; height: calc(100vh - 3.5rem); }
+  .navbar-menu { border-top: 1px solid var(--pd3-border); border-bottom: 1px solid var(--pd3-border); }
+  .navbar-menu .navbar-dropdown { position: static !important; }
   .pd3-search-field { width: 100%; }
   .pd3-search-item { padding: .65rem .75rem !important; }
   .navbar-dropdown { box-shadow: none !important; border: 0 !important; }
