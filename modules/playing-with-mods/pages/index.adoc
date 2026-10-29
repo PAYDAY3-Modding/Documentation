@@ -27,6 +27,10 @@ Install any required dependencies as well as the mod itself. The mod's own instr
 
 * xref:manual-installation.adoc[Manual Installation] explains how to extract a PDML mod and copy its complete folder into `PAYDAY3/Mods/`.
 
+* xref:mod-organizer-2.adoc[Mod Organizer 2] explains how to install PDML using Mod Organizer 2 (with a plugin).
+
+* xref:modrex.adoc[Modrex] explains how to install PDML with Modrex.
+
 Older loose PAK mods are covered at the end of the manual installation guide for downloads that have not moved to PDML yet.
 
 == Making your own mods
