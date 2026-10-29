@@ -1,12 +1,119 @@
-= AirNav
+= Air Navigation
 
-AirNav is a specialist area of custom-heist tooling that is not yet fully supported.
+Air Navigation allows flying AI, such as Overkill delivery drones, to navigate around the heist environment. Custom heists need generated Air Navigation data for these systems to work correctly. CrimeFactory provides *Build Air Navigation Data* to generate it directly in the editor.
 
-Part of the octree-generation behavior can currently be reproduced, but the AirNavConnector integration cannot yet be generated as an editor workflow.
-
-This affects systems that depend on AirNav, such as Overkill weapon delivery.
-
-[WARNING]
+[NOTE]
 ====
-Overkill weapon support is not yet complete. It requires the AirNav generation and integration path, which has not been validated end to end.
+The generator is still experimental. Follow the editor's backup prompt before rebuilding, and test the result in-game. Successful navigation generation does not verify every drone spawn setup or delivery route.
+====
+
+== Step 1: Add the Air Navigation actor
+
+. Open your custom heist level.
+. Search the *Place Actors* panel for `SBZAirNavigation`.
+. Place one `SBZAirNavigation` actor in the level.
+
+This actor stores the generated navigation in its `NavData` array. Use *exactly one* Air Navigation actor across the loaded level setup, including sublevels. CrimeFactory stops if it finds none or more than one.
+
+// TODO IMAGE: Show SBZAirNavigation selected in the Outliner with its Details panel visible before generation.
+// Suggested filename: airnav-actor-details.png
+// image::airnav-actor-details.png[SBZAirNavigation selected in the Outliner and Details panel, width=1000]
+
+== Step 2: Add Air Navigation bounds
+
+. Search *Place Actors* for `SBZAirNavigationBoundsVolume`.
+. Place the volume in your level.
+. Resize it using its scale or brush settings to cover the areas the drone needs to navigate.
+
+You can place multiple bounds volumes. CrimeFactory generates a separate navigation tree for each loaded volume.
+
+// TODO IMAGE: Show SBZAirNavigationBoundsVolume selected in the viewport, with its outline clearly visible.
+// Suggested filename: airnav-bounds-selected.png
+// image::airnav-bounds-selected.png[Air Navigation bounds selected in the viewport, width=1000]
+
+// TODO IMAGE: Show the selected bounds volume's Transform scale and brush size settings in Details.
+// Suggested filename: airnav-bounds-settings.png
+// image::airnav-bounds-settings.png[Air Navigation bounds scale and brush settings, width=800]
+
+// TODO IMAGE: Show an overview of a custom heist with bounds covering the drone spawn, flight space and delivery areas at appropriate heights.
+// Suggested filename: airnav-bounds-heist.png
+// image::airnav-bounds-heist.png[Air Navigation coverage across a custom heist, width=1000]
+
+.Advanced: Multiple Navigation Bounds
+[%collapsible]
+====
+Each loaded bounds volume produces a separate tree in the same `NavData` array. The generator expands each volume's component bounding box into a cube based on its longest extent, rounded up to the generation size increment. The resulting coverage can extend beyond the visible brush, especially for long, thin volumes. Do not rely on that extra coverage when placing spawns.
+
+Several smaller bounds volumes can be preferable for large heists, keeping each region within the size and node limits. The current generator accepts at most *255 trees* and enforces a *65,527-node ceiling per tree*. A tree's root half-size must be no greater than *32,767 Unreal units*. Complex geometry can reach the node limit before the size limit.
+
+CrimeFactory builds neighbour connections within and between trees where generated regions touch or overlap, including face, edge and corner contacts. Separate volumes do not automatically provide a route across an empty gap. Arrange coverage along the full flight route and verify cross-region movement in-game.
+
+If generation reports oversized bounds or too many nodes, split or reduce the affected volume and rebuild. These limits are generation constraints, not a guarantee that every route inside the volumes is flyable.
+====
+
+== Step 3: Build the Air Navigation data
+
+. Load all relevant levels and sublevels, including the geometry, Air Navigation bounds and any authored links used by the heist.
+. Open the editor's *Build* menu. In the *Navigation* section, alongside *Build Paths*, select *Build Air Navigation Data*.
+. Back up your authored level before continuing, then confirm the build.
+. Allow CrimeFactory to finish generating navigation.
+. Check the completion message, which reports the generated node and link counts. Review the *Output Log* for warnings or errors, even if generation completed.
+. Select `SBZAirNavigation` and expand `NavData` in its Details panel. Check that the array now contains generated entries.
+. Save all modified levels, including sublevels containing any updated link actors. The command marks modified content for saving; it does not save it automatically.
+
+Rebuild after changes to bounds or geometry that affect the flight route. Let CrimeFactory populate the navigation data rather than editing the generated entries manually.
+
+// TODO IMAGE: Show Build Air Navigation Data highlighted in the Build menu's Navigation section, alongside Build Paths.
+// Suggested filename: airnav-build-menu.png
+// image::airnav-build-menu.png[Build Air Navigation Data in the Build menu, width=800]
+
+// TODO IMAGE: Show the successful generation dialog with node and link counts and the reminder to save and test.
+// Suggested filename: airnav-build-complete.png
+// image::airnav-build-complete.png[Air Navigation generation completion message, width=800]
+
+// TODO IMAGE: Show SBZAirNavigation selected with a populated NavData array expanded in Details.
+// Suggested filename: airnav-populated-navdata.png
+// image::airnav-populated-navdata.png[Populated NavData after generation, width=1000]
+
+== Test the navigation in-game
+
+Save and package the generated navigation, then test flight along the routes your heist needs to support. Follow xref:drone-spawning.adoc[Drone Spawning] to configure an Overkill drone and test its flight and delivery in-game.
+
+== Troubleshooting
+
+.NavData remains empty
+[%collapsible]
+====
+. Open your authored map in the editor, outside Play mode.
+. Check that exactly one `SBZAirNavigation` and at least one `SBZAirNavigationBoundsVolume` are loaded across the relevant levels and sublevels.
+. Run *Build Air Navigation Data* and confirm the prompt. Check that it reports successful generation rather than an abort message.
+. Read the *Output Log* for `LogCrimeFactoryAirNav` messages, then select the same loaded navigation actor and inspect `NavData` again.
+
+The generator refuses to overwrite a navigation actor in a cooked vanilla map. Bounds that are invalid, too large or too complex can also stop generation. Reduce or split the affected bounds as directed by the error. Missing or incomplete Starbreeze reflection fields require a compatible modkit/Suzie setup; do not try to fill the generated arrays manually.
+====
+
+== Advanced information
+
+.Air Navigation links (experimental)
+[%collapsible]
+====
+`SBZAirNavLinkActor` contains an `SBZAirNavLinkComponent` for special navigation connections. Normal Overkill drone navigation does not require manually placing links everywhere.
+
+The component exposes:
+
+* `LeftLink` and `RightLink`: the two endpoints.
+* `AdditionalPoints`: intermediate points between those endpoints.
+* `bStartEnabled`: the intended initial enabled state, applied by the runtime rather than used to filter generation.
+
+The current generator reads link components on loaded actors, transforms the endpoints and intermediate points using the owning actor's transform, and writes the generated connection data. Links whose endpoints cannot be resolved, or resolve to the same navigation node, are excluded with an Output Log warning. A completion message with zero links can be normal when no special links are needed.
+
+Generated links have *not yet been verified as traversed by PAYDAY 3's drone AI*. Link generation support does not establish successful runtime traversal. Treat these connections as experimental and test any setup that depends on them separately. Save modified link actors' levels after a build.
+====
+
+.Technical navigation validation
+[%collapsible]
+====
+The native `SBZAirNavigation.HasValidNavigationAt(Location)` function provides a navigation validity check at a location. It does not establish that the drone can find and follow a full path between two locations.
+
+A positive result does not rule out poor spawn clearance, disconnected flight regions, an unsuitable delivery destination or movement-logic issues. In-game flight and delivery remain the practical validation.
 ====
