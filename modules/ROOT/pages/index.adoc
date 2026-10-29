@@ -13,6 +13,7 @@ PDML is the recommended mod format. Install PDML and keep each downloaded mod as
 
 * xref:playing-with-mods:manual-installation.adoc[Manual Installation] - install complete PDML mod folders yourself.
 * xref:playing-with-mods:mod-organizer-2.adoc[Installing with Mod Organizer 2] - set up ModWorkshop's PAYDAY 3 plugin and preserve the PDML folder layout.
+* xref:playing-with-mods:modrex.adoc[Installing with Modrex] - set up Modrex and install PDML.
 
 == Developing Mods
 

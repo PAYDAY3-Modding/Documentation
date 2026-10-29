@@ -86,6 +86,13 @@ You can put this blueprint section in conjunction with a xref:triggers.adoc[`SBZ
 
 image::AssaultHowTo.png[Image showing the level blueprint, width=800]
 
+[WARNING]
+====
+Make sure that the `SBZRoomVolume` are seperated so that the Spawn Volumes (where the cops spawns are placed) and the "gameplay volumes" are not the same. This is because the Spawn Volumes require a `Priority` of `3`
+
+This will interfere with the assaults if all Volumes on the Map have the same priority.
+====
+
 
 === Assault and civilian managers
 
