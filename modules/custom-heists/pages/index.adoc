@@ -34,7 +34,6 @@ Individual pages identify supported, experimental, in-progress, and known-limita
 * xref:vehicles.adoc[Vehicles]
 * xref:bags.adoc[Bags]
 * xref:triggers.adoc[Player Triggers]
-* xref:escape-volumes-and-assault-spawning.adoc[Escape Volumes & Assault Spawning]
 * xref:doors-windows.adoc[Doors & Windows]
 * xref:intro-sequences.adoc[Intro Sequences]
 * xref:favours.adoc[Favours]

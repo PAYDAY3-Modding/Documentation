@@ -1,6 +1,13 @@
-* xref:creating-mods:index.adoc[Overview]
-* xref:creating-mods:asset-replacements.adoc[Asset Replacements]
-* xref:creating-mods:blueprint-logic.adoc[Blueprint & Logic Mods]
-* xref:creating-mods:materials-textures.adoc[Materials & Textures]
-* xref:creating-mods:meshes.adoc[Meshes]
-* xref:creating-mods:ui.adoc[UI & HUD Mods]
+*** xref:creating-mods:index.adoc[Overview]
+*** CrimeFactory
+include::crimefactory:partial$nav.adoc[]
+*** Asset & Logic Modding
+**** xref:creating-mods:asset-replacements.adoc[Asset Replacements]
+**** xref:creating-mods:blueprint-logic.adoc[Blueprint & Logic Mods]
+**** xref:creating-mods:materials-textures.adoc[Materials & Textures]
+**** xref:creating-mods:meshes.adoc[Meshes]
+**** xref:creating-mods:ui.adoc[UI & HUD Mods]
+*** Audio Modding
+include::audio-modding:partial$nav.adoc[]
+*** Custom Heists
+include::custom-heists:partial$nav.adoc[]

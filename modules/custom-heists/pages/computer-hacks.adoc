@@ -1,0 +1,9 @@
+= Computer hacks
+
+* The generic hack computer is located at `Gameplay/Props/HackableActor/BP_GenericHackableComputer`.
+* Interaction is enabled by default. While it is enabled, a waypoint is applied automatically. You can disable the waypoint by removing the data asset.
+* You can change the progress and success text. This is useful for customizing the screens to say different things.
+* `Set duration seconds` can be used to change how long the hack takes mid-heist.
+* The `On Hacking Complete` event is executed when the hack is complete.
+* Setting the `unlock mode` changes the hack between needing a key item, a hack timer, or no hack (no security).
+

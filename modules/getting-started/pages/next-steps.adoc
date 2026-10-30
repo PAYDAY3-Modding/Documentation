@@ -19,7 +19,3 @@ Custom heists combine more systems than a basic mod, so they assume you already 
 == Learn PDML
 
 Read xref:pdml:index.adoc[PDML] when your mod needs runtime initialization, mod settings, shared APIs, or other loader-integrated functionality.
-
-== Go deeper
-
-xref:advanced:index.adoc[Advanced Modding] covers lower-level PAYDAY 3 and Unreal topics for contributors and authors working beyond the supported high-level workflows.

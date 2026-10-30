@@ -1,7 +1,8 @@
-* xref:reference:index.adoc[Overview]
-* xref:reference:directory-structure.adoc[Directory Structure]
-* xref:reference:mod-types.adoc[Mod Types]
-* xref:reference:status.adoc[Feature Status]
-* xref:reference:bagtype-library.adoc[BagType DA Library]
-* xref:reference:spraypaint-library.adoc[SprayPaint DA Library]
-* xref:reference:sticker-library.adoc[Sticker DA Library]
+*** xref:reference:index.adoc[Overview]
+*** Game Files & Paths
+**** xref:reference:directory-structure.adoc[Directory Structure]
+*** Game Data Libraries
+**** xref:reference:heist-names.adoc[Heist Names]
+**** xref:reference:bagtype-library.adoc[Bagtype DA Library]
+**** xref:reference:spraypaint-library.adoc[SprayPaint DA Library]
+**** xref:reference:sticker-library.adoc[Sticker DA Library]

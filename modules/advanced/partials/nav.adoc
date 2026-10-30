@@ -1,7 +1,1 @@
-* xref:advanced:index.adoc[Overview]
-* xref:advanced:asset-paths.adoc[Asset Paths & Mount Points]
-* xref:advanced:asset-registry.adoc[Asset Registry]
-* xref:advanced:pak-iostore.adoc[Pak & IoStore]
 * xref:advanced:pal.adoc[PAL]
-* xref:advanced:blueprint-reconstruction.adoc[Blueprint Reconstruction]
-* xref:advanced:native-classes.adoc[Native Class Reconstruction]

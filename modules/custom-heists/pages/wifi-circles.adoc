@@ -1,0 +1,13 @@
+= WiFi circles
+
+To get WiFi circles to work, the level requires two actors: `SBZHackingZoneController` and one or more `SBZHackingZone`.
+
+. Place `SBZHackingZone` actors around the level in predefined locations, with the enabled bool set to false.
+. For each hacking objective, place an `SBZHackingZoneController` in the level (it can be anywhere). In the actor's defaults, populate the Hacking zone array with the `SBZHackingZone` actors you placed.
+. When the objective is activated, change the hacking controller state to running and set the interaction to enabled. Bind an event to `OnProgressionReached` to handle the objective's progression.
+
+[WARNING]
+====
+This section predates this objective's rework. It still needs to be verified that this objective is handled this way.
+====
+

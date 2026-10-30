@@ -31,59 +31,11 @@ See xref:objectives.adoc[Objectives] for how the objectives in the HUD are activ
 
 Below is a list of common objective actors:
 
-== Pocket drills
-
-* The standard blueprint is located at `Gameplay/Breaching/Tools/PocketDrill/BP_PocketDrill`.
-* This interaction is enabled by default. To disable it, disable the `Is Enabled` bool. You also want to set the state to `not assembled`.
-* The `On Breaching Equipment Completed` event signifies that the drill has been picked up after it finished drilling. `On Disassembly Needed` is used when the player needs to pick up the drill.
-* To enable the drill mid-heist, use the `set active` event in the `BP_PocketDrill` class.
-* You can set the number of adjusts needed, and how long each adjust takes.
-* Change `duration time seconds` to change how long the drill takes to finish.
-
-== Computer hacks
-
-* The generic hack computer is located at `Gameplay/Props/HackableActor/BP_GenericHackableComputer`.
-* Interaction is enabled by default. While it is enabled, a waypoint is applied automatically. You can disable the waypoint by removing the data asset.
-* You can change the progress and success text. This is useful for customizing the screens to say different things.
-* `Set duration seconds` can be used to change how long the hack takes mid-heist.
-* The `On Hacking Complete` event is executed when the hack is complete.
-* Setting the `unlock mode` changes the hack between needing a key item, a hack timer, or no hack (no security).
-
-== Keycards
-
-* The Red and Blue keycards are located at `Gameplay/Props/KeycardReader/BP_(COLOR)Keycard`.
-* The Red and Blue keycard readers are located at `Gameplay/Props/KeycardReader/BP_(COLOR)KeycardReader`.
-* Both are interaction-enabled by default.
-* The keycard reader's `On State Changed Delegate` event indicates when the keycard reader has been interacted with.
-* `On Server Complete Interaction Event` indicates when the keycard is interacted with.
-
-[IMPORTANT]
-====
-To ensure the keycard shows up on the HUD, you also need to populate your level's world settings Key Item Data Map with the correct tag and data asset for the keycard. See xref:world-settings.adoc[World Settings] for more details.
-====
-
-== Keypads
-
-* The keypad is located at `Gameplay/Props/Keypad/BP_Keypad`.
-* `BP_DigitPassword_Decal` is used for the password shown in the world.
-
-[NOTE]
-====
-This objective still requires further documentation.
-====
-
-== WiFi circles
-
-To get WiFi circles to work, the level requires two actors: `SBZHackingZoneController` and one or more `SBZHackingZone`.
-
-. Place `SBZHackingZone` actors around the level in predefined locations, with the enabled bool set to false.
-. For each hacking objective, place an `SBZHackingZoneController` in the level (it can be anywhere). In the actor's defaults, populate the Hacking zone array with the `SBZHackingZone` actors you placed.
-. When the objective is activated, change the hacking controller state to running and set the interaction to enabled. Bind an event to `OnProgressionReached` to handle the objective's progression.
-
-[WARNING]
-====
-This section predates this objective's rework. It still needs to be verified that this objective is handled this way.
-====
+* [[_pocket_drills]]xref:pocket-drills.adoc[Pocket drills]
+* [[_computer_hacks]]xref:computer-hacks.adoc[Computer hacks]
+* [[_keycards]]xref:keycards.adoc[Keycards]
+* [[_keypads]]xref:keypads.adoc[Keypads]
+* [[_wifi_circles]]xref:wifi-circles.adoc[WiFi circles]
 
 == Not yet documented
 

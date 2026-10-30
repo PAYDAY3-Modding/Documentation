@@ -1,5 +1,0 @@
-= Advanced Modding
-
-This section covers lower-level Unreal Engine and PAYDAY 3 concepts used when the high-level modkit workflow is not enough.
-
-It is intended for experienced mod authors, tool developers, and contributors.

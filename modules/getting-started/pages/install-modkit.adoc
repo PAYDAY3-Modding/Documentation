@@ -114,9 +114,23 @@ Follow any prompts printed by the script while it connects to the running game a
 The generated JMAP is local generated data. It is not included with the modkit download, so this step must be completed on a new modkit installation before the current reflected game data is available.
 ====
 
+== Run `JukeboxSetup.bat`
+
+Before opening the project, run `JukeboxSetup.bat` from `<ModkitRoot>`, alongside the `GenerateJMAP.bat` setup step.
+
+The script downloads or updates JukeboxMod in `<ModkitRoot>/Mods/JukeboxMod`. For a Git clone, it initializes the modkit's submodules and updates JukeboxMod. For a ZIP download, it clones JukeboxMod directly instead.
+
+. Make sure Git for Windows is installed and available in `PATH`, even if you downloaded the modkit as a ZIP. The script needs an internet connection to download or update the files.
+. In the folder containing `PAYDAY3.uproject`, double-click `JukeboxSetup.bat`.
+. Wait for the script to report `Setup completed successfully.`, then press a key to close it.
+
+image::jukebox-setup-location.png[JukeboxSetup.bat alongside GenerateJmap.bat and PAYDAY3.uproject in the modkit root folder, width=400]
+
+*Check:* Confirm that `<ModkitRoot>/Mods/JukeboxMod` contains the downloaded mod files. If the script reports `Setup failed`, resolve the error shown and rerun it before opening the project.
+
 == Starting the Project
 
-After installing the Wwise SDK, generating the JMAP, and adding the current `AssetRegistry.bin`, open `PAYDAY3.uproject` with the custom editor.
+After installing the Wwise SDK, generating the JMAP, adding the current `AssetRegistry.bin`, and successfully running `JukeboxSetup.bat`, open `PAYDAY3.uproject` with the custom editor.
 
 Unreal Engine will create local folders and may generate `PAYDAY3.sln`, the Visual Studio solution file, in the modkit root.
 
@@ -143,41 +157,6 @@ Once the output reports a successful build, open the project again.
 
 *Check:* The project should open in the custom editor without the Wwise module error. Configure the game paths on the next page before checking for game assets in the Content Browser.
 
-
-== Generate native classes with Suzie
-
-*Suzie* makes PAYDAY 3 classes available to the editor from your JMAP. It runs when the project starts; there is no separate Suzie command to run during setup.
-
-[IMPORTANT]
-====
-You do *not* need to run UE4SS UHT generation for the modkit.
-
-The modkit's native class generation workflow is handled by Suzie using the JMAP. UE4SS UHT-generated headers are not required to set up or update the modkit.
-====
-
-.How Suzie creates game classes
-[%collapsible]
-====
-Suzie reads the reflected game data in the generated JMAP and creates native class stubs: substitute class definitions that Blueprints and editor tools can reference without the original game source code.
-
-It registers these classes when the project starts, making them available to assets that depend on PAYDAY 3 types. The generated data is local to your setup and is regenerated at startup.
-
-UE4SS can still be useful for other runtime inspection, dumping, and reverse-engineering workflows, but its UHT generator is separate from the class-generation path used by this modkit.
-====
-
-== After PAYDAY 3 updates
-
-When PAYDAY 3 receives an update, refresh both pieces of game-derived data:
-
-. Make sure the installed game is on the version you intend to mod.
-. Use FModel to extract the updated `AssetRegistry.bin`.
-. Replace the existing `AssetRegistry.bin` in the modkit root with the new file.
-. Make sure PAYDAY 3 has no mods or UE4SS installed or active.
-. Launch the clean game.
-. Run `GenerateJMAP.bat` against the running game to dump a new JMAP.
-. Use the regenerated JMAP with Suzie so the generated native class data matches the updated game.
-
-Keeping both files current is important for different reasons: `AssetRegistry.bin` keeps cooked-asset discovery in sync, while the JMAP keeps reflected native types in sync.
 
 == Expected components
 

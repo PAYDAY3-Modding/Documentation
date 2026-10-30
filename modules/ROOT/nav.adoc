@@ -1,57 +1,22 @@
+* xref:index.adoc[Home]
 * xref:playing-with-mods:index.adoc[Playing with Mods]
 ** xref:playing-with-mods:manual-installation.adoc[Manual Installation]
 ** xref:playing-with-mods:mod-organizer-2.adoc[Installing PDML with MO2]
 ** xref:playing-with-mods:modrex.adoc[Installing PDML with Modrex]
 * Developing Mods
 ** Getting Started
-+
---
 include::getting-started:partial$nav.adoc[]
---
-** The Modkit
-+
---
-include::modkit:partial$nav.adoc[]
---
-** CrimeFactory
-+
---
-include::crimefactory:partial$nav.adoc[]
---
 ** Creating Mods
-+
---
 include::creating-mods:partial$nav.adoc[]
---
-** Audio Modding
-+
---
-include::audio-modding:partial$nav.adoc[]
---
-** Custom Heists
-+
---
-include::custom-heists:partial$nav.adoc[]
---
-** PDML
-+
---
+** Technical
+*** Modkit & Editor
+include::modkit:partial$nav.adoc[]
+*** PDML
 include::pdml:partial$nav.adoc[]
---
-** Advanced Modding
-+
---
-include::advanced:partial$nav.adoc[]
---
 ** Reference
-+
---
 include::reference:partial$nav.adoc[]
---
-** Troubleshooting
-+
---
+** Troubleshooting & Support
+*** Troubleshooting
 include::troubleshooting:partial$nav.adoc[]
---
-** xref:terminology.adoc[Terminology]
-** xref:contributing.adoc[Contributing]
+*** xref:terminology.adoc[Terminology]
+*** xref:contributing.adoc[Contributing]

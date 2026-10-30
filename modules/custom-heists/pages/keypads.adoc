@@ -1,0 +1,10 @@
+= Keypads
+
+* The keypad is located at `Gameplay/Props/Keypad/BP_Keypad`.
+* `BP_DigitPassword_Decal` is used for the password shown in the world.
+
+[NOTE]
+====
+This objective still requires further documentation.
+====
+

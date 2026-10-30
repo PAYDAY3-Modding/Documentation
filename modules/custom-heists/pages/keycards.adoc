@@ -1,0 +1,13 @@
+= Keycards
+
+* The Red and Blue keycards are located at `Gameplay/Props/KeycardReader/BP_(COLOR)Keycard`.
+* The Red and Blue keycard readers are located at `Gameplay/Props/KeycardReader/BP_(COLOR)KeycardReader`.
+* Both are interaction-enabled by default.
+* The keycard reader's `On State Changed Delegate` event indicates when the keycard reader has been interacted with.
+* `On Server Complete Interaction Event` indicates when the keycard is interacted with.
+
+[IMPORTANT]
+====
+To ensure the keycard shows up on the HUD, you also need to populate your level's world settings Key Item Data Map with the correct tag and data asset for the keycard. See xref:world-settings.adoc[World Settings] for more details.
+====
+

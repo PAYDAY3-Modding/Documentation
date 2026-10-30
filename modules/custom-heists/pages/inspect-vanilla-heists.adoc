@@ -20,7 +20,7 @@ It is not advised to copy any assets from a vanilla heist into your own heist, o
 
 == Opening a heist
 
-First, locate the name of the heist you want to open. The table of heist names and codenames below can be used to search for the heist in the `/Content/` folder.
+First, locate the name of the heist you want to open. Use xref:reference:heist-names.adoc[Heist Names] to find its codename, then search for it in the `/Content/` folder.
 
 When searching for a codename, you will notice many different types of levels.
 
@@ -78,109 +78,5 @@ You can now inspect and move around the level.
 Press `G` in engine to hide all Editor only assets such as volumes, billboards, and more. This can help with performance.
 ====
 
-== Heist names
-
-This table maps each vanilla heist name to its code/level name. It is up to date as of 3.9. 
-
-
-=== Base Game
-[cols="1,2"]
-|===
-|Level |Heist
-
-|Bebe/BranchBank
-|No Rest for the Wicked
-
-|ArmoredTransport
-|Road Rage
-
-|ArtGallery
-|Under the Surphaze
-
-|JewelryStore
-|Dirty Ice
-
-|FirstPlayable
-|Golde & Sharke
-
-|Box/CargoDock
-|99 Boxes
-
-|Sky/Penthouse
-|Touch the Sky
-
-|NightClub
-|Rock The Cradle
-|===
-
-=== Year 1
-[cols="1,2"]
-|===
-|Level |Heist
-
-|cookie
-|Cook Off
-
-|murk/station
-|Murky Station
-
-|DataCenter
-|Syntax Error
-
-|Fort
-|Boys in Blue
-
-|Chus
-|Houston Breakout
-
-|DiamondDistrict/Dim
-|Diamond District
-
-|stonk
-|Fear & Greed
-|===
-
-=== Year 2
-[cols="1,2"]
-|===
-|Level |Heist
-
-|ONE
-|First World Bank
-
-|Bust
-|Party Powder
-
-|Shiya
-|Delivery Charge
-
-|SnGBB
-|Bank Withdrawal
-
-|SnGFO
-|Search And Seizure
-|===
-
-=== Year 3
-[cols="1,2"]
-|===
-|Level |Heist
-
-|Dema
-|Shopping Spree
-
-|Pharoah
-|Tutorial Heist
-
-|NewShootingRange
-|Shooting Range
-|===
-
-=== Year 4
-[cols="1,2"]
-|===
-|Level |Heist
-
-|SharkNight
-|Feeding Frenzy
-|===
+[[_heist_names]]
+See xref:reference:heist-names.adoc[Heist Names] for the table of vanilla heist names and codenames.

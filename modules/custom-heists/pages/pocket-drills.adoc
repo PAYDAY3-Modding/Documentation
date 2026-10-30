@@ -1,0 +1,9 @@
+= Pocket drills
+
+* The standard blueprint is located at `Gameplay/Breaching/Tools/PocketDrill/BP_PocketDrill`.
+* This interaction is enabled by default. To disable it, disable the `Is Enabled` bool. You also want to set the state to `not assembled`.
+* The `On Breaching Equipment Completed` event signifies that the drill has been picked up after it finished drilling. `On Disassembly Needed` is used when the player needs to pick up the drill.
+* To enable the drill mid-heist, use the `set active` event in the `BP_PocketDrill` class.
+* You can set the number of adjusts needed, and how long each adjust takes.
+* Change `duration time seconds` to change how long the drill takes to finish.
+

@@ -56,6 +56,23 @@ Together with the current `AssetRegistry.bin` and JMAP/Suzie setup, this allows 
 
 Cooked audio assets additionally require the modkit's modified Wwise plugin to have the matching Audiokinetic `ThirdParty` SDK files installed. See xref:getting-started:wwise-setup.adoc[Set Up Wwise].
 
+== Disable cooked game asset loading
+
+Launch the custom editor with `-NoPD3CookedAssets` to stop it from trying to load cooked assets from the installed PAYDAY 3 game.
+
+Use this argument when packaging a project that does not use cooked game assets. It fixes packaging issues caused by the editor trying to load those assets even when they are not used in the project.
+
+For example, launch the editor from a command prompt with:
+
+[source,bat]
+----
+"C:\Path\To\CustomEditor\Engine\Binaries\Win64\UnrealEditor.exe" "C:\Path\To\Project\Project.uproject" -NoPD3CookedAssets
+----
+
+Replace the example paths with your custom editor executable and project file. You can also append `-NoPD3CookedAssets` to an editor shortcut's *Target*, after the executable and project paths.
+
+Cooked game assets will not be available through the editor's game-content loading workflow for that session. Launch the editor without the argument when you need to work with those assets again.
+
 == Installed content remains external
 
 The custom editor reads the game content from the user's own PAYDAY 3 installation.

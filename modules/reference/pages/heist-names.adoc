@@ -1,0 +1,106 @@
+= Heist Names
+
+This table maps each vanilla heist name to its code/level name. It is up to date as of 3.10. 
+
+
+== Base Game
+[cols="1,2"]
+|===
+|Level |Heist
+
+|Bebe/BranchBank
+|No Rest for the Wicked
+
+|ArmoredTransport
+|Road Rage
+
+|ArtGallery
+|Under the Surphaze
+
+|JewelryStore
+|Dirty Ice
+
+|FirstPlayable
+|Golde & Sharke
+
+|Box/CargoDock
+|99 Boxes
+
+|Sky/Penthouse
+|Touch the Sky
+
+|NightClub
+|Rock The Cradle
+|===
+
+== Year 1
+[cols="1,2"]
+|===
+|Level |Heist
+
+|cookie
+|Cook Off
+
+|murk/station
+|Murky Station
+
+|DataCenter
+|Syntax Error
+
+|Fort
+|Boys in Blue
+
+|Chus
+|Houston Breakout
+
+|DiamondDistrict/Dim
+|Diamond District
+
+|stonk
+|Fear & Greed
+|===
+
+== Year 2
+[cols="1,2"]
+|===
+|Level |Heist
+
+|ONE
+|First World Bank
+
+|Bust
+|Party Powder
+
+|Shiya
+|Delivery Charge
+
+|SnGBB
+|Bank Withdrawal
+
+|SnGFO
+|Search And Seizure
+|===
+
+== Year 3
+[cols="1,2"]
+|===
+|Level |Heist
+
+|Dema
+|Shopping Spree
+
+|Pharoah
+|Tutorial Heist
+
+|NewShootingRange
+|Shooting Range
+|===
+
+== Year 4
+[cols="1,2"]
+|===
+|Level |Heist
+
+|SharkNight
+|Feeding Frenzy
+|===
