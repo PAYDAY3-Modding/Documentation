@@ -2,7 +2,24 @@
 
 Custom heists can also have custom intro sequences.
 
-If you still need help, you can follow this video to set it up: https://www.youtube.com/watch?v=F_MLP3XvCQI
+If you still need help, you can follow this video to set it up:
+
+++++
+<div class="videoblock">
+  <div class="content">
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/F_MLP3XvCQI?rel=0"
+      title="PAYDAY 3 custom heist intro sequences video guide"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
+  </div>
+</div>
+++++
+
+https://www.youtube.com/watch?v=F_MLP3XvCQI[Watch the video on YouTube].
 
 == Master sequence and level setup
 
