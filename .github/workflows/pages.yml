@@ -26,6 +26,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Restore contributor metadata
+        uses: actions/cache@v4
+        with:
+          path: .cache/contributors.json
+          key: contributors-${{ runner.os }}-${{ github.repository_id }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: contributors-${{ runner.os }}-${{ github.repository_id }}-
 
       - name: Setup Node
         uses: actions/setup-node@v5
@@ -43,6 +52,7 @@ jobs:
       - name: Build documentation
         run: npm run build
         env:
+          GITHUB_TOKEN: ${{ github.token }}
           URL: ${{ steps.pages.outputs.base_url }}
 
       - name: Upload site

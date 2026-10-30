@@ -1,0 +1,21 @@
+<section class="page-contributors" aria-labelledby="page-contributors-title">
+  <h3 id="page-contributors-title">Contributors</h3>
+  <ul class="contributor-list">
+    {{#each page.file.contributors.first}}
+    {{> contributor}}
+    {{/each}}
+  </ul>
+  {{#if page.file.contributors.more.length}}
+  <details class="contributor-more">
+    <summary>Show all contributors</summary>
+    <ul class="contributor-list">
+      {{#each page.file.contributors.more}}
+      {{> contributor}}
+      {{/each}}
+    </ul>
+  </details>
+  {{/if}}
+  {{#if page.file.contributors.incomplete}}
+  <p class="contributor-status">Some contributor history is unavailable.</p>
+  {{/if}}
+</section>

@@ -1,6 +1,7 @@
 antora:
   extensions:
     - require: ./scripts/link-previews.js
+    - require: ./scripts/contributors.js
 
 site:
   title: PAYDAY 3 Modding Documentation

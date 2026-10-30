@@ -1,4 +1,5 @@
 = Contributing
+:page-documentation-contributors:
 
 Documentation contributions are welcome.
 
@@ -22,6 +23,23 @@ A task page should normally contain:
 . Links to deeper reference material.
 
 Use `NOTE`, `TIP`, `IMPORTANT`, `CAUTION`, and `WARNING` blocks when the information belongs directly beside a procedure.
+
+=== Optional technical detail
+
+Put technical information that is not immediately needed to complete the task in a collapsible section (a dropdown). This keeps the main instructions easy to follow while letting readers open the extra detail when they need it.
+
+Use a clear title that explains what the section contains:
+
+[source,asciidoc]
+----
+.How this works internally
+[%collapsible]
+====
+Additional technical explanation goes here.
+====
+----
+
+Keep required steps, prerequisites, and warnings needed to complete the task visible outside the dropdown. Link to a separate technical reference page when the explanation needs more space.
 
 == Images
 

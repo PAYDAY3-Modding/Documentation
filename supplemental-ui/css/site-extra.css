@@ -599,3 +599,133 @@ textarea,
 .hljs {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
 }
+/* Page contributors share the existing Contents column. */
+.doc .documentation-contributor-list {
+  display: grid;
+  gap: .25rem 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  list-style: none;
+  padding: 0;
+}
+
+.page-sidebar {
+  min-width: 0;
+}
+
+.page-contributors {
+  border-top: 1px solid var(--pd3-border);
+  color: var(--pd3-text-muted);
+  font-size: .83333rem;
+  margin-top: 1rem;
+  padding-top: .75rem;
+}
+
+.page-contributors h3 {
+  color: var(--pd3-text-muted);
+  font-size: inherit;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 .5rem;
+}
+
+.page-contributors .contributor-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contributor-list li {
+  margin: 0;
+}
+
+.contributor-list a {
+  align-items: center;
+  border-radius: .2rem;
+  color: inherit;
+  display: flex;
+  gap: .5rem;
+  padding: .3rem 0;
+  text-decoration: none;
+}
+
+.contributor-list a:hover,
+.contributor-list a:focus-visible {
+  background: var(--pd3-surface-raised);
+  color: var(--pd3-green);
+}
+
+.contributor-list img {
+  border-radius: 50%;
+  flex: 0 0 24px;
+  height: 24px;
+  object-fit: cover;
+  width: 24px;
+}
+
+.contributor-list span {
+  overflow-wrap: anywhere;
+}
+
+.contributor-more summary {
+  color: var(--pd3-text-muted);
+  cursor: pointer;
+  margin-top: .5rem;
+}
+
+.contributor-more summary:hover,
+.contributor-more summary:focus-visible {
+  color: var(--pd3-green);
+}
+
+.contributor-status {
+  font-size: .75rem;
+  line-height: 1.4;
+  margin: .5rem 0 0;
+}
+
+@media screen and (min-width: 1024px) {
+  .page-sidebar {
+    flex: 0 0 9rem;
+    order: 1;
+  }
+
+  .page-sidebar-inner {
+    margin-right: .75rem;
+    max-height: calc(100vh - 6.5rem);
+    overflow-y: auto;
+    position: sticky;
+    top: 6rem;
+  }
+
+  .page-sidebar .toc.sidebar .toc-menu {
+    margin-right: 0;
+    position: static;
+  }
+
+  .page-sidebar .toc.sidebar .toc-menu ul {
+    max-height: 40vh;
+  }
+}
+
+@media screen and (min-width: 1216px) {
+  .page-sidebar {
+    flex-basis: 12rem;
+  }
+}
+
+@media screen and (max-width: 1023.5px) {
+  .page-sidebar > .page-sidebar-inner:empty {
+    display: none;
+  }
+
+  .doc > .page-contributors {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media print {
+  .page-sidebar,
+  .page-contributors {
+    display: none;
+  }
+}
