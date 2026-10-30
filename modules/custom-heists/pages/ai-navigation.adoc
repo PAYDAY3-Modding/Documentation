@@ -64,3 +64,9 @@ Placing these near (not overlapping) props allows the AI to take cover and fire 
 A good example of this would be `Cook Off`, which spreads these around its props with a bit of space in between.
 
 image::Cookie_BPCoverPointExample.png[Image showing BP_CoverPoint's spread around a few props on the Map "Cook Off", width=800]
+
+[NOTE]
+====
+The `Techie` uses the BPs to calculate her camping spot, so keep that in mind.
+====
+
