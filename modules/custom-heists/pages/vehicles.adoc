@@ -34,7 +34,7 @@ For civilian traffic you require a correctly setup traffic manager and spline
 
 === Assault vehicles
 
-First responders require a correctly setup traffic manager data asset and spline with `Spline Type Flags` set to 0 and `Vehicle Type Flags` set to 1 (PLACEHOLDER UNTIL THE BITMASK DISPLAY IS FIXED!!!)
+First responders require a correctly setup traffic manager data asset and spline with `Spline Type Flags` set to "None" and `Vehicle Type Flags` set to "First Responder"
 [WARNING]
 ====
 Game will lock up in first responder state if its unable to spawn the first responders
