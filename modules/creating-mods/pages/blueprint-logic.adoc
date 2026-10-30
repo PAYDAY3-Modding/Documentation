@@ -1,8 +1,132 @@
 = Blueprint & Logic Mods
 
-[NOTE]
+Blueprint mods can replace the logic of an existing game Blueprint or add new behavior through a PDML Mod Actor.
+
+== Blueprint replacements
+
+A Blueprint replacement follows the xref:asset-replacements.adoc[Asset Replacements] workflow, with an extra reconstruction step before you make your changes.
+
+When a Blueprint is uncooked, the editor recreates its components, variables, defaults, and function stubs. It does not recreate the original function and event graphs. You must rebuild those graphs using the original Blueprint's decompiled logic as a reference.
+
+[IMPORTANT]
 ====
-This page is scaffolded for the next documentation pass.
+An uncooked Blueprint is a starting point, not a complete working replacement. Leaving function stubs empty can remove behavior that the game expects.
 ====
 
-This section will document the validated PAYDAY 3 modkit workflow for blueprint & logic mods.
+=== Decompile the original Blueprint
+
+This workflow assumes you can read enough C++ to understand function calls, variables, conditions, and control flow, then recreate that behavior in Blueprint.
+
+. Complete xref:getting-started:fmodel-setup.adoc[Set Up FModel] for your installed game version.
+. In FModel's settings, enable *Serialize Script Bytecode* and *Decompile Blueprint to Pseudo C++*.
+. Find the original Blueprint in FModel.
+. Right-click it and select *Decompile Blueprint*.
+
+image::blueprint-fmodel-settings.png[FModel settings with Serialize Script Bytecode and Decompile Blueprint to Pseudo C++ enabled, width=450]
+
+image::blueprint-fmodel-decompile-menu.png[FModel Blueprint context menu with Decompile Blueprint selected, width=360]
+
+You can also use Kismet Analyzer to inspect the Blueprint's logic instead of FModel's pseudo-C++ output.
+
+=== Recreate the graphs and make your changes
+
+. In the custom editor, find the same cooked Blueprint under its original `/Game/...` path and select *Convert to Uncooked*.
+. Open the uncooked Blueprint and inspect the recreated components, variables, defaults, and function stubs.
+. Read the original logic in FModel or Kismet Analyzer and recreate the corresponding function and event graphs in the uncooked Blueprint.
+. Make the behavior changes required by your mod.
+. Compile and save the Blueprint.
+. Add the replacement to your mod PAL's *Explicit Assets*, keeping its original asset name and `/Game/...` path.
+. Forge the mod and test the replacement in PAYDAY 3.
+
+See xref:asset-replacements.adoc#_add_the_replacement_to_the_pal[Add the replacement to the PAL] and xref:crimefactory:packaging.adoc[Forge] for the packaging steps.
+
+.Reading the decompiled logic
+[%collapsible]
+====
+FModel displays pseudo-C++ representing the compiled Blueprint logic. Use it to work out which events call which functions, how variables change, and which branches lead to each action.
+
+Recreate that behavior with Blueprint nodes; the decompiled text is a reference, not code to paste into a Blueprint graph. The output may contain labels and jumps rather than the layout of the original graph.
+
+image::blueprint-fmodel-decompiled.png[FModel displaying decompiled BP_EscapeVan logic with variables, function calls, conditions and jumps, width=1100]
+====
+
+== PDML logic mods
+
+A PDML logic mod adds a custom Mod Actor Blueprint that PDML loads for your mod. The actor is a place to implement your own Blueprint behavior without replacing an existing game Blueprint.
+
+=== Create a logic mod
+
+. Open CrimeFactory and choose *Create Mod*.
+. Select the *Logic Mod* template and create your mod.
+. Open the generated `BP_<ModName>` Blueprint in your mod's content folder.
+. Add your logic to its event and function graphs, then compile and save it.
+
+image::logic-mod-template-selection.png[CrimeFactory Create Mod window with the Logic Mod template selected, width=1000]
+
+The template supplies an empty actor derived from PDML's `ModActorBase`, alongside the mod data asset and PAL. See xref:crimefactory:templates.adoc#_logic_mod[Logic Mod template].
+
+image::logic-mod-actor-parent.png[Logic mod content folder showing a Mod Actor Blueprint derived from ModActorBase, width=720]
+
+=== Register the actor and choose when it spawns
+
+PDML needs the actor registered in the mod's data asset, `DA_<ModName>`. The Logic Mod template normally populates this entry for you; check it when setting up the mod or adding more actors.
+
+. Open `DA_<ModName>` and expand *Mod Data > Mod Actors*.
+. Add an entry if your actor is not already registered.
+. Set *ModActorClass* to your Mod Actor Blueprint.
+. Choose its *Spawn Timing*:
+* *Spawn Immediately* starts the actor in the main menu.
+* *Spawn On Heist Start* starts the actor when a heist begins.
+. Save the data asset.
+
+image::logic-mod-actor-registration.png[Mod Actors array with ModActorClass, Spawn Timing, bRespawnImmediateSpawn and bEnsureSingleton fields, width=560]
+
+image::logic-mod-spawn-timing.png[Spawn Timing dropdown showing Spawn Immediately and Spawn On Heist Start, width=450]
+
+Mod Actors are recreated when moving between the main menu and heists. Use a persistent object for data that must survive those transitions.
+
+=== Keep data between the menu and heists
+
+Mod Persistent Objects are created immediately and remain available throughout the game session. They are useful for caching data between heists or between the main menu and a heist.
+
+. Create a Blueprint derived from PDML's `ModPersistentObjectBase` in your mod's content folder.
+. Add the variables and functions you need for the shared data.
+. Open `DA_<ModName>` and expand *Mod Data > Persistent Objects*.
+. Add your persistent object Blueprint class to the array and save the data asset.
+
+image::logic-mod-persistent-parent.png[Persistent object Blueprint derived from ModPersistentObjectBase in a mod content folder, width=872]
+
+image::logic-mod-persistent-registration.png[Mod data asset Persistent Objects array with a persistent object Blueprint registered, width=1100]
+
+Use `FindPersistentModObjectByClass` from `BPFL_ModLoader` to retrieve the registered instance from a Mod Actor, check `bFound`, and cast `ObjectInstance` to your persistent object's Blueprint class before using its variables or functions.
+
+[NOTE]
+====
+Session persistence does not save data across game restarts. For custom mod data that must survive a restart, use Unreal Engine's *SaveGame* system: define a SaveGame Blueprint class for your data, save it with *Save Game to Slot*, and restore it with *Load Game from Slot*. Load the saved data back into your mod when it starts.
+
+For configurable values that should be saved, use xref:pdml:settings.adoc[Mod Settings]. See https://dev.epicgames.com/documentation/en-us/unreal-engine/saving-and-loading-your-game-in-unreal-engine[Unreal Engine's saving and loading documentation] for the SaveGame workflow.
+====
+
+=== Use PDML's Blueprint helpers and events
+
+PDML includes a Blueprint function library at `/PDML/Blueprints/Utilities/BPFL_ModLoader`. For normal logic mods, use its manager lookup and persistent-object lookup helpers. Most other functions in this library support PDML's own `BP_ModLoader` implementation and should normally be left to the loader.
+
+For example, use *Get Mod Loader Manager* to obtain the running `BP_ModLoader` instance. Check that the returned reference is valid, then drag from it to bind to a loader event such as `OnSettingsChanged` or `OnHeistStateChanged`.
+
+Bind a custom event with the matching signature and put your response logic in that event. For keybind notifications, filter `OnKeybindDown` by your setting's `UniqueID` so your mod responds to its own binding.
+
+Use *Find Persistent Mod Object By Class* to access your registered persistent objects. See xref:pdml:api.adoc[PDML API Reference] for the mod-facing helpers and event signatures; internal loader functions are documented separately there for reference.
+
+=== Add mod settings
+
+Logic mods can expose options through PDML's shared settings menu. Define them in your mod data asset and read their values from your Blueprint logic.
+
+See xref:pdml:settings.adoc[Mod Settings] for registration, supported setting types, reading values, and handling changes.
+
+=== Forge and test
+
+Forge the mod through CrimeFactory, install the complete Forged mod folder under `PAYDAY3/Mods/`, and launch the game with PDML.
+
+Check that your actor runs at the selected spawn timing. If you use a persistent object, test a menu-to-heist transition and a return to the menu to confirm that the next actor instance can retrieve the same session data.
+
+More helper functions and macros will be added as the modkit and PDML are updated.

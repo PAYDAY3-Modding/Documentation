@@ -1,8 +1,248 @@
 = API Reference
 
-[NOTE]
+PDML exposes a loader manager, event dispatchers, and a Blueprint function library for logic mods.
+
+For the authoring workflow, see xref:creating-mods:blueprint-logic.adoc#_pdml_logic_mods[PDML logic mods]. Settings registration and value access are covered separately in xref:settings.adoc[Mod Settings].
+
+== Get the loader manager
+
+The helper library is located at:
+
+[source,text]
+----
+/PDML/Blueprints/Utilities/BPFL_ModLoader
+----
+
+Use its *Get Mod Loader Manager* node from your Mod Actor to obtain the running `BP_ModLoader` instance through the game instance. Check that `ModLoaderManagerInstance` is valid before calling functions or binding events on it.
+
+The manager Blueprint is located at:
+
+[source,text]
+----
+/PDML/Blueprints/BP_ModLoader
+----
+
+Use the running instance returned by the helper when subscribing to events.
+
+== Function library
+
+Most functions in `BPFL_ModLoader` are implementation helpers for PDML's `BP_ModLoader`, rather than functions mod makers should routinely call. For logic mods, start with the two lookup helpers below and the loader event dispatchers. Register your actors and persistent objects in the mod data asset and let PDML manage their lifecycle.
+
+Names below use their asset names; the Blueprint node menu may display them with spaces.
+
+=== Helpers for logic mods
+
+[cols="2,3,4",options="header"]
+|===
+|Function |Pins |Behavior
+
+|`GetModLoaderManager`
+|Output: `ModLoaderManagerInstance` (`BP_ModLoader`).
+|Gets the loader manager from the PAYDAY 3 game instance. The result may be invalid if the manager is unavailable.
+
+|`FindPersistentModObjectByClass`
+|Input: `ObjectClass`. Outputs: `ObjectInstance`, `bFound`.
+|Searches the manager's `PersistentMods` array for an object with exactly the requested class. Check `bFound` and cast the returned object to your Blueprint class.
+
+|===
+
+=== PDML internal library functions
+
+These functions mainly support `BP_ModLoader` internals. They are included for reference when inspecting or contributing to PDML; normal logic mods should use registration, lookups, and event bindings instead.
+
+.Internal function library reference
+[%collapsible]
+======
+.Runtime object creation
+[cols="2,3,4",options="header"]
+|===
+|Function |Pins |Behavior
+
+|`AddNewPersistentObject`
+|Input: `ObjectClass`. Output: `Return` (object).
+|Creates an object with the loader manager as its outer, adds the instance to `PersistentMods`, and returns it. This creates a new object on each call; it does not first look for an existing instance of that class.
+|===
+
+For a persistent object that should always load with your mod, register its class in the mod data asset's *Persistent Objects* array. The runtime creation helper does not replace that registration workflow.
+
+.Runtime persistent-object initialization
+[%collapsible]
 ====
-This page is scaffolded for the next documentation pass.
+`AddNewPersistentObject` creates and stores the object but does not call the `Init` or `PostInit` interface events in its current implementation. The loader's normal registered-object initialization uses separate initialization steps.
+
+Account for any initialization your object requires when creating one dynamically.
 ====
 
-This section will document the validated PAYDAY 3 modkit workflow for api reference.
+.Actor and widget helpers
+
+[cols="2,3,4",options="header"]
+|===
+|Function |Pins |Behavior
+
+|`EnsureActorSingletonPreSpawnExternal`
+|Input: `ActorClass`. Output: `bExists`.
+|Checks whether an actor of the class already exists in the current world. Use `bExists` to decide whether to spawn another actor; this function does not spawn or destroy one itself.
+
+|`EnsureWidgetSingletonPreSpawnExternal`
+|Input: `WidgetClass`. Output: `bExists`.
+|Checks for an existing top-level widget of the requested class. Use the result before creating another widget.
+
+|`EnsureSingletonSelf`
+|Output: `bFound`. Uses the calling world-context object.
+|Checks the calling actor or widget against the first instance found for its class. If the caller is a different instance, it destroys the calling actor or removes the calling widget from its parent, and sets `bFound`.
+
+|`ClearNullObjectReferencesFromArray`
+|Input/output by reference: `ObjectArray`. Output: `bRemoved`.
+|Removes invalid object references from the supplied array and reports whether any were removed.
+|===
+
+[CAUTION]
+====
+`EnsureSingletonSelf` can destroy the actor that calls it or remove its widget. Use a pre-spawn check when you only want to know whether an instance already exists.
+====
+
+.Heist and save-slot helpers
+
+[cols="2,3,4",options="header"]
+|===
+|Function |Pins |Behavior
+
+|`GetLevelIdxFromHeistData`
+|Input: `HeistData` (`PD3HeistDataAsset`). Output: `LevelIdx` (integer).
+|Looks for the heist data asset in `SBZHeistDeveloperSettings.HeistLevelPairArray` and returns its matching array index. Verify that the heist is registered before using the result.
+
+|`AppendTwoDigitIntToString`
+|Input/output by reference: `InString`. Input: `Int`.
+|Appends the integer to the string, prefixing values from 0 to 9 with a zero. For example, appending `3` to `Slot_` produces `Slot_03`.
+
+|`GetNextAvailableSaveSlot`
+|Inputs: `SaveSlots` (string array by reference), `Delim` (string), `SlotLimit` (integer). Outputs: `AvailableSlot`, `bSlotAvailable`.
+|Parses the existing slot names using the delimiter and searches for an available numbered slot within the limit. Check `bSlotAvailable` before using the slot name; this helper does not save data itself.
+|===
+
+.Save-helper availability
+[%collapsible]
+====
+`GetNextAvailableSaveSlot` is defined in the library but is not marked static in the inspected asset, unlike its other public helper functions. It is used by the loader's save implementation; do not assume it is available as a normal global Blueprint library node in every modkit version.
+====
+
+.Logging stub
+
+`BPFL_ModLoader.PrintToModLoader` accepts a `Message` string. Its body is currently empty in the inspected asset, so calling it does not produce a log message.
+
+The manager also defines `PrintToModLoader`, with a `Print` string input. That implementation is empty too.
+
+======
+
+== Bind to loader events
+
+Get the manager instance, drag from its output pin, and select *Bind Event to* the dispatcher you need. Connect a custom event with the matching parameters.
+
+Bind while your Mod Actor or persistent object is available. Binding after an event has already fired does not replay it. Recreated Mod Actors need to establish their bindings again.
+
+[cols="2,2,4",options="header"]
+|===
+|Dispatcher |Parameters |Notification
+
+|`OnHeistStart`
+|None.
+|The loader receives the heist-start notification.
+
+|`OnWaitReturnToMenu`
+|None.
+|The loader enters its wait-for-return-to-menu handling.
+
+|`OnGameStartEntered`
+|None.
+|The game state machine enters the game-start state.
+
+|`OnHeistStateChanged`
+|`OldState`, `NewState` (`EPD3HeistState`).
+|The heist state changes. Use the supplied states to decide which transition your mod should handle.
+
+|`OnJoinedLobby`
+|None.
+|The loader receives the lobby-entered notification.
+
+|`OnLobbyExited`
+|None.
+|The loader receives the lobby-exited notification.
+
+|`OnExitedMatchmaking`
+|None.
+|The loader receives the matchmaking-exited notification.
+
+|`OnJobOveriewReady`
+|None.
+|The loader receives the job-overview-ready notification. `Overiew` is the dispatcher's current spelling in the asset.
+
+|`OnKeybindDown`
+|`UniqueID` (name), `bIsKeyDown` (Boolean).
+|Reports a checked keybind's identifier and down state. Filter by your setting's Unique ID; do not assume each notification represents a single press edge.
+
+|`OnSettingsChanged`
+|None.
+|Settings-change notification. Read your mod's current values through the settings library; the dispatcher does not include a setting ID or value.
+|===
+
+`OnJobOverviewComplete` is also declared with no parameters, but the inspected manager does not broadcast it. Do not rely on that dispatcher to run your logic in this version.
+
+See xref:settings.adoc[Mod Settings] for setting definitions, value getters, and keybind usage.
+
+== Loader implementation functions
+
+Most logic mods only need `GetModLoaderManager`, `FindPersistentModObjectByClass`, and the event bindings above. The manager also exposes functions used by PDML to discover, register, and spawn mod content. Normal mods register their assets through their mod data asset and let PDML run this lifecycle.
+
+.Functions used by the loader lifecycle
+[%collapsible]
+====
+[cols="2,4",options="header"]
+|===
+|Function |Role in the inspected manager
+
+|`GetAllData(CurrentAsset)`
+|Processes a `PDA_ModMeta` asset and collects its registered content, including dependency metadata.
+
+|`EnsureAllParsed`
+|Checks for metadata that still needs processing.
+
+|`ParseModActorStructs`
+|Sorts registered Mod Actor entries into spawn-timing groups.
+
+|`AddPersistentMods`
+|Creates registered persistent objects and invokes their initialization interface.
+
+|`PostInitPersistent`
+|Invokes the post-initialization interface on persistent objects.
+
+|`AddPersWidgetsToVP`
+|Adds persistent widget instances to the viewport.
+
+|`AddHeists`
+|Adds the collected heist data and level paths to the game's heist settings.
+
+|`SpawnImmediateActors`
+|Handles the immediate-spawn actor group, including clearing tracked actors and creating the registered actors.
+
+|`SpawnHeistStartActors`
+|Spawns the heist-start actor group and applies its singleton checks.
+
+|`SpawnInputManager`
+|Creates PDML's input manager actor.
+
+|`CheckChordsDown(Settings, PlayerController)`
+|Checks the configured input chords and broadcasts `OnKeybindDown` with the setting ID and current down state.
+
+|`AddMLButton`, `SetMMGroup`, `SetupUI`, `ShowDebugHeistSelection`
+|These functions have empty bodies in the inspected asset.
+
+|`PrintToModLoader(Print)`
+|Logging stub with an empty body.
+|===
+
+Calling lifecycle functions manually can create or recreate content that PDML already manages. Use registration, lookups, and event bindings for the normal logic-mod workflow.
+====
+
+== API updates
+
+More functions and macros will be added as the modkit and PDML are updated. Check the library and manager assets in your installed version when a node or dispatcher differs from this reference.
