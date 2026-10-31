@@ -25,5 +25,23 @@ Escape vehicles can open and close their doors via `Door states per type`, where
 === Traffic
 
 * `SBZTrafficVolume` is used to stop traffic.
+** A `PD3TrafficLightBase` is used for traffic lights (no way??) and requires atleast 2 elements in its array otherwise it wont work.
 * In `SBZWorld` settings, the traffic manager data asset controls which blueprints spawn in the heist, and how many. See xref:world-settings.adoc[World Settings].
-* Use `SBZTrafficSpline`, not `SBZSpline`, to control the movement of cars. Each vehicle has a `Set and Drive *` that controls how that pawn moves.
+* Use `SBZTrafficSpline`, not `SBZSpline`, to control the movement of cars and helicopters. Each vehicle has a `Set and Drive *` that controls how that pawn moves.
+
+For civilian traffic you require a correctly setup traffic manager and spline
+
+
+=== Assault vehicles
+
+First responders require a correctly setup traffic manager data asset and spline with `Spline Type Flags` set to "None" and `Vehicle Type Flags` set to "First Responder"
+[WARNING]
+====
+Game will lock up in first responder state if its unable to spawn the first responders
+====
+
+Swat vans can be spawned either by the `Spawn and Drive Swat Van` node or `Vehicle Spawn Settings` in `SBZWorld` settings
+
+=== Escort vehicles
+
+Escort vehicles work very similarly to normal vehicles requiring only `Set Escort Mode Enabled` to be used and setting a route to take by using `Set Escape Van` and `Set Escape Van Route` on the vehicle (DO NOT USE SET AND DRIVE NODES OTHERWISE IT WILL JUST DRIVE OFF INSTEAD OF BEING AN ESCORT). `Append Escape Van Route` can also be used to modify the route (e.g opening the gate or placing down all the boards on road rage)
