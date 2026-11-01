@@ -68,3 +68,9 @@ UE4SS can still be useful for other runtime inspection, dumping, or reverse-engi
 |===
 
 Both need to match the version of PAYDAY 3 the modkit is targeting.
+
+== Add editor behaviour to generated classes
+
+Suzie can attach custom C++ function bodies and automatic editor callbacks to the classes it creates from the JMAP. You can use this to implement existing reflected functions or react to object and property events without recreating the original game class.
+
+See xref:suzie-native-bodies.adoc[Suzie Native Bodies API] for the supported macros, Context methods, value types, and Editor-only limitations.

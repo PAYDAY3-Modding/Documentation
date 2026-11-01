@@ -1,0 +1,386 @@
+= Suzie Native Bodies API
+:description: API reference for Suzie native function bodies, lifecycle callbacks, reflected values, and editor refresh helpers.
+
+The Native Bodies API adds C++ behaviour to Suzie-generated classes without declaring the complete original class. It supports actors, components, widgets, Data Assets, and other UObject classes created by Suzie.
+
+The JMAP still defines the class, its properties, and its reflected functions: the functions Unreal knows about through its class information. Your implementation file supplies function bodies and optional callbacks.
+
+[IMPORTANT]
+====
+This API belongs to the modkit Editor. Forging a mod does not add these C++ implementations to the shipped PAYDAY 3 game. Lifecycle callbacks are disabled during cook commandlets.
+====
+
+== Source files and building
+
+Place handwritten implementations in:
+
+[source,text]
+----
+<ModkitRoot>/Plugins/Suzie/NativeClasses/<ModuleName>/<ClassName>.cpp
+----
+
+The folder and filename identify `/Script/ModuleName.ClassName`. Use the exact reflected module and class names, without adding a C++ `U` or `A` prefix. Each file belongs to one class and may contain several bodies and callbacks.
+
+. Add or edit the class's implementation file.
+. Close the Editor.
+. Build `PAYDAY3Editor` for Win64 Development. In Visual Studio, use *Development Editor*.
+. Restart the Editor and check the Output Log for Suzie messages.
+
+Registration and wrapper generation happen automatically during the build. Do not edit `Plugins/Suzie/Intermediate/NativeBodies/`, which contains generated output. No original Starbreeze headers, `UCLASS`, or manual registration are required. You can include additional C++ headers when needed.
+
+[NOTE]
+====
+The examples below are templates. `ClassName`, `FunctionName`, and example property names are placeholders, not a list of real PAYDAY 3 classes or signatures. Replace them with names and types from your current JMAP. See xref:reflected-types.adoc[Reflected Game Types].
+====
+
+== Macro reference
+
+Each macro introduces a body with an automatically supplied `FSuzieFunctionContext& Context`.
+
+[cols="2,3",options="header"]
+|===
+|Declaration |Purpose
+
+|`SUZIE_FUNCTION(Class, Function)`
+|Implement an existing compatible Suzie-generated reflected function. Runs when that function is called.
+
+|`SUZIE_CONSTRUCT(Class)`
+|Run early setup during Suzie construction, before final defaults are applied.
+
+|`SUZIE_POST_INITIALIZE(Class)`
+|Run once after the object's reflected properties, defaults, and required loading are ready.
+
+|`SUZIE_PROPERTY_CHANGED(Class, Property)`
+|React to an editor notification for the named property, including changes to fields inside it.
+
+|`SUZIE_REFRESH(Class)`
+|Handle a deferred refresh requested by the API, a watched dependency, or an observed widget replacement.
+|===
+
+The class argument must match the filename. `SUZIE_CONSTRUCTOR(Class)` is a compatibility alias for `SUZIE_CONSTRUCT(Class)`.
+
+=== SUZIE_FUNCTION
+
+[source,cpp]
+----
+SUZIE_FUNCTION(ClassName, FunctionName)
+{
+    const bool bEnabled = Context.GetParam<bool>("bEnabled");
+    if (!Context.IsValid()) { return; }
+
+    Context.SetProperty<bool>("bActive", bEnabled);
+}
+----
+
+This template expects a boolean input named `bEnabled` and a boolean object property named `bActive`.
+
+* The target must be an existing Suzie-generated synchronous native UFunction. Missing functions are not created.
+* Inputs, outputs, return values, and property types must match the reflected signature.
+* Put inherited function implementations in the file for the Suzie class that declares the function.
+* Static functions are supported. Their `Context.GetSelf()` is the declaring class's default object rather than a normal instance.
+* Function bodies run on the game thread. Calls from another thread are rejected.
+* RPCs, delegates, and latent functions are not supported injection targets.
+* This macro cannot override ordinary native C++ methods that are not compatible Suzie-generated UFunctions.
+
+Existing Blueprint calls continue to use the same function name and class identity.
+
+=== Lifecycle timing
+
+[cols="1,3",options="header"]
+|===
+|Callback |Timing and restrictions
+
+|Construct
+|Suzie-declared property storage and the native parent are initialized. Final archetype, JMAP, and saved values are applied afterwards and can replace values written here. Blueprint-added fields are not ready. This callback may run away from the main editor thread; keep it to early property setup.
+
+|Post-initialize
+|Deferred to the editor game thread after Suzie defaults and required object loading are complete. It is not a native `PostInitProperties()`, `PostLoad()`, or actor gameplay-initialization override.
+
+|Property changed
+|Responds to Unreal's editor property-change notifications. It matches the named member or changed nested field. Direct C++ memory writes do not automatically send those notifications.
+
+|Refresh
+|Deferred and coalesced: several requests can produce one update. Requires an explicit refresh request, dependency subscription, or widget observation; it is not a general per-frame callback.
+|===
+
+Construct and post-initialize callbacks also apply to class defaults and templates. A class default object holds starting values for instances. To skip all templates, including class defaults:
+
+[source,cpp]
+----
+SUZIE_POST_INITIALIZE(ClassName)
+{
+    if (Context.IsTemplate()) { return; }
+
+    // Apply instance behaviour using initialized properties.
+}
+----
+
+=== Inheritance and registration rules
+
+* Lifecycle callbacks apply to the target class and its descendants, including Blueprint children.
+* If callbacks exist on several classes in the hierarchy, they run parent first, then child. Child callbacks do not replace parent callbacks.
+* Inherited reflected properties can be used with `SUZIE_PROPERTY_CHANGED`.
+* Keep one callback per class and event type. Property-change callbacks may have separate registrations for different properties.
+* Duplicate declarations, missing targets, and incompatible function signatures are reported instead of silently selecting an implementation.
+* Recursive lifecycle dispatch for the same object is suppressed.
+
+== Context reference
+
+`Context` provides checked access to the current object and its reflected data. Keep the Context and any value views within the current body; do not store them for use after it returns.
+
+=== Object and callback information
+
+[cols="2,3",options="header"]
+|===
+|Method |Result
+
+|`GetSelf()`
+|The current `UObject*`. For static function bodies, this is the declaring class's default object.
+
+|`GetPhase()`
+|An `ESuzieCallbackPhase`: `Function`, `Construct`, `PostInitialize`, `PropertyChanged`, or `Refresh`.
+
+|`IsClassDefaultObject()`
+|Whether the object is a class default object.
+
+|`IsTemplate()`
+|Whether the object is a template, including a class default object.
+
+|`GetChangedPropertyName()`
+|The top-level changed member name for a property-change callback.
+
+|`GetChangedLeafPropertyName()`
+|The changed nested field name, when supplied by the editor event.
+
+|`GetFunction()`
+|The current `UFunction&`. Function bodies only: calling this from a lifecycle callback triggers an assertion.
+
+|`IsValid()`
+|Whether the Context has recorded an error. It does not check whether a referenced asset is valid or has finished loading.
+
+|`GetError()`
+|The first recorded Context error message.
+
+|`Fail(Message)`
+|Record and log an error. Return from your body if execution should stop; this method does not return for you.
+|===
+
+Changed-property names are meaningful for property-change callbacks. Other phases normally receive `NAME_None`.
+
+=== Object properties
+
+[cols="2,3",options="header"]
+|===
+|Method |Behaviour
+
+|`GetProperty<T>(Name)`
+|Read a copy of a property on the current object.
+
+|`SetProperty<T>(Name, Value)`
+|Write a property on the current object. Returns `bool` success.
+
+|`Property(Name)`
+|Get a checked value view of a property on the current object.
+
+|`Property(Name, Owner)`
+|Get a property view on another object. Pass a valid `UObject*`; an omitted or null owner means the current object.
+|===
+
+[source,cpp]
+----
+const FVector Location = Context.GetProperty<FVector>("Location");
+Context.SetProperty<bool>("bActive", true);
+
+UObject* Definition = Context.GetProperty<UObject*>("Definition");
+if (Context.IsValid() && IsValid(Definition))
+{
+    const float Amount = Context.Property("Amount", Definition).Get<float>();
+}
+----
+
+Property writes change the reflected value directly. They do not automatically call native setters, refresh visuals, or send editor property-change notifications. Apply any required behaviour explicitly.
+
+=== Function inputs, outputs, and returns
+
+These methods require a function context. Lifecycle callbacks have no parameter frame or return value.
+
+A const function body cannot write properties on its own object through Context. Const parameters also remain read-only.
+
+[cols="2,3",options="header"]
+|===
+|Method |Behaviour
+
+|`GetParam<T>(Name)`
+|Read a copy of a named input or output parameter.
+
+|`SetParam<T>(Name, Value)`
+|Write a parameter. Use this for output and reference values that need to reach the caller. Const parameters cannot be written by the body.
+
+|`GetReturn<T>()`
+|Read the return value, for example after `CallFunction()`.
+
+|`SetReturn<T>(Value)`
+|Set the result of a function with a compatible return type.
+
+|`Param(Name)` / `Return()`
+|Get checked value views of a parameter or return value.
+|===
+
+[source,cpp]
+----
+SUZIE_FUNCTION(ClassName, FunctionName)
+{
+    // This template requires a boolean return value in the JMAP.
+    Context.SetReturn<bool>(true);
+}
+----
+
+=== Calling reflected functions
+
+[source,cpp]
+----
+Context.CallFunction("RefreshState");
+----
+
+The full form is:
+
+[source,cpp]
+----
+auto Result = Context.CallFunction(
+    "FunctionName",
+    [](FSuzieFunctionContext& Call)
+    {
+        Call.SetParam<bool>("bEnabled", true);
+    });
+----
+
+`CallFunction(Name, Setup, Target)` calls synchronously and returns a `TUniquePtr<FSuzieFunctionContext>` containing the called function's parameters and return value. `Setup` is optional; use it to supply inputs. `Target` is an optional object, defaulting to the current object.
+
+Check the returned pointer before reading its outputs. Missing or unsupported functions, or failed input setup, return `nullptr` and record an error. Read outputs with `Result->GetParam<T>()` and a return value with `Result->GetReturn<T>()` using the actual signature.
+
+Reflected calls require the game thread. RPC, delegate, and latent calls are unsupported. Prefer post-initialization or later callbacks over construction for this work.
+
+=== Supported value types
+
+[cols="1,3",options="header"]
+|===
+|Type group |Examples and requirements
+
+|Basic values
+|`bool`, fixed-width integers such as `int32`, `float`, and `double`. Match the reflected type; `float` and `double` are not interchangeable.
+
+|Text and names
+|`FString`, `FName`, and `FText`.
+
+|Object references
+|`UObject*`, `UClass*`, and compatible compiled UObject subclass pointers. Use `UObject*` for dynamically generated classes whose C++ headers do not exist. The assigned object must match the property's allowed class.
+
+|Structs
+|Compiled reflected structs such as `FVector`, `FRotator`, and `FTransform`. Their reflected type must match exactly. Use `Field()` for structs that have no compiled C++ definition.
+
+|Enums
+|Matching compiled Unreal enum types, or the value view's `GetEnum()` and `SetEnum()` methods for dynamically generated enums.
+
+|Containers
+|`TArray<T>`, `TSet<T>`, and `TMap<K, V>` with supported, matching element types.
+|===
+
+Reads return copies. Changing a local array, struct, or other copied value does not change the object until you write it back. Missing names and incompatible types record a Context error; a failed typed read returns a default-initialized value.
+
+=== Reflected value views
+
+`Property()`, `Param()`, `Return()`, `Field()`, and `Element()` return `FSuzieReflectionValue` views. These let you inspect nested data without declaring the original game structs.
+
+[cols="2,3",options="header"]
+|===
+|View method |Behaviour
+
+|`Get<T>()` / `Set<T>(Value)`
+|Read a copy or write a checked value. `Set()` returns `bool` success.
+
+|`Field(Name)`
+|Get a named field inside a reflected struct.
+
+|`Element(Index)`
+|Get an existing array element. This does not add or resize elements.
+
+|`Num()`
+|Get the number of items in an array, set, or map.
+
+|`GetEnum()`
+|Read an enum's numeric value as `int64`.
+
+|`SetEnum(Value)`
+|Write an enum by `int64` value or `FName` enumerator. Invalid values are rejected.
+
+|`IsValid()`
+|Whether this view has a property and address. Use `Context.IsValid()` to check the invocation's error state.
+|===
+
+[source,cpp]
+----
+const float Amount = Context.Property("Settings")
+    .Field("Amount").Get<float>();
+
+Context.Property("Items").Element(0)
+    .Field("bEnabled").Set<bool>(true);
+
+Context.Property("Mode").SetEnum(FName(TEXT("Enabled")));
+----
+
+These templates require the named fields, an existing array element, and a valid enum member in the reflected data. Set and map items can be accessed through typed container copies; `Element()` is for arrays only.
+
+== Dependency and refresh API
+
+Use these helpers after initialization, on the game thread. The target class needs a `SUZIE_REFRESH` callback.
+
+[cols="2,3",options="header"]
+|===
+|Method |Behaviour
+
+|`WatchDependency(Object, Property)`
+|Refresh the current object when the watched object's named property changes in the editor. The filter matches the changed member or nested field.
+
+|`WatchDependency(Object)`
+|Watch any notified property change on that object. The default filter is `NAME_None`.
+
+|`ClearDependencies()`
+|Remove all dependency subscriptions for the current object, including those registered by other callbacks on it.
+
+|`RequestRefresh()`
+|Queue a deferred `SUZIE_REFRESH` update for the current object. Requests made while that object is already executing a lifecycle callback are ignored to prevent loops. Call your shared update helper directly from that callback instead.
+
+|`ObserveWidget()`
+|For `UWidget` objects only: opt in to watching their cached Slate representation. A replacement schedules a refresh. Requires a matching refresh callback; this is not a native widget-method override.
+|===
+
+Subscriptions use weak references, so they do not keep the owner or dependency alive. Suzie also handles loaded or replaced dependencies where applicable. It does not automatically follow every reference inside every asset.
+
+When a reference changes, rebuild the subscriptions from the object's current references. For example, in a shared update helper:
+
+[source,cpp]
+----
+Context.ClearDependencies();
+UObject* Definition = Context.GetProperty<UObject*>("Definition");
+if (Context.IsValid() && IsValid(Definition))
+{
+    Context.WatchDependency(Definition, "Settings");
+}
+----
+
+Keep shared dependency tracking together: `ClearDependencies()` applies to the whole object, not just the callback that calls it. Watching a reference property on the owner does not automatically watch edits inside the referenced asset.
+
+== Errors and known limitations
+
+Check the Output Log for Suzie registration and execution errors. After an operation that can fail, check `Context.IsValid()` before using the returned data. `Fail()` records an error but does not stop C++ execution.
+
+* Class and property names must exist in the current JMAP or supported inherited reflection data. The API does not add missing properties or functions.
+* Lifecycle callbacks are safe event callbacks, not actual native C++ constructors or virtual overrides. Arbitrary `PostLoad()`, `PostEditChangeProperty()`, `RebuildWidget()`, and `SynchronizeProperties()` calls cannot be intercepted with `SUZIE_FUNCTION`.
+* Widget observation detects Slate replacement on opted-in widgets. It does not intercept every synchronization call.
+* The API does not make partially loaded referenced assets safe to read. Check their readiness where your behaviour depends on loaded data.
+* Rebuild the C++ Editor target and restart the Editor after changes. Blueprint compilation alone does not rebuild native body files.
+* Keep game-owned cooked assets read-only. Native bodies provide local editor behaviour and are not a way to redistribute or replace PAYDAY 3's runtime code.
+
+== Class API pages
+
+* xref:sbz-ui-text-block.adoc[SBZUITextBlock] lists the class properties, style fields, implemented functions, and editor refresh behaviour.

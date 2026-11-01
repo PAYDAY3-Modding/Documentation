@@ -1,0 +1,231 @@
+= SBZUITextBlock
+:description: Reference for SBZUITextBlock properties, style assets, implemented functions, and automatic editor refresh behaviour in Suzie.
+
+`SBZUITextBlock` extends Unreal's `UTextBlock` with references to shared text and colour styles. Suzie's native bodies apply those styles and keep the widget updated in the modkit Editor.
+
+This page describes the current local implementation and the reflected names in the JMAP. For the macros and Context methods used to implement it, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].
+
+== Class information
+
+[cols="1,3",options="header"]
+|===
+|Item |Value
+
+|Reflected class
+|`/Script/Starbreeze.SBZUITextBlock`
+
+|Native parent
+|`UTextBlock`, reflected as `/Script/UMG.TextBlock`
+
+|Implementation file
+|`Plugins/Suzie/NativeClasses/Starbreeze/SBZUITextBlock.cpp`
+
+|Supported editor behaviour
+|Applying text and colour styles, updating after style changes, and refreshing after observed Slate replacement.
+|===
+
+Blueprint subclasses inherit these callbacks. Suzie keeps the original reflected class identity; the implementation does not declare a replacement Starbreeze class.
+
+[IMPORTANT]
+====
+The behaviours documented here are supplied by the modkit's Editor implementation. Forging a mod does not add these native bodies to the shipped PAYDAY 3 game. The game's own native behaviour is separate.
+====
+
+== Properties
+
+The properties below are editable in Details and exposed as read-only values to Blueprint. Use the implemented setter functions where available to change them from Blueprint.
+
+[cols="2,2,3",options="header"]
+|===
+|Property |Type and starting value |Current implementation
+
+|`Style`
+|`SBZTextStyle` object reference. Starts as `None`.
+|Supplies the font, margins, line height, and shadow settings.
+
+|`ColorStyle`
+|`SBZColorStyle` object reference. Starts as `None`.
+|Supplies the text colour through its `Value` field.
+
+|`ScrollStyle`
+|Class reference restricted to `SBZUITextScrollStyle`. Starts as `None`.
+|Stored as reflected data. This implementation does not use it to perform scrolling.
+
+|`bIsScrollingEnabled`
+|Boolean. Starts as `false`.
+|Stores the requested scrolling state. No scrolling behaviour is implemented here.
+
+|`bEnableHideTextOnEmpty`
+|Boolean. Starts as `false`.
+|Stored as reflected data. Automatic hiding of empty text is not implemented here.
+
+|`OnEmptyVisibility`
+|`ESlateVisibility`. Starts as `Collapsed`.
+|Stored visibility setting for empty text. This implementation does not apply it automatically.
+
+|`OnNotEmptyVisbility`
+|`ESlateVisibility`. Starts as `SelfHitTestInvisible`.
+|Stored visibility setting for non-empty text. This implementation does not apply it automatically.
+|===
+
+These starting values are set by `SUZIE_CONSTRUCT`. JMAP, archetype, Blueprint, and saved object values can take precedence, so an existing widget may have different values.
+
+`OnNotEmptyVisbility` is the exact reflected spelling, including the missing second `i` in `Visibility`. Use that spelling for reflection access. The text-style property is named `Style`, not `FontStyle`.
+
+== Style asset fields
+
+=== SBZTextStyle
+
+`Style` references `/Script/Starbreeze.SBZTextStyle`, a Data Asset class. The helper reads these fields:
+
+[cols="2,2,3",options="header"]
+|===
+|Field |Type |Applied to the widget
+
+|`Font`
+|`FSlateFontInfo`
+|The complete font settings, using `SetFont`.
+
+|`Margin`
+|`FMargin`
+|The text margins, using `SetMargin`.
+
+|`LineHeightPercentage`
+|`float`
+|The line-height multiplier, using `SetLineHeightPercentage`.
+
+|`bEnableShadows`
+|Boolean
+|Chooses whether to use the style's shadow offset. When false, the widget's shadow offset is set to zero.
+
+|`ShadowOffset`
+|`FVector2D`
+|The shadow offset when shadows are enabled.
+
+|`ShadowColor`
+|`SBZColorStyle` object reference
+|Its `Value` supplies the shadow colour when shadows are enabled and the asset is ready.
+|===
+
+The helper calls setters only when a value differs from the widget's current value. A missing shadow-colour asset leaves the current shadow colour in place.
+
+=== SBZColorStyle
+
+`ColorStyle` and `Style.ShadowColor` reference `/Script/Starbreeze.SBZColorStyle`, another Data Asset class.
+
+[cols="1,1,3",options="header"]
+|===
+|Field |Type |Use
+
+|`Value`
+|`FLinearColor`
+|Used as the text colour for `ColorStyle`, or the shadow colour for `Style.ShadowColor`.
+|===
+
+Text colour is applied with `SetColorAndOpacity`. Shadow colour is applied with `SetShadowColorAndOpacity`.
+
+== Implemented functions
+
+All three functions are Blueprint-callable, have one input, and return no value. Their input names below are the reflected names used by Context; Blueprint display labels may use spaces.
+
+[cols="2,2,3",options="header"]
+|===
+|Function |Input |Behaviour
+
+|`SetStyle`
+|`InStyle`: `SBZTextStyle` object reference
+|Stores the `Style` reference, then reapplies the widget's current style settings.
+
+|`SetColorStyle`
+|`InStyle`: `SBZColorStyle` object reference
+|Stores the `ColorStyle` reference, then reapplies the widget's current style settings.
+
+|`SetScrollingEnabled`
+|`bInIsScrollingEnabled`: Boolean
+|Writes `bIsScrollingEnabled`. It does not start scrolling or update the style.
+|===
+
+Passing `None` to either style setter clears the corresponding reference. It does not restore the widget's original font, colour, or other previously applied values. The other assigned style can still be applied.
+
+=== Other reflected functions
+
+These functions are present in the checked JMAP, but the current `SBZUITextBlock.cpp` does not supply custom bodies for them:
+
+[cols="2,2,3",options="header"]
+|===
+|Function |Input |Implementation status
+
+|`ResetScrollState`
+|None
+|Known limitation: no custom reset behaviour is provided by this file.
+
+|`SetWrapTextWidth`
+|`InWrapTextAt`: `int32`
+|Known limitation: no custom wrapping implementation is provided by this file.
+|===
+
+The local `GetStyle` and `GetColorStyle` helpers are C++ implementation helpers, not added reflected getter functions. Read the `Style` and `ColorStyle` properties when using Context. Normal inherited `UTextBlock` APIs remain separate from these custom bodies.
+
+== Editor callbacks
+
+These callbacks run automatically. They are not extra functions to call from Blueprint.
+
+[cols="2,3",options="header"]
+|===
+|Callback |Behaviour
+
+|`SUZIE_CONSTRUCT`
+|Sets the starting property values before final defaults are restored.
+
+|`SUZIE_POST_INITIALIZE`
+|Applies styles after the widget's reflected defaults and required loading are ready.
+
+|`SUZIE_PROPERTY_CHANGED` for `Style`
+|Reapplies styles after the reference changes in the editor.
+
+|`SUZIE_PROPERTY_CHANGED` for `ColorStyle`
+|Reapplies styles after the reference changes in the editor.
+
+|`SUZIE_REFRESH`
+|Reapplies styles after a watched asset changes, a relevant asset finishes loading, or the observed Slate representation is replaced.
+|===
+
+All style updates use the shared `SuzieUITextBlock::UpdateTextProperties` helper. It skips class default objects and cook commandlets.
+
+=== Asset change notifications
+
+The helper watches the six `SBZTextStyle` fields listed above. It also watches `ColorStyle.Value` and, when shadows are enabled, `ShadowColor.Value`.
+
+Editing a watched field in the editor schedules a refresh for widgets that registered that asset as a dependency. Reassigning a style rebuilds the subscriptions, so the previous asset stops refreshing that widget unless another active reference still uses it.
+
+The helper subscribes before reading an asset that is still loading. It leaves the current appearance in place until that asset is ready to read.
+
+=== Widget synchronization
+
+The helper uses `Context.ObserveWidget()` to detect replacement of the widget's Slate representation, which is the visual element Unreal displays. A detected replacement schedules a style refresh.
+
+Style values are also stored through normal `UTextBlock` setters so ordinary property synchronization retains them. These callbacks do not override `RebuildWidget()` or intercept every `SynchronizeProperties()` call.
+
+== Reading properties through Context
+
+When Context refers to an `SBZUITextBlock` instance, use the reflected names directly:
+
+[source,cpp]
+----
+UObject* TextStyle = Context.GetProperty<UObject*>("Style");
+UObject* TextColor = Context.GetProperty<UObject*>("ColorStyle");
+const bool bScrollingEnabled = Context.GetProperty<bool>("bIsScrollingEnabled");
+----
+
+Check `Context.IsValid()` before using values read through reflection. Check asset references separately before reading their fields. `UObject*` allows access to dynamically generated style classes without their original C++ headers.
+
+Direct reflection writes change data only. Use `SetStyle` or `SetColorStyle` when the reference change should also run the styling helper. See xref:suzie-native-bodies.adoc#_calling_reflected_functions[Calling reflected functions] for the Context call API.
+
+== Known limitations
+
+* Scrolling, scroll-state reset, automatic hiding of empty text, and the custom wrapping function are not restored by this source file.
+* Clearing a style reference retains previously applied appearance values rather than resetting them.
+* Class defaults are not restyled by the helper, and editor callbacks are not native virtual overrides.
+* This page describes the modkit implementation. It does not claim to reproduce every part of the shipped game's widget behaviour.
+
+For the general callback rules, rebuilding instructions, and supported Context types, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].

@@ -1,6 +1,6 @@
 = API Reference
 
-PDML exposes a loader manager, event dispatchers, and a Blueprint function library for logic mods.
+PDML exposes general-purpose Blueprint function and macro libraries, a loader manager, and event dispatchers for logic mods.
 
 For the authoring workflow, see xref:creating-mods:blueprint-logic.adoc#_pdml_logic_mods[PDML logic mods]. Settings registration and value access are covered separately in xref:settings.adoc[Mod Settings].
 
@@ -23,6 +23,134 @@ The manager Blueprint is located at:
 ----
 
 Use the running instance returned by the helper when subscribing to events.
+
+== General function library
+
+`BPFL_General` contains reusable functions for mod Blueprint graphs:
+
+[source,text]
+----
+/PDML/Blueprints/Utilities/BPFL_General
+----
+
+Search for the function's node name in your Blueprint graph. Most functions in this library are pure nodes that return data without execution pins. `GetAllCharactersOfTeam` has execution pins and performs a world search.
+
+=== Characters and menu state
+
+[cols="2,3,4",options="header"]
+|===
+|Function |Pins |Behavior
+
+|`GetAllCharactersOfTeam`
+|Input: `Team` (`ETeamAttitude`). Output: `Characters` (`SBZCharacter` array).
+|Finds `SBZCharacter` actors in the current world and returns those whose `TeamID.TeamID` matches the numeric value of `Team`. It does not filter by whether the character is alive.
+
+|`IsAlive`
+|Input: `Character` (`SBZCharacter`). Output: `Is Alive` (Boolean).
+|Reads the character's `bIsAlive` value. Check that the character reference is valid before calling it.
+
+|`IsInMenu`
+|Output: `ReturnValue` (Boolean).
+|Returns whether the current world's Game Mode can be cast to `SBZGameModeMainMenu`. This is a Game Mode check, not a test for an open pause menu or other UI screen.
+|===
+
+For example, call `GetAllCharactersOfTeam`, loop through `Characters`, and use `IsAlive` when your logic should only affect living characters. Use `IsInMenu` to choose different behavior for the main menu and a heist world.
+
+=== String and text helpers
+
+[cols="2,3,4",options="header"]
+|===
+|Function |Pins |Behavior
+
+|`IsEmptyOrWhitespace`
+|Input: `SourceString` (string). Output: `ReturnValue` (Boolean).
+|Trims leading and trailing whitespace, then checks whether the resulting string is empty.
+
+|`TextIsEmptyOrWhitespace`
+|Input: `InText` (text). Output: `ReturnValue` (Boolean).
+|Trims leading and trailing whitespace from the text, then checks whether it is empty.
+
+|`TrimPrecedingAndTrailing`
+|Input: `SourceString` (string). Output: `ReturnValue` (string).
+|Returns the string with leading and trailing whitespace removed. Whitespace inside the string is retained.
+|===
+
+=== Numeric helpers
+
+[cols="2,3,4",options="header"]
+|===
+|Function |Pins |Behavior
+
+|`Difference (float)`
+|Inputs: `A`, `B`. Output: `Difference`.
+|Returns the absolute difference, `Abs(A - B)`.
+
+|`Invert (float)`
+|Input: `A`. Output: `ReturnValue`.
+|Calculates the reciprocal, `1 / A`, through Unreal's `SafeDivide`. This is not sign negation.
+
+|`IsZero (float)`
+|Input: `A`. Output: `ReturnValue` (Boolean).
+|Checks whether `A` is nearly equal to zero using a tolerance of `0.0001`, rather than exact equality.
+
+|`Infinity (float)`
+|Output: `ReturnValue`.
+|Produces positive infinity by converting the string `inf` to a number.
+
+|`-Infinity (float)`
+|Output: `ReturnValue`.
+|Produces negative infinity by converting the string `-inf` to a number.
+|===
+
+.Numeric pin types
+[%collapsible]
+====
+The `(float)` suffix is part of these functions' names. Their numeric inputs and outputs are serialized as double-precision values in the inspected asset; `IsZero (float)` uses Unreal's `NearlyEqual_FloatFloat` comparison internally.
+====
+
+== General macro library
+
+`BPML_General` provides execution-flow wrappers and variable-update macros:
+
+[source,text]
+----
+/PDML/Blueprints/Utilities/BPML_General
+----
+
+Add a macro node to your graph and connect its execution pins. The branch macros route execution directly, so you do not need to add a separate Branch node for their Boolean result.
+
+[cols="2,3,4",options="header"]
+|===
+|Macro |Pins |Behavior
+
+|`IsAlive`
+|Input: `Character`. Execution outputs: `alive`, `dead`.
+|Calls `BPFL_General.IsAlive` and follows the matching execution branch. Supply a valid `SBZCharacter` reference.
+
+|`IsInMenu`
+|Execution outputs: `true`, `false`.
+|Calls `BPFL_General.IsInMenu` and branches on the result of the main-menu Game Mode check.
+
+|`FindPersistentModObjectByClass`
+|Input: `ObjectClass`. Output: `ObjectInstance`. Execution outputs: `found`, `notFound`.
+|Wraps the loader library's persistent-object lookup. Use the returned object on the `found` branch and cast it to your Blueprint class before accessing its members.
+
+|`ClearNullObjectReferencesFromArray`
+|Input: `ObjectArray` (object array, modified by reference). Execution outputs: `removed`, `noneRemoved`.
+|Wraps the loader library's invalid-reference cleanup and branches according to whether any entries were removed.
+
+|`IncrementFloatByValue`
+|Inputs: `Float` (variable reference), `Value`. Output: `Result`, plus an execution output.
+|Adds `Value` to the referenced floating-point variable, writes the result back to that variable, and outputs the result.
+
+|`IncrementIntByValue`
+|Inputs: `Integer` (variable reference), `Value`. Output: `Result`, plus an execution output.
+|Adds `Value` to the referenced integer variable, writes the result back to that variable, and outputs the result.
+|===
+
+Connect a writable variable to `Float` or `Integer` when using the increment macros. For example, an integer variable containing `5` with `Value` set to `3` becomes `8`, and `Result` is `8`.
+
+The persistent-object and array-cleanup macros call the existing `BPFL_ModLoader` helpers internally. You can use these general macro wrappers in your mod without calling PDML's loader lifecycle functions yourself.
 
 == Function library
 

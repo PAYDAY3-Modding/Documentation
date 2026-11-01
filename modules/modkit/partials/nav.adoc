@@ -5,4 +5,6 @@
 **** xref:modkit:custom-editor.adoc[Custom Unreal Editor]
 **** xref:modkit:cooked-assets.adoc[Cooked Assets]
 **** xref:modkit:reflected-types.adoc[Reflected Game Types]
+**** xref:modkit:suzie-native-bodies.adoc[Suzie Native Bodies API]
+***** xref:modkit:sbz-ui-text-block.adoc[SBZUITextBlock]
 **** xref:modkit:updating.adoc[Updating the Modkit]

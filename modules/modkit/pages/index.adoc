@@ -62,4 +62,5 @@ For the setup sequence, see xref:getting-started:wwise-setup.adoc[Set Up Wwise] 
 * xref:custom-editor.adoc[Custom Unreal Editor] explains why the custom engine is required.
 * xref:cooked-assets.adoc[Cooked Assets] explains the read-only and uncooking workflows.
 * xref:reflected-types.adoc[Reflected Game Types] explains the JMAP and Suzie pipeline.
+* xref:suzie-native-bodies.adoc[Suzie Native Bodies API] documents the function macros, lifecycle callbacks, and reflection helpers for Suzie-generated classes.
 * xref:updating.adoc[Updating the Modkit] explains what to refresh after modkit or game updates.
