@@ -52,6 +52,12 @@ For example, the cooked-asset replacement workflow is:
 
 See xref:modkit:cooked-assets.adoc[Cooked Assets] for more about converting mounted game assets.
 
+== Asset Collection
+
+The PAL's *Asset Collection* field can reference a static Content Browser collection. CrimeFactory resolves its current members when preparing Forge, alongside *Explicit Assets*. The members do not need to be copied into the explicit list.
+
+See xref:creating-mods:asset-collections.adoc[Asset Collections & Bulk PAL Management] for direct assignment, bulk selection, and the differences when maintaining these lists.
+
 == Asset Manager registration
 
 CrimeFactory validates that the mod's PAL is registered correctly with the project's Asset Manager configuration.

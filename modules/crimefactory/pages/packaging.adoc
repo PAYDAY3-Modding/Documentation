@@ -34,7 +34,9 @@ This keeps the cook focused on the selected plugin.
 
 Replacement mods can include editable assets at the original game's `/Game/...` paths, outside the mod plugin's own content folder.
 
-Add each replacement to the mod PAL's *Explicit Assets* list, then Forge normally. CrimeFactory includes the replacements and plugin content in one mod.
+Select the replacements through the mod PAL's *Explicit Assets* list or a referenced static *Asset Collection*, then Forge normally. CrimeFactory includes the replacements and plugin content in one mod.
+
+See xref:creating-mods:asset-collections.adoc[Asset Collections & Bulk PAL Management] for managing large replacement sets.
 
 .How Forge cooks external replacements
 [%collapsible]

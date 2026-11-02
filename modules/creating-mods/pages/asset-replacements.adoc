@@ -90,11 +90,11 @@ Support is expanded as additional asset types and edge cases are tested.
 
 == Add the replacement to the PAL
 
-Every replacement asset must be added to the CrimeFactory mod's PAL *Explicit Assets* array.
+Every replacement asset must be selected by the CrimeFactory mod's PAL, either through *Explicit Assets* or a referenced static *Asset Collection*.
 
 This step is required.
 
-The replacement is outside your mod's content folder. Its PAL entry tells CrimeFactory to include it when packaging your mod.
+The replacement is outside your mod's content folder. Its PAL selection tells CrimeFactory to include it when packaging your mod.
 
 Add the modified uncooked asset to:
 
@@ -105,8 +105,10 @@ PAL_<ModName> -> Explicit Assets
 
 [IMPORTANT]
 ====
-If the replacement asset is not present in the mod PAL's *Explicit Assets* array, CrimeFactory will not know that the `/Game/...` replacement should be packaged with that mod.
+If the replacement is neither in *Explicit Assets* nor a member of the static collection referenced by *Asset Collection*, CrimeFactory will not select it through these PAL sources for packaging.
 ====
+
+For large replacement sets, see xref:asset-collections.adoc[Asset Collections & Bulk PAL Management] to assign a collection directly or bulk-add its members to *Explicit Assets*.
 
 == Forge the mod
 
@@ -131,7 +133,7 @@ If the game still uses the original asset, check that:
 
 * the uncooked replacement is still at the exact original `/Game/...` path,
 * the modified asset was saved,
-* the asset is present in the correct PAL's *Explicit Assets* array,
+* the asset is selected by the correct PAL's *Explicit Assets* or referenced static *Asset Collection*,
 * and the mod was Forged again after the change.
 
 == Replacement workflow
