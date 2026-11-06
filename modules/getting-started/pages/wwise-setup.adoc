@@ -1,4 +1,6 @@
 = Set Up Wwise
+:page-social-image: /payday3-modding/getting-started/_images/wwise-install.png
+:page-social-image-alt: Wwise installation options for the modkit setup.
 :description: Install the matching Audiokinetic Wwise SDK and prepare the ThirdParty files required by the PAYDAY 3 modkit.
 
 Wwise is the audio system used by PAYDAY 3. The modkit includes a modified Wwise plugin, but leaves out the Audiokinetic SDK libraries and other non-text `ThirdParty` files. The SDK is the set of development files the plugin needs.

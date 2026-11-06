@@ -1,4 +1,6 @@
 = The Modkit
+:page-social-image: /payday3-modding/_images/editor-heist-crimefactory-overview.png
+:page-social-image-alt: PAYDAY 3 Editor showing a heist level, the Asset Palette and CrimeFactory.
 
 The PAYDAY 3 modkit is the development project used to author CrimeFactory and PDML mods against the current PAYDAY 3 game.
 

@@ -1,4 +1,6 @@
 = Managing Mods
+:page-social-image: /payday3-modding/crimefactory/_images/CrimeFactory-dashboard.png
+:page-social-image-alt: The CrimeFactory mod browser showing mod cards and management actions.
 
 The CrimeFactory mod manager is the main place for working with mod plugins in the editor.
 
@@ -28,7 +30,7 @@ These controls let CrimeFactory keep selection separate from opening a plugin's 
 
 == Create Mod
 
-Use *Create Mod* to generate a new CrimeFactory plugin from one of the available templates.
+Use *Create Mod* to generate a new CrimeFactory plugin from one of the available templates. The new mod is assigned to the virtual folder open when you click *Create Mod*, so creating from `Root/Nadz` adds its card there. The plugin files remain in the modkit's `Mods` directory.
 
 See xref:create-mod.adoc[Create Mod].
 

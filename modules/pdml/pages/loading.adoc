@@ -1,4 +1,6 @@
 = Mod Loading
+:page-social-image: /payday3-modding/pdml/_images/pdml-installed-mods-overview.png
+:page-social-image-alt: The in-game PDML Mod Manager showing installed PAYDAY 3 mods.
 
 CrimeFactory mods are authored and forged as Unreal plugins. PDML is responsible for discovering and handling those plugin mods at runtime.
 

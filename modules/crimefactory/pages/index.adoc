@@ -1,4 +1,6 @@
 = CrimeFactory
+:page-social-image: /payday3-modding/crimefactory/_images/CrimeFactory-dashboard.png
+:page-social-image-alt: The CrimeFactory mod browser showing mod cards and management actions.
 
 CrimeFactory is the PAYDAY-specific mod management and authoring layer built into the modkit.
 

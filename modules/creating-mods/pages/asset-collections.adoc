@@ -1,4 +1,6 @@
 = Asset Collections & Bulk PAL Management
+:page-social-image: /payday3-modding/creating-mods/_images/asset-collections-pal-reference.png
+:page-social-image-alt: An Asset Collection referenced from a Primary Asset Label.
 :description: Organise large batches of PAYDAY 3 replacement assets with Asset Collections and include them in your mod's Primary Asset Label for Forge.
 
 Asset Collections group existing assets in the Content Browser without moving or copying them. A collection can contain assets from several folders, and an asset can belong to more than one collection.

@@ -1,4 +1,6 @@
 = Create Your First Heist
+:page-social-image: /payday3-modding/_images/editor-heist-crimefactory-overview.png
+:page-social-image-alt: PAYDAY 3 Editor showing a heist level, the Asset Palette and CrimeFactory.
 
 == Creating your first heist
 

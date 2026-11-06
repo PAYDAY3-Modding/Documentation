@@ -1,4 +1,6 @@
 = Playing with Mods
+:page-social-image: /payday3-modding/pdml/_images/pdml-installed-mods-overview.png
+:page-social-image-alt: The in-game PDML Mod Manager showing installed PAYDAY 3 mods.
 :description: Find PAYDAY 3 mods on ModWorkshop and install complete PDML mod folders manually or with Mod Organizer 2.
 
 Welcome to playing PAYDAY 3 with mods. This section explains where to download mods and how to install them on PC.

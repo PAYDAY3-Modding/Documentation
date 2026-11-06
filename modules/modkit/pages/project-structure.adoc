@@ -1,4 +1,6 @@
 = Project Structure
+:page-social-image: /payday3-modding/modkit/_images/modkit-root.png
+:page-social-image-alt: The modkit root directory and its project files and folders.
 
 The PAYDAY 3 modkit is a normal Unreal project with additional files and folders used by the cooked-content, reflection, CrimeFactory, and PDML workflows.
 

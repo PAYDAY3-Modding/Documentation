@@ -1,4 +1,6 @@
 = Welcome to the new age of PAYDAY 3 Modding
+:page-social-image: /payday3-modding/_images/editor-heist.png
+:page-social-image-alt: A PAYDAY 3 heist level open in the modkit Editor.
 
 Since the Unreal Engine 5 update was released in August, PAYDAY 3 modding has had to effectively reset. This is because all of the mods, projects, and workflows we used in Unreal Engine 4 no longer work in Unreal Engine 5.
 

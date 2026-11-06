@@ -1,4 +1,6 @@
 = Installing with Mod Organizer 2
+:page-social-image: /payday3-modding/playing-with-mods/_images/mod-organizer-2-payday3-overview.png
+:page-social-image-alt: Mod Organizer 2 configured for PAYDAY 3, with its mod list and game folders visible.
 :description: Set up Mod Organizer 2 with ModWorkshop's PAYDAY 3 plugin and preserve complete PDML mod folders.
 
 https://github.com/ModOrganizer2/modorganizer/releases[Mod Organizer 2 (MO2)] can manage PAYDAY 3 mods with https://modworkshop.net/mod/54424[ModWorkshop's MO2 plugins]. These add PAYDAY 3 support, ModWorkshop downloads, and installers for additional file formats.

@@ -1,4 +1,6 @@
 = Install and Test
+:page-social-image: /payday3-modding/pdml/_images/pdml-installed-mods-overview.png
+:page-social-image-alt: The in-game PDML Mod Manager showing installed PAYDAY 3 mods.
 
 The final step is to install the forged mod and load it through PDML.
 

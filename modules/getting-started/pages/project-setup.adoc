@@ -1,4 +1,6 @@
 = Set Up the Project
+:page-social-image: /payday3-modding/getting-started/_images/pd3-cooked-editor-settings.png
+:page-social-image-alt: PAYDAY 3 Cooked Editor project settings.
 
 Before the editor can provide PAYDAY-specific workflows, configure the modkit to use your local PAYDAY 3 installation. 
 

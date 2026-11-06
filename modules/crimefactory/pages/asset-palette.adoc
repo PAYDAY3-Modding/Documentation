@@ -1,4 +1,6 @@
 = Asset Palette
+:page-social-image: /payday3-modding/crimefactory/_images/asset-palette.png
+:page-social-image-alt: The CrimeFactory Asset Palette with browsable asset categories.
 
 The Asset Palette is a dockable CrimeFactory window for finding assets to use in custom heists. It groups available heist assets into category tabs, making it easier to see what you can use and access the assets you need.
 

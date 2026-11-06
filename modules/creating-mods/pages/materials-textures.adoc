@@ -1,4 +1,6 @@
 = Materials & Textures
+:page-social-image: /payday3-modding/creating-mods/_images/Ex1.png
+:page-social-image-alt: A material authoring example in the PAYDAY 3 modkit.
 
 Materials control how surfaces look and respond to lighting in Unreal Engine. This guide creates a basic surface material and a material instance, which lets you change the material's textures and settings without rebuilding its node graph.
 

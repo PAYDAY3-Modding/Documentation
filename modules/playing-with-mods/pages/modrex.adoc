@@ -1,4 +1,6 @@
 = Installing with Modrex
+:page-social-image: /payday3-modding/playing-with-mods/_images/modrex-browse-mods.png
+:page-social-image-alt: Modrex browsing PAYDAY 3 mods on ModWorkshop.
 :description: Set up Modrex to discover your PAYDAY 3 Installation, and install PDML.
 
 https://modrex.net/[Modrex] can manage PAYDAY 3 mods, such as installing, updating and viewing the contents of the mods (using a PAK Viewer built into the program)

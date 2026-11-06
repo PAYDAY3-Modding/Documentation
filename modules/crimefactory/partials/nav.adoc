@@ -2,6 +2,7 @@
 **** xref:crimefactory:managing-mods.adoc[Managing Mods]
 **** xref:crimefactory:create-mod.adoc[Creating Mods & Templates]
 ***** xref:crimefactory:templates.adoc[Templates]
+***** xref:crimefactory:creating-templates.adoc[Creating Templates]
 **** xref:crimefactory:mod-information.adoc[Mod Information & Configuration]
 **** xref:crimefactory:pal.adoc[PAL & Explicit Assets]
 **** xref:crimefactory:validation.adoc[Validation]

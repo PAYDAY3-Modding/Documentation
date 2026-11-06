@@ -1,4 +1,6 @@
 = Create Mod
+:page-social-image: /payday3-modding/crimefactory/_images/creating-templates-window.png
+:page-social-image-alt: CrimeFactory template cards, search, Refresh and the Mod Details form.
 
 Use CrimeFactory's *Create Mod* action to create a new PDML-compatible Unreal plugin.
 
@@ -12,11 +14,13 @@ Open CrimeFactory and click *Create Mod*.
 
 image::create-button.png[Create Mod button in CrimeFactory, width=1000]
 
-The *New Mod* window lets you choose a template, select the development output location, name the plugin, and enter its descriptor data.
+The *New Mod* window lets you choose a template, name the plugin, and enter its descriptor data.
 
 == Choose a template
 
-The current templates are:
+Select a card in the template browser. Use search to filter by name or description and *Refresh* to rescan installed template folders without losing your mod details.
+
+The built-in templates include:
 
 * *Blank* for a general-purpose mod.
 * *Logic Mod* for Blueprint/runtime logic using PDML.
@@ -24,18 +28,20 @@ The current templates are:
 
 See xref:templates.adoc[Templates] for what each template generates.
 
-== Choose the output location
+== Mod location
 
-The path field controls where CrimeFactory creates the new plugin.
-
-For normal modkit development, CrimeFactory mods live under:
+CrimeFactory always creates new mods under:
 
 [source,text]
 ----
 <ModkitRoot>/Mods/
 ----
 
-CrimeFactory creates new mods there automatically.
+The destination on disk is fixed, so no folder selection is needed.
+
+When you click *Create Mod* in the mod browser, CrimeFactory remembers the open virtual folder and adds the completed mod to that folder. For example, creating a mod from `Root/Nadz` places its card in `Root/Nadz`. Navigating elsewhere while the form is open does not change that destination. From *All Mods* or *Root / Unassigned*, the new mod is unassigned. If the original folder is deleted before creation finishes, the mod falls back to *Root / Unassigned*.
+
+Browser folders organise cards only. They do not move the generated plugin out of `<ModkitRoot>/Mods/<ModName>/`.
 
 == Enter the mod name
 
@@ -57,12 +63,24 @@ The plugin name becomes part of its mount point, the path prefix used for its as
 
 == Descriptor data
 
-The creation window includes descriptor fields such as:
+The Mod Details panel contains:
 
-* Author
+* Icon
+* Mod Name
+* Friendly Name
 * Description
+* Created By
+* Mod Authors
+* Mod Page URL
+* Created By URL
 
-The *Advanced* section can be expanded for additional plugin settings when needed.
+*Mod Name* is the unique plugin identifier. It cannot contain spaces or other characters rejected by Unreal's plugin-name validation. *Friendly Name* is the display name and can contain spaces and punctuation. Leave it empty to use the Mod Name.
+
+Choose a PNG icon to save it as `Resources/Icon128.png` in the generated mod. A 128 x 128 image is recommended. Until you choose an icon, the template's icon is used.
+
+*Created By* is a creator or studio credit. *Mod Authors* is a separate array: use *Add Author* and *Remove* to maintain individual entries. Editing one does not overwrite the other. Mod Authors and Mod Page URL are also copied into the generated PDML metadata Data Asset.
+
+After creation, CrimeFactory automatically shows the new mod's content folder in the Content Browser.
 
 == Create the plugin
 

@@ -1,4 +1,6 @@
 = PAL & Explicit Assets
+:page-social-image: /payday3-modding/crimefactory/_images/explicitAssets-showcase.png
+:page-social-image-alt: A Primary Asset Label showing its explicit asset references.
 
 CrimeFactory uses a Primary Asset Label, or PAL, to describe content that belongs to a mod's cook/package workflow.
 

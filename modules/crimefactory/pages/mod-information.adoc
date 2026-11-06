@@ -34,6 +34,12 @@ The Config window exposes plugin/mod metadata such as:
 
 image::CrimeFactory-mod-properties.png[Mod Properties window showing the icon and version and descriptive metadata fields, width=820]
 
+The main form uses the same controls as Create Mod: an icon picker, the permanent Mod Name, Friendly Name, Description, Created By, an editable Mod Authors array, Mod Page URL and Created By URL. Mod Name is read-only here because it identifies the existing plugin.
+
+Friendly Name is the display name. Created By and Mod Authors are independent credits. Changes to the Mod Authors array also synchronise with the PDML metadata Data Asset.
+
+Expand *Advanced Properties* for version, PDML, dependency, documentation, support and remote settings. Click *Save Changes* to apply metadata and the chosen PNG icon. The icon is stored as `Resources/Icon128.png`. *Cancel* discards pending form and icon choices.
+
 Use this window for metadata that describes the mod rather than gameplay content stored inside the plugin.
 
 

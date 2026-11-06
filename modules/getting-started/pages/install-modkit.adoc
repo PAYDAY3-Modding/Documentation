@@ -1,4 +1,6 @@
 = Install the Modkit
+:page-social-image: /payday3-modding/getting-started/_images/installmodkit-navigation.png
+:page-social-image-alt: The PAYDAY 3 modkit installation setup.
 
 The modkit contains the PAYDAY 3 development project and the tooling used to author mods.
 

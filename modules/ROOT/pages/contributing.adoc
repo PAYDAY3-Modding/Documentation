@@ -1,4 +1,6 @@
 = Contributing
+:page-social-image: /payday3-modding/_images/contributing-source-preview.png
+:page-social-image-alt: The contributing guide open beside its rendered AsciiDoc preview in Rider.
 :page-documentation-contributors:
 
 Documentation contributions are welcome.

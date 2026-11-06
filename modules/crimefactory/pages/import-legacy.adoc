@@ -1,4 +1,6 @@
 = Import Legacy Mod
+:page-social-image: /payday3-modding/crimefactory/_images/importLegacy-navigation.png
+:page-social-image-alt: CrimeFactory legacy mod import controls.
 
 *Import Legacy Mod* is a migration workflow for older PAYDAY 3 UE4 logic mods created before the current CrimeFactory plugin structure.
 

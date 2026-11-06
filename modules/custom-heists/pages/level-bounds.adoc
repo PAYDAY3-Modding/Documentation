@@ -1,4 +1,6 @@
 = Level Bounds
+:page-social-image: /payday3-modding/custom-heists/_images/BlockingVolume-FinalPlacement.png
+:page-social-image-alt: Blocking volumes positioned around a heist level.
 
 Every Heist in PAYDAY 3 has Areas which the player cannot access and where the screen turns grey.
 

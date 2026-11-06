@@ -1,4 +1,6 @@
 = Install the Custom Editor
+:page-social-image: /payday3-modding/getting-started/_images/installer-navigation.png
+:page-social-image-alt: The custom PAYDAY 3 Editor installer.
 
 The PAYDAY 3 modkit uses a custom Unreal Engine {pd3-engine-version} editor with compatibility changes required by the PAYDAY 3 development environment.
 

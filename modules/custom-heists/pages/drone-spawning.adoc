@@ -1,4 +1,6 @@
 = Drone Spawning
+:page-social-image: /payday3-modding/custom-heists/_images/drone-spawner-settings.png
+:page-social-image-alt: Drone spawner settings for a PAYDAY 3 heist.
 
 Overkill delivery drones need a spawner and a configured spawn group. This page covers their spawn settings, in-game testing and troubleshooting.
 

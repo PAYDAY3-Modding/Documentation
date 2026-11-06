@@ -1,4 +1,6 @@
 = Reflected Game Types
+:page-social-image: /payday3-modding/creating-mods/_images/heist-level-blueprint-example.png
+:page-social-image-alt: A PAYDAY 3 Level Blueprint showing heist startup logic and bag-secured objective progression.
 
 PAYDAY 3 assets frequently depend on native game classes that do not exist in a normal Unreal project.
 

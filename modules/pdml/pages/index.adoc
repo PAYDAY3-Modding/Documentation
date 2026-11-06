@@ -1,4 +1,6 @@
 = PDML
+:page-social-image: /payday3-modding/pdml/_images/pdml-installed-mods-overview.png
+:page-social-image-alt: The in-game PDML Mod Manager showing installed PAYDAY 3 mods.
 
 PDML is the PAYDAY 3 runtime mod loader and integration layer.
 

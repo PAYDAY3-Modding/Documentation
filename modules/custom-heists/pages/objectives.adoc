@@ -1,4 +1,6 @@
 = Objectives
+:page-social-image: /payday3-modding/creating-mods/_images/heist-level-blueprint-example.png
+:page-social-image-alt: A PAYDAY 3 Level Blueprint showing heist startup logic and bag-secured objective progression.
 
 Two things are needed to make objectives work: spawn the objective class in your level, then use level blueprints to execute the objective.
 

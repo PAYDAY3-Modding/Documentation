@@ -1,4 +1,6 @@
 = Validation
+:page-social-image: /payday3-modding/crimefactory/_images/forge-validationWindow.png
+:page-social-image-alt: CrimeFactory validation results for a mod before Forge.
 
 CrimeFactory validates a mod before Forge so common project and packaging problems can be found before the longer cook/package process begins.
 

@@ -1,4 +1,6 @@
 = Asset Replacements
+:page-social-image: /payday3-modding/creating-mods/_images/convert-to-uncooked-menu.png
+:page-social-image-alt: The Convert to Uncooked action for a selected PAYDAY 3 asset.
 
 An asset replacement mod makes the game use your edited asset in place of an original PAYDAY 3 asset. The replacement must keep the original asset's name and `/Game/...` path.
 
