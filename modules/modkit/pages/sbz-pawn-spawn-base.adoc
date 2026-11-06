@@ -1,0 +1,76 @@
+= SBZPawnSpawnBase
+:description: Preserves manually authored pawn-spawner seeds.
+
+`SBZPawnSpawnBase` owns the seed inherited by predefined pawn spawners. Its native body preserves a manually edited seed if a placement notification follows the edit.
+
+For the implementation API, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].
+
+== Class information
+
+[cols="1,3",options="header"]
+|===
+|Item |Value
+
+|Reflected class
+|`/Script/Starbreeze.SBZPawnSpawnBase`
+
+|Native parent
+|`/Script/Engine.Actor`
+
+|Implementation file
+|`Plugins/Suzie/NativeClasses/Starbreeze/SBZPawnSpawnBase.cpp`
+
+|Supported editor behaviour
+|Preserves manually authored pawn-spawner seeds.
+|===
+
+Blueprint subclasses inherit applicable callbacks. These are modkit Editor behaviours; Forge does not package the native bodies into the game.
+
+== Properties
+
+[cols="2,2,3",options="header"]
+|===
+|Property |Type |Purpose
+
+|`Seed`
+|`int32`
+|Saved `int32` seed used by derived spawners.
+
+|`bRandomizeSpawnTransformStartingIndex`
+|`Boolean`
+|Allows seeded selection of the initial spawn definition.
+
+|`SpawnDefinitionArray`
+|Array of `SBZPawnSpawnDefinition`
+|Spawn definitions containing transforms. The predefined-spawner preview uses the selected initial transform.
+|===
+
+== Implemented functions
+
+This file supplies editor callbacks only. Internal C++ helpers are not additional Blueprint nodes.
+
+== Editor callbacks
+
+These run automatically and are not Blueprint-callable functions.
+
+[cols="2,3",options="header"]
+|===
+|Callback |When it runs
+
+|`SUZIE_PROPERTY_CHANGED` for `Seed`
+|Responds automatically to a Details-panel property edit.
+|===
+
+The native callback handles edits to `Seed`. Separate shared placement hooks assign new `SBZPawnSpawnPredefined` instances seeds from 0 to 10000. Loading, refreshing and duplicating an existing instance preserve its seed.
+
+The CrimeFactory pawn visualiser supplies the predefined-spawner mesh preview. It reads `Predefined Pawn Request > Data`, chooses a stable representative pawn class from the seed, and applies that character's mesh, materials, CPD and morphs. Property edits, undo/redo and dependency changes update the preview.
+
+See xref:custom-heists:variations.adoc#_predefined_pawn_spawners[Predefined pawn spawners] for setup.
+
+== Known limitations
+
+* This file implements no spawn UFunction bodies and does not run gameplay spawn requests in the editor.
+* Retail pawn-class selection also uses global randomness and mission tracking. The repeatable editor preview does not predict the exact retail spawn.
+* The preview is a reference pose without runtime equipment or animation.
+
+For asset creation and preview steps, see xref:custom-heists:variations.adoc[Variations].

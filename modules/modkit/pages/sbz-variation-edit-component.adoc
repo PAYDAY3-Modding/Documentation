@@ -1,0 +1,91 @@
+= SBZVariationEditComponent
+:description: Applies an explicitly selected row to editor preview components.
+
+`SBZVariationEditComponent` lets a variation preview use a specific appearance row without searching for a seed. Assign the set, row index and the mesh component to update.
+
+For the implementation API, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].
+
+== Class information
+
+[cols="1,3",options="header"]
+|===
+|Item |Value
+
+|Reflected class
+|`/Script/Starbreeze.SBZVariationEditComponent`
+
+|Native parent
+|`/Script/Engine.ActorComponent`
+
+|Implementation file
+|`Plugins/Suzie/NativeClasses/Starbreeze/SBZVariationEditComponent.cpp`
+
+|Supported editor behaviour
+|Applies an explicitly selected row to editor preview components.
+|===
+
+Blueprint subclasses inherit applicable callbacks. These are modkit Editor behaviours; Forge does not package the native bodies into the game.
+
+== Properties
+
+[cols="2,2,3",options="header"]
+|===
+|Property |Type |Purpose
+
+|`VariationSet`
+|`SBZVariationSetData reference`
+|The `SBZVariationSetData` asset to preview.
+
+|`CurrentVariationIdx`
+|`int32`
+|Zero-based row index. A value of -1 previews row 0; other values must identify an existing row.
+
+|`SkeletalMeshComponent`
+|`SkeletalMeshComponent reference`
+|Target skeletal component when the set supplies a skeletal mesh.
+
+|`StaticMeshComponent`
+|`StaticMeshComponent reference`
+|Target static component when the set supplies a static mesh.
+|===
+
+== Implemented functions
+
+This file supplies editor callbacks only. Internal C++ helpers are not additional Blueprint nodes.
+
+== Editor callbacks
+
+These run automatically and are not Blueprint-callable functions.
+
+[cols="2,3",options="header"]
+|===
+|Callback |When it runs
+
+|`SUZIE_POST_INITIALIZE`
+|Runs after defaults and required loading are ready.
+
+|`SUZIE_PROPERTY_CHANGED` for `VariationSet`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `CurrentVariationIdx`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `SkeletalMeshComponent`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `StaticMeshComponent`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_REFRESH`
+|Runs when a watched dependency changes or becomes available.
+|===
+
+Initialisation and changes to the set, index or component references apply the selected row automatically. Watched variation assets, meshes and materials also trigger refreshes. The component applies the same runtime/default CPD and morph rules as xref:sbz-variation-set-utils.adoc[SBZVariationSetUtils].
+
+== Known limitations
+
+* This file supplies callbacks, not extra Blueprint-callable functions or a new asset-editor toolbar.
+* `EditVariationSet` is reflected data but is not interpreted by these callbacks.
+* Preview callbacks do not modify class defaults or run in cook commandlets.
+
+For asset creation and preview steps, see xref:custom-heists:variations.adoc[Variations].

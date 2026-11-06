@@ -5,7 +5,9 @@
 ***** xref:custom-heists:world-settings.adoc[World Settings]
 ***** xref:custom-heists:level-bounds.adoc[Level Bounds]
 ***** xref:custom-heists:doors-windows.adoc[Doors & Windows]
+***** xref:custom-heists:spawns.adoc#_scripted_spawns[Pawns]
 ***** xref:custom-heists:vehicles.adoc[Vehicles]
+***** xref:custom-heists:variations.adoc[Variations]
 **** Gameplay & Objectives
 ***** xref:custom-heists:objectives.adoc[Objectives]
 ***** xref:custom-heists:life-actions.adoc[Life Actions]

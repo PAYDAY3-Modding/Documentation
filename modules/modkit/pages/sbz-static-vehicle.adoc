@@ -1,0 +1,85 @@
+= SBZStaticVehicle
+:description: Applies seeded appearances to static vehicles.
+
+`SBZStaticVehicle` applies vehicle appearances to the static mesh component inherited from `StaticMeshActor`. It has its own callbacks because it does not inherit from `SBZWheeledVehicle`.
+
+For the implementation API, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].
+
+== Class information
+
+[cols="1,3",options="header"]
+|===
+|Item |Value
+
+|Reflected class
+|`/Script/Starbreeze.SBZStaticVehicle`
+
+|Native parent
+|`/Script/Engine.StaticMeshActor`
+
+|Implementation file
+|`Plugins/Suzie/NativeClasses/Starbreeze/SBZStaticVehicle.cpp`
+
+|Supported editor behaviour
+|Applies seeded appearances to static vehicles.
+|===
+
+Blueprint subclasses inherit applicable callbacks. These are modkit Editor behaviours; Forge does not package the native bodies into the game.
+
+== Properties
+
+[cols="2,2,3",options="header"]
+|===
+|Property |Type |Purpose
+
+|`VariationData`
+|`SBZVariationSetData reference`
+|The set containing `StaticMesh`, material overrides and appearance rows.
+
+|`Seed`
+|`int32`
+|Saved `int32` seed. New placements receive values from -10000 to 10000.
+
+|`StaticMeshComponent`
+|`StaticMeshComponent reference`
+|Inherited component updated by the appearance helper.
+|===
+
+== Implemented functions
+
+This file supplies editor callbacks only. Internal C++ helpers are not additional Blueprint nodes.
+
+== Editor callbacks
+
+These run automatically and are not Blueprint-callable functions.
+
+[cols="2,3",options="header"]
+|===
+|Callback |When it runs
+
+|`SUZIE_POST_INITIALIZE`
+|Runs after defaults and required loading are ready.
+
+|`SUZIE_PROPERTY_CHANGED` for `VariationData`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `Seed`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `StaticMeshComponent`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_REFRESH`
+|Runs when a watched dependency changes or becomes available.
+|===
+
+Changing `Variation Data` or `Seed` in Details updates the vehicle. Initialisation, component replacement and watched asset changes also refresh it.
+
+Selection uses the first draw of a local seeded random stream, with the mission seed combined when a mission state is available. A normal editor world uses the authored seed. This is the same vehicle selection rule used by xref:sbz-wheeled-vehicle.adoc[SBZWheeledVehicle].
+
+== Known limitations
+
+* Static meshes do not support skeletal morph targets.
+* No extra native Blueprint functions are implemented by this file; it supplies automatic editor callbacks.
+
+For asset creation and preview steps, see xref:custom-heists:variations.adoc[Variations].

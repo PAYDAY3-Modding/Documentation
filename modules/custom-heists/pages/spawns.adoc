@@ -10,6 +10,8 @@ Use the `On Player Group Chosen` event on the group to execute nodes based on th
 
 == Scripted spawns
 
+For pawn appearance assets, seeds and predefined-spawner previews, see xref:variations.adoc[Variations].
+
 All scripted spawns, such as civilians and cops, use the `SBZPawnspawnPredefined` class.
 
 === Spawning

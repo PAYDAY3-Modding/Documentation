@@ -15,7 +15,7 @@ An uncooked Blueprint is a starting point, not a complete working replacement. L
 
 === Decompile the original Blueprint
 
-This workflow assumes you can read enough C++ to understand function calls, variables, conditions, and control flow, then recreate that behavior in Blueprint.
+Use xref:reconstructing-blueprints.adoc[Reconstructing Blueprint Logic from FModel] to learn the pseudo-C++ notation, trace a real game example, and translate a small widget function into nodes.
 
 . Complete xref:getting-started:fmodel-setup.adoc[Set Up FModel] for your installed game version.
 . In FModel's settings, enable *Serialize Script Bytecode* and *Decompile Blueprint to Pseudo C++*.

@@ -1,0 +1,79 @@
+= SBZVariationViewActor
+:description: Refreshes a viewer from an explicitly supplied appearance.
+
+`SBZVariationViewActor` displays a variation supplied by a tool or by `SBZVariationSetUtils.ApplyVariation`. Its callbacks keep that selection applied when preview components or dependencies change.
+
+For the implementation API, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].
+
+== Class information
+
+[cols="1,3",options="header"]
+|===
+|Item |Value
+
+|Reflected class
+|`/Script/Starbreeze.SBZVariationViewActor`
+
+|Native parent
+|`/Script/Engine.Actor`
+
+|Implementation file
+|`Plugins/Suzie/NativeClasses/Starbreeze/SBZVariationViewActor.cpp`
+
+|Supported editor behaviour
+|Refreshes a viewer from an explicitly supplied appearance.
+|===
+
+Blueprint subclasses inherit applicable callbacks. These are modkit Editor behaviours; Forge does not package the native bodies into the game.
+
+== Properties
+
+[cols="2,2,3",options="header"]
+|===
+|Property |Type |Purpose
+
+|`SkeletalMeshComponent`
+|`SkeletalMeshComponent reference`
+|Skeletal preview component.
+
+|`StaticMeshComponent`
+|`StaticMeshComponent reference`
+|Static preview component.
+|===
+
+== Implemented functions
+
+This file supplies editor callbacks only. Internal C++ helpers are not additional Blueprint nodes.
+
+== Editor callbacks
+
+These run automatically and are not Blueprint-callable functions.
+
+[cols="2,3",options="header"]
+|===
+|Callback |When it runs
+
+|`SUZIE_POST_INITIALIZE`
+|Runs after defaults and required loading are ready.
+
+|`SUZIE_PROPERTY_CHANGED` for `SkeletalMeshComponent`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `StaticMeshComponent`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_REFRESH`
+|Runs when a watched dependency changes or becomes available.
+|===
+
+Pass the actor, variation set and zero-based row index to the Blueprint-callable `ApplyVariation` utility. Initialisation, mesh-component replacement and watched asset changes reapply the supplied selection.
+
+This class has no reflected set or row-index property. Selection is remembered only for the current editor session.
+
+== Known limitations
+
+* Supply the selection again after reopening the preview.
+* The actor does not create missing components or select a row from a seed.
+* No additional Blueprint functions are implemented by this file.
+
+For asset creation and preview steps, see xref:custom-heists:variations.adoc[Variations].

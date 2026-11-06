@@ -16,7 +16,9 @@ This page is a current work in progress.
 
 === Vehicle seeds
 
-Use `Set seed` on vehicles to change their data. Values from -10000 to 10000 cover all vehicle types. Seeds change the aesthetics significantly; for example, sedans can change colour or turn into taxis.
+For custom appearance sets, paint materials and seed previews, see xref:variations.adoc[Variations].
+
+Change *Seed* in the Details panel to preview supported vehicle appearances. Newly placed vehicles receive seeds from `-10000` to `10000`, and later manual choices persist. The selected appearance depends on the assigned variation set and its materials.
 
 === Escape vehicles
 

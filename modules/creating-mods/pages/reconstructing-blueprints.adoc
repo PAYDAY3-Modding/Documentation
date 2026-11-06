@@ -1,0 +1,278 @@
+﻿= Reconstructing Blueprint Logic from FModel
+:description: Read FModel's decompiled Blueprint output, trace its execution flow, and rebuild a small widget function with Blueprint nodes.
+
+FModel can show a text representation of a cooked Blueprint's logic. Use that output to understand what the Blueprint does, then rebuild the behaviour with nodes in the PAYDAY 3 Modkit.
+
+This guide explains the notation, traces a real PAYDAY 3 example, and walks through a small widget exercise. You do not need to write C++, but you should know how to open a Blueprint, place nodes, and connect pins.
+
+== Before you start
+
+* Complete xref:getting-started:fmodel-setup.adoc[Set Up FModel] using mappings for your installed game version.
+* Make sure the Modkit can browse cooked assets and expose their parent types. See xref:modkit:cooked-assets.adoc[Cooked Assets] and xref:modkit:reflected-types.adoc[Reflected Game Types].
+* Read xref:blueprint-logic.adoc#_blueprint_replacements[Blueprint replacements] for the overall replacement workflow.
+
+[IMPORTANT]
+====
+Converting a cooked Blueprint or widget to uncooked form does not restore its original function and event graphs. Recreated variables, defaults, components, and function stubs are a starting point. A Blueprint that compiles with empty stubs can still be missing essential game behaviour.
+====
+
+== Get the decompiled output
+
+. In FModel, enable *Serialize Script Bytecode* and *Decompile Blueprint to Pseudo C++*. See xref:blueprint-logic.adoc#_decompile_the_original_blueprint[Decompile the original Blueprint] for the settings and context-menu screenshots.
+. Find the original Blueprint or Widget Blueprint in the game's archives.
+. Right-click the asset and choose *Decompile Blueprint*.
+. Read the decompiled tab alongside the asset's properties. Record the asset path and parent class so you can find the same asset in the Modkit.
+
+*Serialize Script Bytecode* enables reading the compiled Blueprint instructions. Decompilation presents those instructions as pseudo-C++: code-like text for inspection. Asset properties describe stored values and references; decompiled function bodies describe operations and execution flow. You need both when reconstructing an asset.
+
+[NOTE]
+====
+Pseudo-C++ is not the original source code and cannot be pasted into a Blueprint graph. It does not recover the original node positions, comments, or graph organisation. Different FModel versions can format the same operations differently.
+====
+
+Native game functions are another boundary. A Blueprint can call a native function, but this does not mean FModel has recovered that function's C++ implementation. Recreate the call using the corresponding exposed function rather than inventing its internals.
+
+== Read one function at a time
+
+Start with a small function that has one or two actions. Avoid reconstructing an entire HUD or a large event graph as your first exercise.
+
+. Identify the function name, inputs, outputs, and whether it returns a value.
+. List the member variables and object references it reads or changes.
+. Find where execution starts. For an ordinary function, start at its first instruction. For an event routed through `ExecuteUbergraph_...`, find the event wrapper and the entry point it passes in.
+. Follow each instruction until a jump or return changes the path.
+. Trace both outcomes of every condition. Write down the actions in execution order before placing nodes.
+
+=== Common notation
+
+[cols="1,2,2",options="header"]
+|===
+|Notation |Meaning |Blueprint equivalent
+
+|`this`
+|The current object instance.
+|*Self*.
+
+|`bool`, `int`, `float`
+|Boolean, integer, and floating-point types.
+|The corresponding variable or pin type.
+
+|`=`
+|Assignment. Stores the value on the right in the variable on the left.
+|A *Set* node for the destination variable.
+
+|`==`
+|Equality comparison. Checks whether two values are equal and produces a Boolean.
+|An equality comparison node.
+
+|`!`
+|Boolean negation. Reverses true and false.
+|*NOT Boolean*.
+
+|`>=`
+|Greater-than-or-equal comparison. Checks whether the left value is greater than or equal to the right value.
+|A greater-than-or-equal comparison node with matching pin types.
+
+|`->`
+|Accesses a member variable or function through an object reference.
+|A variable access or function call with that object connected to *Target*.
+
+|`::`
+|Identifies the class or namespace that a name belongs to.
+|Find the exposed function or value and verify its owner and pin types. The displayed name may differ from the code name.
+
+|`()`
+|Parentheses following a function name indicate a call. Values inside them are the arguments passed to the function.
+|A function call with the arguments connected to its input pins.
+
+|Function return value
+|The output produced by a function call.
+|A return-value pin connected to the next consumer. Use a *Set* node when a member variable must retain the output.
+
+|`return`
+|Finishes the current function path, optionally supplying an output value.
+|End the execution path or use the function's *Return Node* and output pins.
+|===
+
+In C++-style declarations, `*` after a UObject type indicates an object reference. `nullptr` means no object. The `_C` suffix commonly identifies a Blueprint's generated class; it is not an instruction to rename the asset.
+
+=== Labels, jumps, and fall-through
+
+`Label_(Index):` marks a destination in the decompiled instructions. `goto Label_(Index);` continues there. `(Index)` represents the destination identifier in the decompiled output. Different jumps can target different indices. These identifiers are not Blueprint node names or steps to execute in numerical order.
+
+A condition such as `if (!bState) goto Label_(Index);` means:
+
+. Read `bState`.
+. If it is *false*, jump to `Label_(Index)`.
+. If it is *true*, continue with the next instruction below the condition. This is called fall-through.
+
+In Blueprint, this normally becomes a *Branch*. Connect the paths according to what they do. You do not need nodes named after the labels.
+
+[IMPORTANT]
+====
+Read the entire condition, including `!`. Wiring the True output to the jump target in the example above would reverse the behaviour unless the Branch condition itself includes NOT.
+====
+
+.Generated variables and event entry points
+[%collapsible]
+====
+Names such as `CallFunc_...`, `K2Node_...`, or a comparison name can represent values produced while compiling the original graph. Trace where each value is written and read. Do not automatically recreate every generated name as a permanent Blueprint member variable.
+
+`ExecuteUbergraph_<Name>(int EntryPoint)` is compiled event-graph machinery. Event wrappers can call it with different entry points. Recreate the originating event, custom event, or delegate binding and the actions reached from it. Do not make a new custom event named after every label, or add an arbitrary integer switch because the decompiler shows an entry-point parameter.
+
+Bindings can also be described in the asset's binding data rather than as an obvious call beside the function body. A matching handler name by itself does not prove the event is connected.
+====
+
+== Trace real PAYDAY 3 output
+
+The existing `BP_EscapeVan` example shows declarations at the top and part of `ExecuteUbergraph_BP_EscapeVan` below them.
+
+image::blueprint-fmodel-decompiled.png[FModel BP_EscapeVan decompilation showing member declarations, labels, conditions and marker function calls, width=1100]
+
+Treat this screenshot as a reading exercise for one execution path. It does not show everything required to rebuild the escape van.
+
+=== Separate defaults from actions
+
+Near the top, `markerID` is an integer member and `Mesh` is a component reference. Declarations describe data available to the class. They are not all instructions to put into BeginPlay.
+
+In the function body, `markerID = -1;` changes the stored value during execution. That operation does need a *Set markerID* node on the corresponding execution path.
+
+=== Follow the marker path
+
+Start at the event entry label in the screenshot:
+
+. `if (!ComponentBoundEvent_bState) goto Label_(Index);` sends the false state directly to the removal block.
+. Otherwise, `GreaterEqual_IntInt = (markerID >= 0);` calculates a Boolean comparison.
+. `if (!GreaterEqual_IntInt) goto Label_(Index);` skips removal when that comparison is false.
+. At the removal block, `RemoveLocalMarker(this, markerID)` runs, then `markerID` is set to `-1`.
+. That block jumps to the add-marker block, where `AddLocalMarker(...)` runs and its return value is assigned to `markerID`.
+. `return;` ends that path.
+
+The important detail is that *both routes eventually reach the add-marker block*. The false state does not simply remove a marker and stop in this excerpt.
+
+[cols="1,1,2",options="header"]
+|===
+|Incoming state |Existing marker ID |Route shown in the excerpt
+|False |Any value |Remove, set ID to `-1`, then add and store the returned ID.
+|True |`>= 0` |Remove, set ID to `-1`, then add and store the returned ID.
+|True |`< 0` |Skip removal, then add and store the returned ID.
+|===
+
+A corresponding node plan uses a Branch on the incoming state, a second Branch on `markerID >= 0` for its True path, and a shared sequence of marker calls. The comparison supplies data; the marker calls and Set operations require execution wiring.
+
+This is a translation of the displayed control flow. Establish which component event reaches this entry point from the complete asset before attaching that sequence to an event in a replacement.
+
+.Read targets and arguments before choosing nodes
+[%collapsible]
+====
+The screenshot's `USBZMarkerLibrary::RemoveLocalMarker(this, markerID)` identifies the library, the current object, and the ID passed to it. The current Modkit's reflected signature identifies these arguments as `WorldContextObject` and `ID`.
+
+The corresponding `AddLocalMarker` call has inputs for the world context, marker Data Asset, translation, component, socket name, and data object, then returns an integer ID. Match these by the reflected function signature rather than guessing from argument position alone. World-context inputs may be supplied automatically or exposed differently by the editor.
+
+An expression such as `FindObject<...>(..., "/Game/...")` identifies an asset reference. Locate that asset for the relevant input; do not assume you need a runtime string search node. Preserve vector components, enum values, names, and object types while reproducing the original behaviour.
+====
+
+== Worked exercise: rebuild a small widget function
+
+The following is a deliberately simplified teaching example, not an export from a PAYDAY 3 widget. It uses the same condition, jump, target, and return concepts with standard Unreal widget nodes.
+
+The task is to reconstruct a function named `RefreshStatus`. A Boolean named `bShowStatus` decides whether a child Text Block named `StatusLabel` is visible or collapsed.
+
+[source,cpp]
+----
+void RefreshStatus()
+{
+    if (!bShowStatus)
+        goto Label_Hide;
+
+    StatusLabel->SetVisibility(ESlateVisibility::Visible);
+    return;
+
+Label_Hide:
+    StatusLabel->SetVisibility(ESlateVisibility::Collapsed);
+    return;
+}
+----
+
+Read this as: if `bShowStatus` is false, hide the label; otherwise show it. Each route then ends. `StatusLabel` is the target, and the visibility enum is the input value. Neither call targets the whole widget's Self reference.
+
+=== Prepare a practice widget
+
+. In your own mod's content folder, create a *Widget Blueprint* derived from *User Widget* and name it `WBP_ReconstructionPractice`. Keep this exercise separate from retail replacements.
+. Open its *Designer*. Add a Text Block, name it `StatusLabel`, set its text to `Example`, and enable *Is Variable* so its reference is available in the graph.
+. In the *Graph*, add a Boolean variable named `bShowStatus`. Compile, then set its default to true.
+. Add a function named `RefreshStatus`. Leave it impure, with no inputs or outputs, for this exercise.
+
+=== Translate the function into nodes
+
+. In `RefreshStatus`, place a *Branch* and connect the function entry's execution pin to it.
+. Drag `bShowStatus` into the graph as a Get and connect it to the Branch's *Condition*.
+. Drag `StatusLabel` into the graph as a Get. Drag from its reference pin and add *Set Visibility*. Check that the node's target type is *Widget*.
+. Connect the Branch's *True* output to that call. Connect `StatusLabel` to *Target* and set *In Visibility* to *Visible*.
+. Add a second *Set Visibility* call targeting the same `StatusLabel`. Connect the Branch's *False* output to it and set *In Visibility* to *Collapsed*.
+. End both paths after their visibility call. Compile and save the widget.
+
+The node plan is:
+
+[source,text]
+----
+RefreshStatus entry
+  -> Branch, Condition = Get bShowStatus
+       True  -> Set Visibility, Target = StatusLabel, In Visibility = Visible
+       False -> Set Visibility, Target = StatusLabel, In Visibility = Collapsed
+----
+
+This layout preserves the sample's behaviour without a NOT node: the False output represents its `if (!bShowStatus)` jump. Adding NOT without swapping the outputs would reverse it.
+
+*Collapsed* removes the widget's layout space. *Hidden* leaves that space reserved. Preserve the actual enum from the original when reconstructing a real widget.
+
+=== Call and check the practice function
+
+. In this practice widget's Event Graph, add or locate *Event Pre Construct* and connect it to a call to `RefreshStatus`.
+. Compile with `bShowStatus` true and check the Designer preview. `Example` should be visible.
+. Set the Boolean default to false, compile, and check that the label disappears. Restore true and repeat.
+
+Pre Construct allows this exercise's visual change to be checked in the Designer. If the preview does not update, check whether Pre Construct evaluation is enabled in the Widget Designer settings. It is not an instruction to move real PAYDAY 3 widget logic into Pre Construct. For a replacement, use the event or caller established by its decompilation and binding data.
+
+Execution and data wires serve different jobs. The white execution wires choose which visibility call runs. The object reference wires choose what it affects. A pure comparison or getter can supply data without a white execution wire, while an action must be connected to the execution path.
+
+== Apply the method to a real replacement
+
+. Record the original asset path, parent, variable defaults, function signatures, and relevant bindings before converting it.
+. Follow xref:asset-replacements.adoc[Asset Replacements] to convert the original asset to uncooked form at its existing path.
+. Inspect the recreated members and stubs. Reuse the matching functions and preserve their input/output types, pure setting, overrides, and access requirements. Do not create a second similarly named function instead of implementing an existing stub.
+. Reconstruct one function at a time. Match its callers, conditions, targets, arguments, outputs, and variable writes. Preserve parent calls where present in the original behaviour.
+. For widgets, also check the Designer hierarchy, named child references, property bindings, animations, and event bindings used by the logic. A correct layout cannot replace missing graph behaviour.
+. Compile and save. Reconstruct the behaviour required by the asset before introducing your intended modification.
+. Select the replacement through the mod PAL, then follow xref:crimefactory:packaging.adoc[Forge]. See xref:asset-collections.adoc[Asset Collections & Bulk PAL Management] for large replacement sets.
+. Test each relevant state and event in PAYDAY 3. Check both sides of conditions and repeat actions that can run more than once.
+
+[IMPORTANT]
+====
+The practice widget only demonstrates a small function. Reconstructing one function in a retail widget does not make the entire widget a complete replacement. Compilation checks graph validity, not equivalence to the original game logic. Native game behaviour may also be unavailable in an editor preview, so validate the forged replacement in-game.
+====
+
+== Troubleshooting
+
+.The decompilation is empty or incomplete
+[%collapsible]
+====
+Check the FModel settings, game version, and mappings, then reopen and decompile the original asset. Confirm whether the function is implemented in this Blueprint, inherited from a parent, or native. Missing output is not evidence that the original function does nothing. Use the full asset data or Kismet Analyzer to investigate instructions that remain unclear.
+====
+
+.A function or node cannot be found
+[%collapsible]
+====
+Check the owning class and input types. For instance methods, drag from a reference of the correct type so the context menu offers compatible calls. Compare the editor's display name with the reflected function name. For PAYDAY 3 native types, check the current JMAP and Suzie setup in xref:modkit:reflected-types.adoc[Reflected Game Types]. Do not substitute an unrelated node with a similar name.
+====
+
+.The graph compiles but behaves differently
+[%collapsible]
+====
+Trace both sides of every Branch, especially conditions containing `!`. Check execution wires, Self versus another object as Target, stored return values, default values, and early returns. Confirm the event or delegate actually calls the graph. For widgets, check whether a property binding or another function changes the same value afterwards.
+====
+
+== Further reading
+
+* https://dev.epicgames.com/documentation/en-us/unreal-engine/functions-in-unreal-engine[Unreal Engine: Functions] for function creation, calls, and pure versus impure functions.
+* https://dev.epicgames.com/documentation/en-us/unreal-engine/flow-control-in-unreal-engine[Unreal Engine: Flow Control] for Branch and other execution nodes.
+* https://dev.epicgames.com/documentation/en-us/unreal-engine/BlueprintAPI/Widget/SetVisibility[Unreal Engine: Set Visibility] for the widget call used in the exercise.

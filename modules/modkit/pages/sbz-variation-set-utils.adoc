@@ -1,0 +1,70 @@
+= SBZVariationSetUtils
+:description: Applies meshes, materials, CPD values and morph targets.
+
+`SBZVariationSetUtils` applies one appearance row from an `SBZVariationSetData` asset to a mesh component or actor. The utility updates the mesh, non-empty material overrides, all 36 Custom Primitive Data (CPD) values, and matching skeletal morph targets.
+
+For the implementation API, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].
+
+== Class information
+
+[cols="1,3",options="header"]
+|===
+|Item |Value
+
+|Reflected class
+|`/Script/Starbreeze.SBZVariationSetUtils`
+
+|Native parent
+|`/Script/Engine.BlueprintFunctionLibrary`
+
+|Implementation file
+|`Plugins/Suzie/NativeClasses/Starbreeze/SBZVariationSetUtils.cpp`
+
+|Supported editor behaviour
+|Applies meshes, materials, CPD values and morph targets.
+|===
+
+These are modkit Editor behaviours; Forge does not package the native bodies into the game.
+
+== Properties
+
+This function library has no appearance-selection properties. Supply a variation set and row index to its functions.
+
+== Implemented functions
+
+[cols="2,2,3",options="header"]
+|===
+|Function |Inputs |Behaviour
+
+|`ApplyVariationToSkeletal` (Blueprint-callable)
+|`SkelComponent`: `SkeletalMeshComponent reference`; `VariationSet`: `SBZVariationSetData reference`; `VariationIdx`: `int32`
+|Applies the selected row to `SkelComponent`, a skeletal mesh component. Returns `Boolean`.
+
+|`ApplyVariationToStatic` (Blueprint-callable)
+|`StatComponent`: `StaticMeshComponent reference`; `VariationSet`: `SBZVariationSetData reference`; `VariationIdx`: `int32`
+|Applies the selected row to `StatComponent`, a static mesh component. Morph weights are ignored. Returns `Boolean`.
+
+|`ApplyVariationToMesh` (Blueprint-callable)
+|`MeshComponent`: `MeshComponent reference`; `VariationSet`: `SBZVariationSetData reference`; `VariationIdx`: `int32`
+|Applies the row to a supported skeletal or static `MeshComponent`. Returns `Boolean`.
+
+|`ApplyVariation` (Blueprint-callable)
+|`Actor`: `Actor reference`; `VariationSet`: `SBZVariationSetData reference`; `VariationIdx`: `int32`
+|Uses a character's primary mesh, or an actor's compatible mesh component. For variation viewers and menu armour actors, remembers the supplied selection for this editor session. Returns `Boolean`.
+|===
+
+== Editor callbacks
+
+This file does not register class lifecycle callbacks. Other supported actors and components call the utility when their appearance needs updating.
+
+All four functions are static and Blueprint-callable. `VariationSet` is an `SBZVariationSetData` reference and `VariationIdx` is a zero-based row index. Each returns a Boolean indicating whether application succeeded.
+
+Runtime and default CPD are both populated. Null material overrides retain existing materials; changing selections retires overrides previously owned by the utility. Morph weights from the previous selection are cleared before applying matching names from the new row.
+
+== Known limitations
+
+* Invalid rows, missing dependencies and unsupported component types cannot be applied. CPD values and morph weights must be finite numbers.
+* Collision-shape bit handling is not restored. Appearance changes do not establish new collision behaviour.
+* The deprecated `Mesh` reference is a fallback for older skeletal sets; new sets should use `SkeletalMesh`.
+
+For asset creation and preview steps, see xref:custom-heists:variations.adoc[Variations].

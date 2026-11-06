@@ -1,0 +1,104 @@
+= SBZAICharacter
+:description: Selects and refreshes AI character appearances.
+
+`SBZAICharacter` applies the selected appearance to an AI character's primary skeletal mesh. Civilians and enemy Blueprint subclasses use this path when they inherit from this class.
+
+For the implementation API, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].
+
+== Class information
+
+[cols="1,3",options="header"]
+|===
+|Item |Value
+
+|Reflected class
+|`/Script/Starbreeze.SBZAICharacter`
+
+|Native parent
+|`/Script/Starbreeze.SBZAIBaseCharacter`
+
+|Implementation file
+|`Plugins/Suzie/NativeClasses/Starbreeze/SBZAICharacter.cpp`
+
+|Supported editor behaviour
+|Selects and refreshes AI character appearances.
+|===
+
+Blueprint subclasses inherit applicable callbacks. These are modkit Editor behaviours; Forge does not package the native bodies into the game.
+
+== Properties
+
+[cols="2,2,3",options="header"]
+|===
+|Property |Type |Purpose
+
+|`VariationData`
+|`SBZVariationSetData reference`
+|The appearance set to apply to the primary mesh.
+
+|`VariationCategoryIndexIntervals`
+|`Int32Interval [3]`
+|Three category-specific `Int32Interval` values. `Min` and `Max` limit the selected row; negative bounds leave that end unrestricted.
+
+|`VariationCategory`
+|`ESBZAICharacterVariationCategory`
+|Chooses the category interval.
+
+|`Seed`
+|`int32`
+|Inherited appearance seed. New editor placements receive values from 0 to 10000; manual values are preserved.
+
+|`Mesh`
+|`SkeletalMeshComponent reference`
+|Inherited primary skeletal mesh component.
+|===
+
+== Implemented functions
+
+[cols="2,2,3",options="header"]
+|===
+|Function |Inputs |Behaviour
+
+|`OnRep_VariationCategory` (Rep-notify; not Blueprint-callable)
+|None
+|Reapplies the appearance after a category replication notification. This private rep-notify is not Blueprint-callable.
+|===
+
+== Editor callbacks
+
+These run automatically and are not Blueprint-callable functions.
+
+[cols="2,3",options="header"]
+|===
+|Callback |When it runs
+
+|`SUZIE_POST_INITIALIZE`
+|Runs after defaults and required loading are ready.
+
+|`SUZIE_PROPERTY_CHANGED` for `VariationData`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `VariationCategoryIndexIntervals`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `VariationCategory`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `Mesh`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_REFRESH`
+|Runs when a watched dependency changes or becomes available.
+|===
+
+The saved seed selects `Seed % Number of Variations`, then the category interval constrains the result. With 18 unrestricted rows, seed 42 selects row 6. Negative seed remainders clamp to the lower category bound.
+
+Edit `Variation Data` on an instance or on your own Blueprint's Class Defaults, then inspect an instance in the level. Blueprint defaults are not restyled directly. Changes to the set, category, intervals, primary mesh and watched assets refresh the instance automatically.
+
+== Known limitations
+
+* `ApplyVariation` is not a reflected function on this class in the current JMAP. The internal appearance helper is not a Blueprint node.
+* Mission-dependent seed allocation, gameplay attributes and random mesh scaling are outside this implementation.
+* Player and crew customisation use separate appearance systems.
+
+For asset creation and preview steps, see xref:custom-heists:variations.adoc[Variations].

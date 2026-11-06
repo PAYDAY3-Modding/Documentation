@@ -13,6 +13,8 @@ Uncooking a widget does not restore its original function and event graphs. Read
 Do not treat an uncooked widget as a complete working replacement. Its layout alone is not enough: missing function and event logic can break the UI's behavior.
 ====
 
+For help reading the decompilation and translating it into nodes, follow xref:reconstructing-blueprints.adoc[Reconstructing Blueprint Logic from FModel], including its small widget exercise.
+
 === Recreate and replace a widget
 
 In FModel, enable the two decompilation settings shown below:
@@ -23,7 +25,7 @@ image::blueprint-fmodel-settings.png[FModel settings with Serialize Script Bytec
 . In FModel's settings, enable *Serialize Script Bytecode* and *Decompile Blueprint to Pseudo C++*.
 . Find the original Widget Blueprint in FModel, right-click it, and select *Decompile Blueprint*.
 . In the custom editor, find the same cooked widget under its original `/Game/...` path and select *Convert to Uncooked*.
-. Read the decompiled logic and recreate the function and event graphs in the uncooked Widget Blueprint. This assumes you can understand enough C++ to translate the pseudo-C++ into Blueprint nodes.
+. Read the decompiled logic and recreate the function and event graphs in the uncooked Widget Blueprint. Use the reconstruction guide above to identify calls, targets, conditions, and execution paths.
 . Make your UI changes, then compile and save the widget.
 . Add the replacement to your mod PAL's *Explicit Assets*, keeping the original asset name and `/Game/...` path.
 . Forge the mod and test the modified UI in PAYDAY 3.

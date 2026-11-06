@@ -1,0 +1,93 @@
+= SBZWheeledVehicle
+:description: Applies seeded appearances to skeletal vehicles.
+
+`SBZWheeledVehicle` restores appearance selection for skeletal vehicles, including derived vehicle Blueprints. It applies the selected set to the inherited `Mesh` component.
+
+For the implementation API, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].
+
+== Class information
+
+[cols="1,3",options="header"]
+|===
+|Item |Value
+
+|Reflected class
+|`/Script/Starbreeze.SBZWheeledVehicle`
+
+|Native parent
+|`/Script/ChaosVehicles.WheeledVehiclePawn`
+
+|Implementation file
+|`Plugins/Suzie/NativeClasses/Starbreeze/SBZWheeledVehicle.cpp`
+
+|Supported editor behaviour
+|Applies seeded appearances to skeletal vehicles.
+|===
+
+Blueprint subclasses inherit applicable callbacks. These are modkit Editor behaviours; Forge does not package the native bodies into the game.
+
+== Properties
+
+[cols="2,2,3",options="header"]
+|===
+|Property |Type |Purpose
+
+|`VariationSetData`
+|`SBZVariationSetData reference`
+|The vehicle appearance set. Its skeletal mesh, material overrides and selected CPD row are applied.
+
+|`Seed`
+|`int32`
+|The saved vehicle seed. New placements receive values from -10000 to 10000.
+
+|`Mesh`
+|`SkeletalMeshComponent reference`
+|Inherited skeletal mesh component to update.
+|===
+
+== Implemented functions
+
+[cols="2,2,3",options="header"]
+|===
+|Function |Inputs |Behaviour
+
+|`OnRep_Seed` (Rep-notify; not Blueprint-callable)
+|None
+|Applies the appearance using an already effective seed. This private rep-notify is not Blueprint-callable.
+|===
+
+== Editor callbacks
+
+These run automatically and are not Blueprint-callable functions.
+
+[cols="2,3",options="header"]
+|===
+|Callback |When it runs
+
+|`SUZIE_POST_INITIALIZE`
+|Runs after defaults and required loading are ready.
+
+|`SUZIE_PROPERTY_CHANGED` for `VariationSetData`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `Seed`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `Mesh`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_REFRESH`
+|Runs when a watched dependency changes or becomes available.
+|===
+
+Change `Variation Set Data` or `Seed` in Details to update an instance. Initialisation, mesh replacement and watched asset changes also refresh its appearance.
+
+Vehicles use the first selection from a local seeded random stream, rather than the AI remainder rule. If a mission state is present, initialisation combines the seed with its `RandomSeed`; a normal editor world uses the authored seed directly. The saved property is not rewritten during refresh.
+
+== Known limitations
+
+* These bodies restore appearance, not driving, traffic or door logic.
+* `SetSeed` and the local C++ selection helper are not supplied as additional Blueprint-callable native bodies by this file.
+* A seed does not guarantee the same row when the set's row count or mission seed changes.
+
+For asset creation and preview steps, see xref:custom-heists:variations.adoc[Variations].

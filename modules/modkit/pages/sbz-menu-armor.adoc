@@ -1,0 +1,77 @@
+= SBZMenuArmor
+:description: Refreshes menu armour from a supplied variation selection.
+
+`SBZMenuArmor` displays the armour appearance supplied by the customisation manager or the variation utility. The implementation refreshes its existing mesh components.
+
+For the implementation API, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].
+
+== Class information
+
+[cols="1,3",options="header"]
+|===
+|Item |Value
+
+|Reflected class
+|`/Script/Starbreeze.SBZMenuArmor`
+
+|Native parent
+|`/Script/Engine.Actor`
+
+|Implementation file
+|`Plugins/Suzie/NativeClasses/Starbreeze/SBZMenuArmor.cpp`
+
+|Supported editor behaviour
+|Refreshes menu armour from a supplied variation selection.
+|===
+
+Blueprint subclasses inherit applicable callbacks. These are modkit Editor behaviours; Forge does not package the native bodies into the game.
+
+== Properties
+
+[cols="2,2,3",options="header"]
+|===
+|Property |Type |Purpose
+
+|`SkeletalMeshComponent`
+|`SkeletalMeshComponent reference`
+|Skeletal armour preview component.
+
+|`StaticMeshComponent`
+|`StaticMeshComponent reference`
+|Static armour preview component.
+|===
+
+== Implemented functions
+
+This file supplies editor callbacks only. Internal C++ helpers are not additional Blueprint nodes.
+
+== Editor callbacks
+
+These run automatically and are not Blueprint-callable functions.
+
+[cols="2,3",options="header"]
+|===
+|Callback |When it runs
+
+|`SUZIE_POST_INITIALIZE`
+|Runs after defaults and required loading are ready.
+
+|`SUZIE_PROPERTY_CHANGED` for `SkeletalMeshComponent`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `StaticMeshComponent`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_REFRESH`
+|Runs when a watched dependency changes or becomes available.
+|===
+
+Initialisation, component replacement and watched asset changes reapply the supplied set and row. Use xref:sbz-customization-manager.adoc[SBZCustomizationManager] for armour configuration and selection, or pass a selection through xref:sbz-variation-set-utils.adoc[SBZVariationSetUtils].
+
+== Known limitations
+
+* Selection is held for the current editor session and must be supplied again after reopening.
+* `RotateComponent` is reflected data; these bodies do not implement rotation controls.
+* No additional Blueprint-callable functions are supplied by this file.
+
+For asset creation and preview steps, see xref:custom-heists:variations.adoc[Variations].

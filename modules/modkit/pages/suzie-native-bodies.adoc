@@ -384,3 +384,15 @@ Check the Output Log for Suzie registration and execution errors. After an opera
 == Class API pages
 
 * xref:sbz-ui-text-block.adoc[SBZUITextBlock] lists the class properties, style fields, implemented functions, and editor refresh behaviour.
+
+* xref:sbz-variation-set-utils.adoc[SBZVariationSetUtils]: Applies meshes, materials, CPD values and morph targets.
+* xref:sbz-ai-character.adoc[SBZAICharacter]: Selects and refreshes AI character appearances.
+* xref:sbz-character.adoc[SBZCharacter]: Connects character seeds to AI appearance refreshes.
+* xref:sbz-wheeled-vehicle.adoc[SBZWheeledVehicle]: Applies seeded appearances to skeletal vehicles.
+* xref:sbz-static-vehicle.adoc[SBZStaticVehicle]: Applies seeded appearances to static vehicles.
+* xref:sbz-pawn-spawn-base.adoc[SBZPawnSpawnBase]: Preserves manually authored pawn-spawner seeds.
+* xref:sbz-variation-edit-component.adoc[SBZVariationEditComponent]: Applies an explicitly selected row to editor preview components.
+* xref:sbz-variation-edit-actor.adoc[SBZVariationEditActor]: Repairs missing links between variation preview components.
+* xref:sbz-variation-view-actor.adoc[SBZVariationViewActor]: Refreshes a viewer from an explicitly supplied appearance.
+* xref:sbz-menu-armor.adoc[SBZMenuArmor]: Refreshes menu armour from a supplied variation selection.
+* xref:sbz-customization-manager.adoc[SBZCustomizationManager]: Resolves armour configuration and updates its preview.

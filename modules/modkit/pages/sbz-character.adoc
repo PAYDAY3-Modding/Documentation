@@ -1,0 +1,74 @@
+= SBZCharacter
+:description: Connects character seeds to AI appearance refreshes.
+
+`SBZCharacter` owns the seed inherited by AI characters. Its native bodies expose the saved seed and connect seed edits and replication notifications to the AI appearance path.
+
+For the implementation API, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].
+
+== Class information
+
+[cols="1,3",options="header"]
+|===
+|Item |Value
+
+|Reflected class
+|`/Script/Starbreeze.SBZCharacter`
+
+|Native parent
+|`/Script/Engine.Character`
+
+|Implementation file
+|`Plugins/Suzie/NativeClasses/Starbreeze/SBZCharacter.cpp`
+
+|Supported editor behaviour
+|Connects character seeds to AI appearance refreshes.
+|===
+
+Blueprint subclasses inherit applicable callbacks. These are modkit Editor behaviours; Forge does not package the native bodies into the game.
+
+== Properties
+
+[cols="2,2,3",options="header"]
+|===
+|Property |Type |Purpose
+
+|`Seed`
+|`int32`
+|The saved `int32` seed. Editing it preserves a manual choice against a pending placement notification.
+|===
+
+== Implemented functions
+
+[cols="2,2,3",options="header"]
+|===
+|Function |Inputs |Behaviour
+
+|`GetSeed` (Blueprint-callable)
+|None
+|Returns the saved seed without changing it. Blueprint-callable and pure. Returns `int32`.
+
+|`OnRep_Seed` (Rep-notify; not Blueprint-callable)
+|None
+|Refreshes the appearance for an AI character. This protected rep-notify is not Blueprint-callable.
+|===
+
+== Editor callbacks
+
+These run automatically and are not Blueprint-callable functions.
+
+[cols="2,3",options="header"]
+|===
+|Callback |When it runs
+
+|`SUZIE_PROPERTY_CHANGED` for `Seed`
+|Responds automatically to a Details-panel property edit.
+|===
+
+Changing `Seed` in Details automatically refreshes supported AI instances. The appearance rules are described on xref:sbz-ai-character.adoc[SBZAICharacter].
+
+== Known limitations
+
+* These bodies do not restore every character subclass's appearance system.
+* Only supported new AI placements receive automatic seeds. Loading or refreshing an existing actor does not replace its saved seed.
+
+For asset creation and preview steps, see xref:custom-heists:variations.adoc[Variations].

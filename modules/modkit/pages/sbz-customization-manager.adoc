@@ -1,0 +1,111 @@
+= SBZCustomizationManager
+:description: Resolves armour configuration and updates its preview.
+
+`SBZCustomizationManager` resolves an armour configuration into a variation set and applies it to the armour display actor. If a display is missing, it can create a temporary editor-only `SBZMenuArmor` preview.
+
+For the implementation API, see xref:suzie-native-bodies.adoc[Suzie Native Bodies API].
+
+== Class information
+
+[cols="1,3",options="header"]
+|===
+|Item |Value
+
+|Reflected class
+|`/Script/Starbreeze.SBZCustomizationManager`
+
+|Native parent
+|`/Script/Engine.Actor`
+
+|Implementation file
+|`Plugins/Suzie/NativeClasses/Starbreeze/SBZCustomizationManager.cpp`
+
+|Supported editor behaviour
+|Resolves armour configuration and updates its preview.
+|===
+
+Blueprint subclasses inherit applicable callbacks. These are modkit Editor behaviours; Forge does not package the native bodies into the game.
+
+== Properties
+
+[cols="2,2,3",options="header"]
+|===
+|Property |Type |Purpose
+
+|`ArmorConfig`
+|`SBZArmorConfig`
+|`SBZArmorConfig` structure. Its `Data` references armour data whose `MeshData` supplies the variation set.
+
+|`ArmorVariationIndex`
+|`int32`
+|Zero-based full-appearance row index.
+
+|`bIsArmorVariationChunkType`
+|`Boolean`
+|Selects chunk mode. The current implementation displays row 0 in this mode.
+
+|`GlobalArmor`
+|`SBZMenuArmor reference`
+|Armour display actor. An externally assigned display is not owned or destroyed by this implementation.
+|===
+
+== Implemented functions
+
+[cols="2,2,3",options="header"]
+|===
+|Function |Inputs |Behaviour
+
+|`SetArmorConfig` (Blueprint-callable)
+|`Config`: `SBZArmorConfig`
+|Stores `Config` and updates the armour preview.
+
+|`SetArmorVariationIndex` (Blueprint-callable)
+|`Index`: `int32`
+|Stores a non-negative `Index` and applies the selected full appearance when valid.
+
+|`SetArmorVisible` (Blueprint-callable)
+|`bInIsVisible`: `Boolean`
+|Uses `bInIsVisible` to show or hide the armour display in the editor.
+
+|`GetCustomizationManager` (Blueprint-callable)
+|`WorldContextObject`: `Object reference`
+|Uses `WorldContextObject` to find an existing manager in that world. Returns the manager or None; does not create a gameplay manager. Returns `SBZCustomizationManager reference`.
+|===
+
+== Editor callbacks
+
+These run automatically and are not Blueprint-callable functions.
+
+[cols="2,3",options="header"]
+|===
+|Callback |When it runs
+
+|`SUZIE_POST_INITIALIZE`
+|Runs after defaults and required loading are ready.
+
+|`SUZIE_PROPERTY_CHANGED` for `ArmorConfig`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `ArmorVariationIndex`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `GlobalArmor`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_PROPERTY_CHANGED` for `bIsArmorVariationChunkType`
+|Responds automatically to a Details-panel property edit.
+
+|`SUZIE_REFRESH`
+|Runs when a watched dependency changes or becomes available.
+|===
+
+All four functions are Blueprint-callable. `GetCustomizationManager` is static; the three setters return no value.
+
+Initialisation and edits to the configuration, row index, chunk-mode flag or display reference refresh the preview. The helper also watches armour data, its resolved variation set and the display actor.
+
+== Known limitations
+
+* Chunk-specific CPD and material packing is not reconstructed; chunk mode shows the base row.
+* A transient display is not a packaged gameplay manager or a persistent replacement for your menu setup.
+
+For asset creation and preview steps, see xref:custom-heists:variations.adoc[Variations].

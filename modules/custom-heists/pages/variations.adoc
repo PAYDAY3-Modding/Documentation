@@ -1,0 +1,273 @@
+= Variations
+:description: Create appearance sets for PAYDAY 3 pawns and vehicles using meshes, materials, Custom Primitive Data, morph targets and seeds.
+
+Variation sets create different appearances from shared meshes and materials. Civilians can wear different clothing, enemies can use different uniforms, and vehicles can have different paint colours.
+
+A variation does not always need another mesh. One mesh can contain several clothing or body options, with its materials deciding which parts are visible.
+
+== Before you start
+
+Use an editable mesh and material you own, or inspect compatible game assets as references. Keep new variation sets in your mod's content folder. Do not edit or redistribute the mounted game's original cooked assets. See xref:modkit:cooked-assets.adoc[Cooked Assets].
+
+[NOTE]
+====
+Suzie Native Bodies restore missing behaviour in the Modkit Editor. Forge does not ship those implementations; retail PAYDAY 3 uses its own native code. Editor previews have been checked with game assets, but a new custom material, pawn or vehicle setup still needs testing in the forged mod.
+====
+
+== How variations work
+
+A character appearance follows this path:
+
+[source,text]
+----
+Spawner request > Pawn class > Variation Data Asset
+                > Mesh and materials > Selected variation
+                > CPD values and morph targets
+----
+
+The asset class is `SBZVariationSetData`, reflected as `/Script/Starbreeze.SBZVariationSetData`.
+
+[cols="1,3",options="header"]
+|===
+|Property |Purpose
+
+|`SkeletalMesh` / `StaticMesh`
+|The skeletal or static mesh used by this set. Choose the one that matches the actor's component.
+
+|`OverrideMaterials`
+|Optional replacement materials, ordered by mesh material slot.
+
+|`Variations`
+|Appearance rows. Each row is an `SBZCustomPrimitiveData` structure containing `Data` and `MorphTargets`.
+
+|`CDPFormat`
+|A Data Table describing the appearance-data layout. The reflected spelling is `CDPFormat`, even though Custom Primitive Data is abbreviated CPD.
+|===
+
+The mesh and material overrides belong to the whole set. Rows supply different appearance data for that shared setup; they do not each contain another mesh. Older sets can also contain the deprecated `Mesh` skeletal reference. Use `SkeletalMesh` for new content.
+
+=== Custom Primitive Data
+
+Custom Primitive Data (CPD) consists of numbers stored on an individual mesh component. Materials read selected numbers to control clothing visibility, body-part visibility, colours, masks and other appearance settings.
+
+PAYDAY 3 variation rows contain *36 floats*, indexed from `0` to `35`. A character may contain several clothing options at once. Its materials use the selected CPD to display the intended combination. Missing or incorrect data can therefore leave parts of the character invisible.
+
+Values depend on the material. Some game materials read encoded appearance information rather than ordinary colour values. Keep the exact values from a compatible reference row when starting from game content. Do not fill every entry with `1.0`.
+
+=== Morph targets
+
+Morph targets change the actual shape of a skeletal mesh, such as a facial feature. Each row's `MorphTargets` map associates an existing target name with a weight. They work alongside CPD. Ordinary static meshes have no skeletal morph targets.
+
+== Step 1: Create the variation asset
+
+. Open your mod's content folder in the Content Browser.
+. Right-click an empty area and choose *Miscellaneous > Data Asset*.
+. Search for `SBZVariationSetData` in the class picker and select it. Display names may include spaces; check the class rather than selecting an unrelated Data Asset type.
+. Name the asset, for example `DA_MyVehicleVariations`, and open it.
+
+You can also duplicate an *editable, mod-owned* variation set as a starting point. For a cooked game set, inspect its references and row values, then copy the required configuration into your new asset. Converting cooked content for a replacement is a separate workflow, not a requirement for creating a fresh set.
+
+The native class derives from Unreal's `DataAsset`. If it is absent from the picker, check that Suzie loaded the current JMAP before continuing. Unreal's general procedure is documented in https://dev.epicgames.com/documentation/en-us/unreal-engine/data-assets-in-unreal-engine[Data Assets].
+
+// TODO IMAGE: Show the Data Asset class picker filtered to SBZVariationSetData and the newly created asset in a mod folder.
+// Suggested filename: variations-create-asset.png
+// image::variations-create-asset.png[Creating an SBZVariationSetData asset in a mod content folder, width=1000]
+
+== Step 2: Choose the mesh and materials
+
+. Assign *Skeletal Mesh* (`SkeletalMesh`) for a pawn or skeletal vehicle, or *Static Mesh* (`StaticMesh`) for a static vehicle.
+. For a new set, leave the other mesh reference empty to keep the intended component type clear.
+. Expand *Override Materials* if you need replacements. Otherwise, leave the array empty.
+. Add entries in mesh material-slot order: index `0` targets slot `0`, index `1` targets slot `1`, and so on.
+. Assign each replacement material to its matching slot. An empty (`None`) override retains the existing material at that slot.
+
+Check slot names in the mesh editor. CPD allows two components sharing the same material asset to look different without changing that shared asset.
+
+// TODO IMAGE: Show a variation set's Skeletal Mesh or Static Mesh reference and its Override Materials array beside the matching mesh slot list.
+// Suggested filename: variations-mesh-materials.png
+// image::variations-mesh-materials.png[Variation mesh and material-slot overrides, width=1000]
+
+== Step 3: Add appearance rows
+
+. Expand *Variations* and add an element. The first row has index `0`.
+. Expand that element's *Data* field. It contains the fixed 36-value CPD layout.
+. Enter the values expected by your materials, preserving their indices.
+. Add a second row for another appearance. Reuse the mesh and material setup while changing the appropriate data values.
+. Save the asset.
+
+For an existing game material, start with a compatible reference row and change only fields whose meaning you have established. A large numeric value can be intentional encoded data.
+
+// TODO IMAGE: Show two expanded Variations rows with their Data arrays, highlighting zero-based row and CPD indices.
+// Suggested filename: variations-rows-cpd.png
+// image::variations-rows-cpd.png[Variation rows and their 36 CPD values, width=1000]
+
+=== Example: Two paint colours for your own material
+
+This example defines a new, simple CPD layout for a material you own. It is not a colour recipe for existing PAYDAY 3 materials.
+
+. Create a Material in your mod folder and add a *Vector Parameter* named `PaintColour`.
+. Select the parameter. Enable *Use Custom Primitive Data* and set *Primitive Data Index* to `0`.
+. Connect its RGB output to *Base Color*. Give the material a suitable roughness and apply it to the vehicle's body material slot.
+. In your set, assign the same mesh and material for both rows.
+. Fill each row using the following layout. The vector occupies indices `0` to `3`; the material in this example does not read indices `4` to `35`.
+
+[cols="1,1,1,1,1,2",options="header"]
+|===
+|Row |Data[0] |Data[1] |Data[2] |Data[3] |Result
+|0 |0.8 |0.02 |0.02 |1.0 |Red paint
+|1 |0.02 |0.1 |0.8 |1.0 |Blue paint
+|===
+
+For this new material only, leave unused indices `4` to `35` at zero. The alpha value at index `3` is reserved by the vector parameter, although only RGB is connected here. Keep other materials on the mesh from interpreting these same indices in an incompatible way.
+
+This uses standard Unreal CPD parameter binding, described in https://dev.epicgames.com/documentation/unreal-engine/storing-custom-data-in-unreal-engine-materials-per-primitive[Storing Custom Data in Materials Per-Primitive]. The set passes the row values through without converting them into colours.
+
+// TODO IMAGE: Show PaintColour with Use Custom Primitive Data enabled at index 0 and RGB connected to Base Color.
+// Suggested filename: variations-paint-material.png
+// image::variations-paint-material.png[Custom paint material using CPD indices 0 to 3, width=1000]
+
+=== Configure CDPFormat
+
+When using an existing game material and CPD layout, retain its matching *CDPFormat* reference as part of the set's configuration. Inspect the table and a working reference set together before changing encoded values. A table from an unrelated material does not translate the values for you.
+
+For the simple custom-material example above, `CDPFormat` can be `None` in the current editor application path: it reads the 36 floats directly and does not require the table. This verifies editor application, not every retail system that may inspect a format table.
+
+.Advanced: Encoded game appearance data
+[%collapsible]
+====
+There is no universal list saying that a particular CPD index always means a particular colour or body part. Inspect the material or material functions that consume it, a matching `CDPFormat` table, and known working rows.
+
+The current native bodies do not provide a general encoder or decode arbitrary format tables into an authoring interface. They also do not reconstruct collision-shape bit handling. If a packed field's meaning is unknown, preserve its verified value instead of guessing.
+====
+
+== Step 4: Configure morph weights, if needed
+
+For a skeletal mesh:
+
+. Open the mesh and check its available morph-target names in the mesh editor's morph-target controls.
+. In the desired variation row, expand *Morph Targets* (`MorphTargets`).
+. Add the exact target name as the key and its weight as the value. For a normal blend target, `0` leaves the base shape and `1` applies the full target.
+. Use a different weight in another row to change the shape. For example, a mesh that actually contains `FaceWide` could use `0` in row 0 and `1` in row 1. This is an example name, not a required game target.
+
+Targets must exist on the assigned skeletal mesh. Reapplying a variation clears the previous variation's active weights before setting the matching targets. Skip this step for static meshes.
+
+// TODO IMAGE: Show an existing target name in the skeletal mesh editor and the same name/weight in a variation row.
+// Suggested filename: variations-morph-targets.png
+// image::variations-morph-targets.png[Matching a variation morph entry to an existing skeletal morph target, width=1000]
+
+== Step 5: Use the set with a pawn
+
+. Use your own editable pawn Blueprint derived from `SBZAICharacter`, with its required character components configured.
+. Open *Class Defaults* and search for *Variation Data* (`VariationData`). Assign your new set. You can also test an editable reference on a placed instance in the custom editor.
+. Place an instance in a level and select it. Set *Seed* to a known value in Details.
+. Check the mesh, materials and appearance in the level viewport. Class Defaults store the configuration; automatic application runs on instances.
+. Change the seed, restore the original value, then save and reopen your level to check the result.
+
+For an unrestricted set with two rows, seeds `0` and `1` select rows `0` and `1`. For 18 rows, seed `42` selects row `6`. Selection starts with `Seed % Number of Variations`, then the character's category limits constrain it. Several seeds can select the same row.
+
+New AI placements receive seeds from `0` to `10000`. Manual edits, including negative seeds, are retained. Negative remainders clamp to the category's lower bound, so positive seeds are usually more useful when exploring appearances.
+
+// TODO IMAGE: Show a placed civilian's Seed, Variation Data and Variation Category settings alongside its visible appearance.
+// Suggested filename: variations-pawn-details.png
+// image::variations-pawn-details.png[Pawn seed and variation settings in Details, width=1000]
+
+.Advanced: Category limits
+[%collapsible]
+====
+`VariationCategory` chooses one of the three `VariationCategoryIndexIntervals` entries. Each entry contains `Min` and `Max` row indices. Negative bounds leave that end unrestricted; setting both to `-1` allows the full set.
+
+The remainder is clamped to that interval, rather than used to randomise within it. If seed 42 produces row 6 but the interval ends at row 5, row 5 is used. Check the selected category and its interval if your intended row never appears.
+====
+
+See xref:modkit:sbz-ai-character.adoc[SBZAICharacter] and xref:modkit:sbz-character.adoc[SBZCharacter] for the supported properties and callbacks.
+
+=== Predefined pawn spawners
+
+. Use a mod-owned `SBZPawnSpawnRequestData` Data Asset. Its *Pawn Variation Datas* (`PawnVariationDatas`) array holds pawn-class entries.
+. Assign your pawn Blueprint to an entry's *Pawn Class*. Its Class Defaults provide the normal `VariationData`.
+. To select a different set through the request, enable *Override Variation Data* (`bOverrideVariationData`) on that entry and assign *Variation Data*. Enable *Override Variation Data Intervals* only if you also want the request to supply the category intervals.
+. Place `SBZPawnSpawnPredefined`, then assign this request asset under *Predefined Pawn Request > Data*.
+. Change the spawner's *Seed* to inspect its repeatable mesh preview. Newly placed predefined spawners receive a seed from `0` to `10000`; later manual choices persist.
+
+The editor uses the seed to choose a stable representative pawn class and then applies that character's appearance. Retail class selection also uses global randomness and mission tracking, so the preview does not predict the exact pawn spawned during a heist.
+
+The visualizer displays mesh components in reference pose without running gameplay spawn requests, runtime equipment or animation. See xref:spawns.adoc[Spawns] for actual spawn setup and xref:modkit:sbz-pawn-spawn-base.adoc[SBZPawnSpawnBase] for seed support.
+
+== Step 6: Use the set with a vehicle
+
+[cols="1,1,1",options="header"]
+|===
+|Vehicle class |Details property |Mesh type
+|`SBZWheeledVehicle` |Variation Set Data (`VariationSetData`) |Skeletal mesh
+|`SBZStaticVehicle` |Variation Data (`VariationData`) |Static mesh
+|===
+
+. Open your own vehicle Blueprint or select its placed instance.
+. Assign the set to the appropriate property above. Use `SkeletalMesh` for a wheeled vehicle or `StaticMesh` for a static vehicle.
+. For the paint example, assign your paint material to the correct body slot and check that the set contains both rows.
+. For this two-row paint example in a normal editor world without a mission seed, set *Seed* to `0` for row 0 (red), then `17` for row 1 (blue). Restore those values to check repeatability. For other sets, try several seeds and note which appearance each selects.
+. Save and reopen the level to check that the seed and appearance are retained.
+
+Vehicles select a row using the first draw from a local random stream initialised from the seed. They do *not* use the AI remainder formula, so adjacent seeds can select the same colour. With only two rows, changing a seed is not guaranteed to switch colours.
+
+New skeletal and static vehicle placements receive seeds from `-10000` to `10000`. Manual choices persist. A normal editor world uses the authored seed; when a mission state is present its random seed also contributes to selection.
+
+Static vehicle variations apply a static mesh, material overrides and CPD. Skeletal vehicle variations can additionally apply matching morph targets. Both populate runtime and default CPD, so component resets retain the selected data.
+
+// TODO IMAGE: Show a vehicle's Variation Set Data or Variation Data field and Seed, with its paint appearance visible.
+// Suggested filename: variations-vehicle-details.png
+// image::variations-vehicle-details.png[Vehicle variation asset and seed settings, width=1000]
+
+// TODO IMAGE: Show the same custom vehicle mesh in red and blue, with the seed used for each labelled.
+// Suggested filename: variations-two-paint-colours.png
+// image::variations-two-paint-colours.png[Two appearances from one vehicle mesh and material, width=1000]
+
+For vehicle setup, see xref:vehicles.adoc[Vehicles]. For class details, see xref:modkit:sbz-wheeled-vehicle.adoc[SBZWheeledVehicle] and xref:modkit:sbz-static-vehicle.adoc[SBZStaticVehicle].
+
+=== Preview a specific row
+
+For an existing variation preview actor with working components, set *Variation Set* and *Current Variation Idx* on its `SBZVariationEditComponent`. This applies an explicit zero-based row index, without looking for a seed. See xref:modkit:sbz-variation-edit-component.adoc[SBZVariationEditComponent] and xref:modkit:sbz-variation-edit-actor.adoc[SBZVariationEditActor].
+
+Blueprint tools can also call `ApplyVariationToSkeletal`, `ApplyVariationToStatic`, `ApplyVariationToMesh` or `ApplyVariation` with a set and row index. These return whether application succeeded. See xref:modkit:sbz-variation-set-utils.adoc[SBZVariationSetUtils]. Internal helpers and replication notifications are not additional Blueprint nodes.
+
+== Step 7: Forge and check the result
+
+. Keep the custom set, pawn or vehicle Blueprint, materials and any custom meshes or textures in your mod's content folder.
+. Reference the set from the actual pawn, vehicle or request used by your heist. A temporary editor viewer does not establish a runtime content reference.
+. Check the mod's Primary Asset Label (PAL). Use *Explicit Assets* where content must be selected explicitly, including external `/Game/...` replacements and custom assets reached only by dynamic loading.
+. Validate and Forge the mod. Check that all required custom dependencies are included; do not add unchanged cooked game assets for redistribution.
+. Test both appearances in PAYDAY 3, including the actual spawn path and relevant mission conditions.
+
+See xref:crimefactory:pal.adoc[PAL & Explicit Assets] and xref:crimefactory:packaging.adoc[Forge]. A successful editor preview does not verify cooking, packaging or every retail consumer of a custom data layout.
+
+== Previewing and troubleshooting
+
+Change *Seed* in Details on a placed instance. Supported callbacks update the appearance automatically after required loading is ready. If you edited a Blueprint's defaults, inspect a placed instance; callbacks deliberately skip the shared defaults themselves.
+
+For an exact row test, use an explicit preview index or the variation utility rather than assuming that a vehicle seed equals a row index. Do not rely on an unsupported refresh button or manually call replication notifications.
+
+[cols="2,3",options="header"]
+|===
+|Problem |Check
+
+|Character is partially invisible
+|Check all 36 values against a compatible material's CPD layout. Confirm that the intended set and row were applied to the primary mesh.
+
+|All variations look the same
+|Check that the set has different rows and that the material reads the indices you changed. Several seeds can choose the same row; also check AI category limits. A set with one row has only one appearance.
+
+|Materials look wrong
+|Match override indices to mesh slots and check the selected mesh. A null override retains the existing material; it does not select a new one.
+
+|Morph targets do not change
+|Check the exact names on the assigned skeletal mesh and the row's weights. Static meshes cannot use skeletal morphs.
+
+|The editor does not update
+|Check that the actor inherits a supported class and the asset is loaded. Edit the relevant set/seed/index property on an instance, or reapply the explicit utility call for a custom tool.
+
+|A predefined spawner has no pawn preview
+|Check its request's Data reference and pawn-class entries. Enable pawn previews and configure the class/request property in *Project Settings > CrimeFactory > Actor Visualisation*. An unavailable request retains the configured marker.
+
+|The editor result differs from the game
+|Check the forged assets, runtime references, mission seed, spawn path and retail support for your material/data layout. Predefined-spawner class previews are representative, not exact mission predictions.
+|===
