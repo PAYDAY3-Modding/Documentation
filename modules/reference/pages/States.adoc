@@ -1,0 +1,276 @@
+= States
+
+List of all the states that can be referenced for Wwise Audio Creation(s)
+
+[NOTE]
+====
+This includes state groups and their states with info on each of them.
+====
+
+
+== acoustic_flag
+
+Different audio handling depending on acoustic_flag state
+
+
+[cols="1,1"]
+|===
+|State Name | Information 
+
+|indoor_large
+|Acoustic of large interior environments
+
+|indoor_small
+|Acoustic handling of small interior environments
+
+|outdoor_hard_surface
+|Acoustic of outdoor hard surface environments
+
+
+|outdoor_small
+|Acoustic of small outdoor environments (Alleys, patios,etc)
+
+|outdoor_street
+|Acoustic of outdoor street environments
+
+|===
+
+== Ai_state
+
+Different voice audios/effects to be played depending on SINS state
+
+[cols="1,1"]
+|===
+|State Name | Information 
+
+|broken
+|Condition of SINS is Broken
+
+|glitchy
+|Condition of SINS is Glitchy
+
+|neutral
+|Condition of SINS is Neutral (No Effects)
+
+|===
+
+== bag_foley
+
+Different audio to be played depending on type of bag
+
+[cols="1,1"]
+|===
+|State Name | Information 
+
+|body
+|Bag type is body bag
+
+|money
+|Bag type is money bag (loot)
+
+|tool
+|Bag type is tool (zipline, thermite, etc)
+|===
+
+== echo_flag 
+
+Different echo(s) to be emitted based on environment type.
+
+[cols="1,1"]
+|===
+|State Name | Information 
+
+|alley
+|Echos to be triggered in alley environments (small outdoor locations)
+
+|generic
+|Echos to be triggered based in general environments
+
+|hard_surface
+|Echos to be triggered in hard surface environments
+
+|indoor
+|Echos to be triggered in indoor environments
+
+|===
+
+
+== equipment_foley 
+
+Different foley audio to be emitted based on equipment type.
+
+[cols="1,1"]
+|===
+|State Name | Information 
+
+|grenade
+|Foley audio for grenades
+
+|pistol
+|Foley audio for pistol(s)
+
+|rifle
+|Foley audio for rifle(s)
+
+|shotgun
+|Foley audio for shotgun(s)
+
+|sniper
+|Foley audio for sniper(s)
+
+|===
+
+== Eye_Scan 
+
+Different audio to be played based on Eyescan state.
+
+[cols="1,1"]
+|===
+|State Name | Information 
+
+|In_Progress
+|Eye Scan is In-progress.
+
+|Not_In_Progress
+|Eye Scan is not In-progress.
+
+|=== 
+
+== Game_State
+
+State of game
+[cols="1,1"]
+|===
+
+|Unfocused
+|Game is not focused/In background.
+
+|===
+
+== Grenade_Status_effects
+
+States of grenade effects.
+
+[cols="1,1"]
+|===
+|State Name | Information 
+
+|Concussed
+|Grenade concusses player.
+
+|Flashed
+|Grenaded flashes player.
+
+|===
+
+== Level_State
+
+States of grenade effects.
+
+[cols="1,1"]
+|===
+|State Name | Information 
+
+|Level_Anticipation
+|Level State is in Anticipation 
+
+|Casing
+|Level State is in Casing (Stealth)
+
+|Control
+|Level State is in Control
+
+|First_Response
+|Level State is in First Response (Cops arriving on scene for first time before control)
+
+|Loud
+|Level State is in Loud (Assault Phase)
+
+|Searching
+|Level State is in Searching (No more pagers left/Cops searches area)
+
+|===
+
+== physics_impact
+
+States of physics impact dependent on object and surface.
+
+Whithin physics_impact are two state groups
+
+=== physics_object_impact
+
+[cols="1,1"]
+|===
+|State Name | Information 
+
+|concrete
+|object impact is on concrete material 
+
+|flesh
+|Object impact is on flesh
+
+|glass
+|Object impact is on glass material
+
+|marble
+|Object impact is on marble material
+
+|metal
+|Object impact is on metal material
+
+|plastic
+|Object impact is on plastic material
+
+|wood
+|Object impact is on wood material
+
+|===
+
+=== physics_surface_impact
+
+[cols="1,1"]
+|===
+|State Name | Information 
+
+|concrete
+|surface impact is on concrete material 
+
+|flesh
+|surface impact is on flesh
+
+|glass
+|surface impact is on glass material
+
+|marble
+|surface impact is on marble material
+
+|metal
+|surface impact is on metal material
+
+|plastic
+|surface impact is on plastic material
+
+|wood
+|surface impact is on wood material
+
+|===
+
+== system_state
+
+State of heist system (generally used for voices)
+
+[cols="1,1"]
+|===
+|State Name | Information 
+
+|assault
+|System State is in Assault 
+
+|control
+|System State is in Control
+
+|whisper
+|System State is in Whisper (Stealth)
+
+|===
+

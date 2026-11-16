@@ -1,0 +1,366 @@
+= Game Parameters
+
+List of all the game parameters that can be referenced for Wwise Audio Creation(s)
+
+[NOTE]
+====
+This includes parameters and their groups. More info on these parameter will be provided once verified.
+====
+
+== Camera
+
+Different parameters available for cameras
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|Cam_Is_Controlled
+|
+
+|Cam_Move_Velocity
+|
+
+|Motion_Camera
+|
+
+|===
+
+
+== Crowds
+
+Different parameters available for crowds
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|Crowd_Stealth_Intensity
+|
+
+
+|===
+
+
+== Cutting_Tool
+
+Different parameters available for the cutting tool
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|cutting_tool_flame
+|
+
+
+|===
+
+== drill
+
+Different parameters available for the drill
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|drill_rpm
+|
+
+|drill_temp
+|
+
+|===
+
+
+== Ducking
+
+Different parameters available for ducking (lowering audio types)
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|ducking_damage
+|
+
+|ducking_explosions
+|
+
+|ducking_music
+|Anything under the Music Bus will duck/lower with this parameter
+
+|ducking_nightclub
+|
+
+|ducking_vo_narrator
+|
+
+
+|ducking_weapons
+|
+
+
+|===
+
+
+== Dye_Packs
+
+Different parameters available for dye packs
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|DyePK_Beep_Rate
+|
+
+
+|===
+
+
+== Environment
+
+Different parameters available for environmental audio(s)
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|ENV_Traffic_Blend
+|
+
+|ENV_Wind
+|
+
+|===
+
+
+== Feedback
+
+Different parameters available for feedback audio(s)
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|camera_suspicion_level_pitch
+|
+
+|camera_suspicion_level
+|
+
+|downed_state_progression
+|
+
+|feedback_concussion
+|
+
+|feedback_damage
+|
+
+|Feedback_Flashed
+|
+
+|Feedback_Level_Edge
+|
+
+|===
+
+
+== Global
+
+Different parameters available for global audio(s)
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|global_hitmarker_volume
+|
+
+|global_master_volume
+|
+
+|global_music_volume
+|
+
+|global_narrator_volume
+|
+
+|global_obstruction
+|
+
+|global_sfx_volume
+|
+
+
+|global_vo_volume
+|
+
+
+|===
+
+
+== Hitmarker
+
+Different parameters available for Hitmarker audio(s)
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|HM_Sidechain
+|
+
+
+|===
+
+
+== NC_Music
+
+Different parameters available for Nightclub music
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|NC_Music_Distance_1
+|
+
+|NC_Music_Distance_2
+|
+
+|===
+
+
+== Physics
+
+Different parameters available for physics audio changes
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|grenade_velocity
+|
+
+
+|impact_force
+|
+
+|Phys_Speed
+|
+
+|throwable_impact_velocity
+|
+
+|===
+
+
+== Spatialization
+
+Different parameters available for audio spatialization
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|impacts_3D_2D
+|
+
+|sound_src_loc
+|
+
+|Tool_3D_2D
+|
+
+
+|===
+
+
+== Thermite_Intensity
+
+Different parameter(s) available for thermite intensity
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|Thermite Intensity
+|
+
+
+|===
+
+
+== Vehicles
+
+Different parameters available for vehicle audio
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|Engine_RPM
+|
+
+|Helicopter_Distance
+|
+
+
+|Helicopter_RPM
+|
+
+|Tires_Velocity
+|
+
+|===
+
+
+== VO
+
+Different parameters available for VO
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|swat_filter
+|
+
+
+|===
+
+
+== Weapons
+
+Different parameters available for weapon audio
+
+[cols="1,1"]
+|===
+|Parameter Name | Info
+
+|Flash_Beep_Interval
+|Change beep interval emitting from techie drones
+
+|wp_ads
+|
+
+
+|wp_ammoleft
+|
+
+|wp_buildup
+|
+
+|wp_islooping
+|
+
+|wp_proximity
+|
+
+|wp_reflection_distance
+|
+
+|===
