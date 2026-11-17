@@ -1,10 +1,122 @@
 = Music & Soundtracks
 
+This section will cover how to make music based on whether to suit for PAYDAY 3's Menu System or for a Heist ingame!
+
+== Heist Track Set-up
+
+By default, Music makes use of the xref:reference:Switches.adoc#_music_switch[music_switch] group to change and play the appropiate audios based on what the map/heist state is setting for.
+
+You may also reference xref:reference:Switches.adoc[Switches] and/or xref:reference:States.adoc[States] for what other things you can do if desired.
+
+Due to how extensive and limitless music can be done, this section will only cover how to create a basic heist track.
+
+=== Creating the Switch Container
+
+Music for PAYDAY 3 is done via the Interactive Music Hierachy system located in the audio tab of your Wwise Project.
+
+Looking at the Interactive Music Hierarchy, right click on the folder and create a new child Work Unit. 
+
+image::Interactive-Music-Hiearchy-Work-Unit-Creation.png[Showing how to create a work unit for the Interactive Music Hiearchy]
+
+Work Units can be made to organize and seperate your audio needs for specific use cases. This is encourage good practices so audio can be unloaded in the project when not in use to free up memory usage.
+
+Under your new Work Unit, Create a new child Music Switch Container.
+
+image::Switch-Work-Unit-Creation.png[Overview of Music Switch Container Properties]
+
+Within this Switch Container, you will create as many child containers you want that will be hooked to the game's switch/state group system. (Or via a custom switch group you created for your audio needs in the Modkit.)
+
+=== Setting Container Properties
+
+When finished, pull up the contents of your Music Switch Container via clicking on it to view its properties.
+
+image::Music-Switch-Container-Contents-Overview.png[Overview of Music Switch Container Properties]
+
+For your Output Bus, change it from its default Master Audio Bus state to the Music Audio Bus via the ... button or by double clicking the named area.
+
+Doing this will ensure your music can be ducked (lowered) when Operator Mission VO is played as well as be adjusted via the Ingame Settings menu in PAYDAY 3.
+
+Next, head over to your transitions tab.
+
+image::Music-Switch-Container-Transitions.png[Step 1 of Music Switch Creation]
+
+Transitions are used to determine how and when containers or audio segments are exited to selected audio destinations. 
+
+For general users, you would want to change the default Exit Source At: Exit Cue to any other of the available options that is suited best for your audio. 
+
+AudioKinetic has documention regarding how to work with https://www.audiokinetic.com/fr/public-library/2025.1.12_9287/?source=Help&id=working_with_transitions[Transitions] if more information is desired.
+
+
+=== Adding and Associating the Switch/State group(s)
+
+In the bottom of the Contents window is where you can set the appropiate switch/state groups for your music via the Music Switch tab.
+
+image::Music-Switch-Group-Setup-1.png[Step 1 of Music Switch Creation]
+
+To set a switch/state group, click on the >> and find the switch/state group you wish to set and click it.
+
+image::Music-Switch-Group-Setup-Example.png[Example of Switch group association]
+
+image::Music-Switch-Group-Setup-2.png[Step 2 of Music Switch Creation]
+
+Next, add paths for your switch/state group via clicking (or Shift + Left Click for multiple) on the switches/states you want to be associated with your container and clicking on Add Path(s).
+
+image::Music-Switch-Group-Setup-3.png[Step 3 of Music Switch Creation]
+
+Finally, for each switch/state path added is the ... button which allows you to set the relevant containers for the paths you set. 
+
 [NOTE]
 ====
-This page is a placeholder for a future documentation pass.
-
-The workflow will be documented after it has been validated with the current PAYDAY 3 modkit and Wwise integration.
+If you want a container to be used for multiple paths, you can associate the same container without issue as long as Continue to play on Switch change is enabled in the Play Options area in the General Settings Tab. This is enabled by default.
 ====
 
-This page will document the validated workflow for music and soundtrack mods.
+With that, you have finished associating your containers to your relevant paths.
+
+=== Container Playlists
+
+With association done, import your chosen audio via drag and drop to your Music Playlist Container or via the Audio Import window. (Shift + I)
+
+Once done, drag the audio(s) you want to your container of choice so they are that container's children.
+
+Finally, drag the Music Segments (Audios) to the to the playlist area in your container's contents properties window and sort your Music Segments from top to bottom in order of what should play first.
+
+image::Playlist-Drag-and-DropAlt.png[How to create a playlist for your Music Switch Container]
+
+If any Music Segments are to be looped indefinitely when reached, click the down arrow so the Loop Count is Indefinite.
+
+Finally, use the Transport Control window to listen and hear your audio react based on the inputted paths you listed.
+
+
+== Menu Track Set-up
+
+For simple menu track creation, a child Music Container can be created that can hold your audio and be looped indefinitely if set correctly.
+
+Under your new Work Unit, Create a new child Music Container via right-clicking on your work unit (or via CTRL + SHIFT + ALT + Y)
+
+image::Music-Playlist-Container-Creation.png[Music playlist container creation under Default Work Unit]
+
+With your container created, import your chosen audio via drag and drop to your Music Playlist Container or via the Audio Import window. (Shift + I)
+
+
+=== Container Playlists
+
+Drag the Music Segments (Audios) to the to the playlist area in your container's contents properties window and sort your Music Segments from top to bottom in order of what should play first.
+
+image::Playlist-Drag-and-DropAlt.png[How to create a playlist for your Music Switch Container]
+
+If any Music Segments are to be looped indefinitely when reached, click the down arrow so the Loop Count is Indefinite.
+
+Finally, use the Transport Control window to listen and hear your audio.
+
+=== Setting Container Properties
+
+When finished, pull up the contents of your Music Switch Container via clicking on it to view its properties.
+
+image::Music-Switch-Container-Contents-Overview.png[Overview of Music Switch Container Properties]
+
+For your Output Bus, change it from its default Master Audio Bus state to the Music Audio Bus via the ... button or by double clicking the named area.
+
+Doing this will ensure your music can be ducked (lowered) when Operator Mission VO is played as well as be adjusted via the Ingame Settings menu in PAYDAY 3.
+
+
+
