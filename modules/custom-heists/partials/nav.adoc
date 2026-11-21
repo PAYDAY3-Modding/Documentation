@@ -25,6 +25,7 @@
 ****** xref:custom-heists:keycards.adoc[Keycards]
 ****** xref:custom-heists:keypads.adoc[Keypads]
 ****** xref:custom-heists:wifi-circles.adoc[WiFi circles]
+****** xref:custom-heists:c4.adoc[C4 / Explosives]
 ***** xref:custom-heists:triggers.adoc[Player Triggers]
 **** xref:custom-heists:intro-sequences.adoc[Intro Sequences]
 **** xref:custom-heists:inspect-vanilla-heists.adoc[Inspecting Vanilla Heists]
