@@ -2,9 +2,70 @@
 
 [NOTE]
 ====
-This page is a placeholder for a future documentation pass.
+This page is a VERY EARLY STATE.
 
-The workflow will be documented after it has been validated with the current PAYDAY 3 modkit and Wwise integration.
+A more in-depth version of this page (with images) is being made and will replace this current page once it is finished.
+====
+[IMPORTANT]
+====
+This page goes over how to connect a Wwise project to the modkit, NOT how to connect Wwise as a whole to the modkit. To connect Wwise as a whole to the modkit, please go to the https://payday3-modding.github.io/Documentation/payday3-modding/getting-started/wwise-setup.html[Set Up Wwise] page.
 ====
 
-This page will document how to create and configure a Wwise project for PAYDAY 3 audio modding.
+== Create a Project
+
+In the Audiokinetic Launcher:
+
+. Go to the Wwise page
+. Find the Installed Version called "2023.1.15.8789" and click on its "Launch Wwise (64-bit)" button
+. When Wwise launches, click on "New..."
+. In the name section, put in a name for the project
+. (Optional) Change Location and Project Folder if needed
+. Click on "OK"
+
+You have created a Wwise project!
+
+[IMPORTANT]
+====
+You will most likely get a popup talking about no valid license key being found. This is harmless unless you make a lot of Wwise stuff. Just click close on the popup and it'll go away.
+====
+
+== Setting up Project for Modkit
+
+While in the Wwise project:
+
+. In the top bar, click on "Project", then "Project Settings..."
+. Click on the "SoundBanks" tab
+
+You should see a bunch of things enabled and disabled. Change the settings so that the following is enabled:
+
+. "Enable Auto-Defined SoundBanks"
+. "Copy Loose/Streamed Media" 
+. "Remove Unused Generated Files" 
+. "Use SoundBank Names for Filenames" 
+. "Generate Per Bank Metadata File"
+. "Generate XML Metadata"
+. "Generate JSON Metadata"
+. Everything under "Include in Metadata"
+
+Everything else you can leave as their default state.
+
+Now, after changing the settings of the Wwise project and still being inside it:
+
+. Hold down Shift & B. This will open up the SoundBank Manager
+. Click on "Generate All"
+
+This will generate a blank Soundbank along with the "GeneratedSoundBanks" folder.
+
+== Connecting Project to Modkit
+
+This is the easiest part if you know what you're doing, or hardest if you don't know.
+
+. Open the Modkit
+. Click on "Edit" in the top bar, then "Project Settings..."
+. Scroll down on the far left to the bottom
+. Click on "Integration Settings" under the "Wwise" catagory
+. In the "Wwise Project Path" part, put in the path to your project + the .wproj file of the project (which should be at "WwiseProjects/(PROJECTNAME)/PROJECTNAME.wproj
+. In the "Root Output Path", put the path of the "GeneratedSoundBanks" folder (which should be at "WwiseProjects/(PROJECTNAME)/GeneratedSoundbanks"
+. Finally, in the editor top bar, click on "Window", then "Wwise Browser", then click on "Generate SoundBanks..."
+
+Congrats, you've connected the modkit to your Wwise project!
