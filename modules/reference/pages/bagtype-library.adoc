@@ -140,11 +140,6 @@ This includes loot, equipment and other possible bags located in the game
 |Bag
 |Content\Prototype\Blueprints\Bags
 
-|DA_ServerBag
-|Server
-|Bag
-|Content\Prototype\Blueprints\Bags
-
 |DA_SSDBagType
 |SSD
 |Bag
@@ -290,6 +285,26 @@ This includes loot, equipment and other possible bags located in the game
 |Bag
 |DLCs\00215-MURK\DataAssets\Bags
 
+|DA_BrokenDrone_BagType
+|BrokenDrone
+|Drone
+|DLCs\00228-Strength\DataAssets
+
+|DA_MoneyBagType_LowValueSecret
+|Secret Money
+|Bag
+|DLCs\00212-BEBE\Blueprints
+
+|DA_PietroBagType
+|Pietro
+|None
+|DLCs\00180-DLCDEMA\Blueprints\Bags
+
+|DA_Pharaoh_RareStone
+|Rare Stone
+|Bag
+|DLCs\00230-Pharaoh\DataAssets\Bags
+
 |===
 
 
@@ -360,6 +375,11 @@ This includes loot, equipment and other possible bags located in the game
 |Explosives
 |Bag
 |DLCs\00244-SharkNight\Blueprints\Bags
+
+|DA_PlasmaCutterPartBagType
+|Plasma cutter parts
+|Bag
+|DLCs\00180-DLCDEMA\Gameplay\Breaching
 
 
 
