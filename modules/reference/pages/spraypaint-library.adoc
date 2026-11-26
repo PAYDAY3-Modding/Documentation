@@ -557,6 +557,10 @@ This list also includes unreleased spray paints that Starbeeze never released.
 |Mask Pattern Le Muerte
 |DLCs\00252-Western\Gameplay\Cosmetics
 
+|DA_SprayCan_RattleCamo
+|Rattlesnake Camo
+|DLCs\00253-Ghost\Gameplay\Cosmetics\SprayCans
+
 
 
 
